@@ -39,6 +39,23 @@ Without symmetry the estimated equivalence costs 1-2 bits.
 
 Molecules (RDKit solubility, 16-atom components, 10 seeds): hier30 126.3, SUBDUE 130.5, gSpan+MDL 141.7 (older runs, scripts `mol_*.py`).
 
+## Composition vs. hierarchy depth (src/e12.py, e13.py; results/e12_*, e13_*)
+
+Synthetic world: library of 6 motifs per level, base = 2-edge path, each higher level glues two lower-level motifs at one node
+(depth d -> motifs with 2^(d+1) edges: 2, 4, 8, 16), 3 motifs + 4 noise edges per component of 24 nodes, 12 relations, 5 seeds.
+Test bits per component (n=100 training components; n=300 gives the same picture for depths 0-2):
+
+| depth | none | hier100 | grow100 | gSpan+MDL | SUBDUE |
+|---|---|---|---|---|---|
+| 0 | 125.7 | 99.0 | 99.0 | 99.0 | 102.1 |
+| 1 | 200.0 | 129.2 | 146.5 | 128.5 | 136.0 |
+| 2 | 343.8 | 190.9 | 238.7 | 213.5 (vertex limit 20) | 234.6 |
+| 3 | 620.7 | 327.5 | 390.5 | timeout (>400 s) | 436.3 |
+
+Caveats: `grow` stalls early (max pattern 2-6 edges at depth 3) rather than being unable in principle to reach large patterns;
+at depth 1 gSpan equals hier because its support threshold finds the 4-edge motifs directly; the dictionary cost is flat (a composite
+pattern is not charged as a reference to its parts), so the benefit measured here is a *search* benefit, not a shorter hierarchical dictionary.
+
 ## Caveats
 
 * Our learner optimizes the same function that is used for evaluation (home advantage).
