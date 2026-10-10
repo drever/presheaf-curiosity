@@ -89,6 +89,12 @@ Kinships/UMLS: 1000 sampled 5-node components (700 train / 300 test), K=40, 5 se
 Gluing beats one-edge growth by 2.6-3.4 bits on Kinships (5/5 seeds), 7 bits on 16-atom molecules (5/5), 2.5-3.2 on 12-atom molecules (5/5), and not at all on UMLS (-0.5).
 The hierarchical selection cost helps only on molecules (2.8-3.5 bits). GraphMDL was not run at this scale (infeasible in the pure-Python port).
 
+## Products and compositional generalization (src/und4.py, e17.py; results/e17_*)
+
+Synthetic grids = Cartesian products of two chain families; 10 of 25 factor pairs never appear in training. A dictionary with product closure
+(all products of chosen factors are implicit entries) lowers test bits on unseen pairs from 368 (gluing only) to 317-330 (factors found from data,
+using the prior that there are two relation classes), against 225 with oracle factors. The bottleneck is factor discovery. Details and caveats: strategy.md, section 4.
+
 ## Caveats
 
 * Our learner optimizes the same function that is used for evaluation (home advantage).

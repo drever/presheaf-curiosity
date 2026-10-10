@@ -63,6 +63,33 @@ Angriffsplan, in dieser Reihenfolge:
 4. **Exponentiale im engeren Sinn:** Zustände S, Aktionen A, Übergang S x A -> S, curryfiziert zu A -> S^S. Das ist die Brücke zurück zum
    Agenten (Neugier über die Vorhersagbarkeit von Verhaltensräumen). Am weitesten entfernt, am nächsten an der Ausgangsidee.
 
+### Ergebnis Schritt 1 (Produkte), `src/e17.py`, `src/und4.py`, `results/e17_*`
+
+Welt: 5 horizontale + 5 vertikale Ketten (Relationsklassen 0-5 / 6-11), 25 mögliche Paare, davon 15 im Training, 10 nie gesehen;
+jede Komponente enthält 2 Gitter (kartesisches Produkt eines Paares) plus 4 Rauschkanten. Testbits pro Komponente, Mittel über 5 Seeds:
+
+| Methode | n=50 gesehen | n=50 ungesehen | n=150 gesehen | n=150 ungesehen |
+|---|---|---|---|---|
+| ohne Wörterbuch | 482.9 | 495.1 | 478.2 | 495.2 |
+| Kleben (glue_hier) | 301.9 | 368.0 | 304.3 | 368.8 |
+| Kleben + Produkt-Abschluss, Faktoren aus D0 | 279.9 | 360.9 | 274.8 | 357.9 |
+| dito, nur Kreuzprodukte | 278.3 | 344.1 | 272.8 | 352.9 |
+| Abschluss, Faktoren aus den Daten (Pfad-Muster, Paar-Schritt) | 260.2 | 329.8 | 247.4 | 317.2 |
+| Orakel (wahre Ketten als Faktoren) | 212.0 | 225.6 | 211.1 | 224.6 |
+| Wachsen (grow_hier) | 331.9 | 353.2 | 328.1 | 347.2 |
+
+Lesart, ehrlich:
+* **Obergrenze bestätigt die Hypothese:** Mit den richtigen Faktoren ist der Abstand zwischen gesehen und ungesehen fast verschwunden
+  (212 vs 226), ein reines Kolimes-Wörterbuch bleibt bei 302 vs 368. Produkt-Abschluss ermöglicht kompositionale Generalisierung.
+* **Erreicht wird davon nur ein Teil:** Datengetriebene Faktorsuche holt auf ungesehenen Paaren 38-52 Bit gegenüber Kleben (ca. 40% der
+  Lücke zum Orakel), aber nicht mehr. Der Engpass ist die Faktorfindung, nicht der Abschluss.
+* Faktoren aus dem Kleben-Wörterbuch reichen nicht (es findet nur etwa die Hälfte der wahren Ketten); Einzelschritt-Auswahl scheitert,
+  weil ein Faktor allein kein Produkt erzeugt (lokales Optimum), daher der Paar-Schritt.
+* **Einschränkungen:** Die Faktorsuche nutzt als Vorwissen, dass es zwei Relationsklassen gibt (reine Pfade, Kreuzprodukte). Ohne diese
+  Annahme (Spalte "aus D0") ist der Gewinn auf ungesehenen Paaren klein (7-10 Bit bzw. 11-17 mit Kreuzfilter). Synthetische Welt von uns,
+  Lerner und Auswertung teilen die Kostenfunktion. Wachsen (grow_hier) ist mit kleinem Wörterbuch auf ungesehenen Paaren konkurrenzfähig.
+* Nicht gemessen: gSpan/SUBDUE auf dieser Welt, echte Daten mit Produktstruktur (Gitter, Moleküle mit Ringen).
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In
