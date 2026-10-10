@@ -56,6 +56,23 @@ Caveats: `grow` stalls early (max pattern 2-6 edges at depth 3) rather than bein
 at depth 1 gSpan equals hier because its support threshold finds the 4-edge motifs directly; the dictionary cost is flat (a composite
 pattern is not charged as a reference to its parts), so the benefit measured here is a *search* benefit, not a shorter hierarchical dictionary.
 
+## Hierarchical dictionary cost (src/und3.py, src/e14.py; results/e14_*)
+
+`dict_bits_h`: a dictionary pattern is paid as references to earlier patterns/edges plus gluing bits (new-or-identified flag per vertex,
+and which earlier vertex it is identified with), capped by the flat edge-list cost. `learn_h(objective='hier')` selects patterns with this cost.
+Same depth-world as above, 5 seeds. Train cover + dictionary/n under the hierarchical cost, and test bits (cover only):
+
+| depth, n | hier (flat obj.) | hier (hier obj.) | grow (hier obj.) | gSpan+MDL | SUBDUE |
+|---|---|---|---|---|---|
+| 2, 30 | 211.4 / 204.3 | 203.2 / 192.7 | 242.7 / 237.3 | 224.4 / 221.0 | 254.1 / 250.4 |
+| 2, 100 | 194.6 / 191.5 | 194.6 / 191.8 | 240.3 / 238.4 | 214.1 / 213.5 | 236.5 / 234.0 |
+| 3, 30 | 350.4 / 344.5 | 339.7 / 327.9 | 394.8 / 389.8 | – | – |
+| 3, 100 | 332.4 / 329.6 | 326.8 / 321.8 | 388.9 / 386.7 | – | – |
+
+(entries: Train+Dict-hier / Test). The dictionary of the compositional learner shrinks 2-4x under the hierarchical cost
+(depth 3, n=100: 1825 -> 504 bits), grow's dictionary only about 2x. Selecting with the hierarchical cost adds 5-11 bits on top of the search advantage,
+mostly with little data and large motifs. The glue-cost model is my own choice and the objective is also the evaluation measure.
+
 ## Caveats
 
 * Our learner optimizes the same function that is used for evaluation (home advantage).
