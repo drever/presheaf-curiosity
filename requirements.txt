@@ -1,0 +1,6 @@
+pynauty
+gspan-mining
+rdkit
+pandas
+networkx
+scikit-mine
