@@ -97,6 +97,26 @@ Lesart, ehrlich:
 * **Nicht gemessen:** gSpan/SUBDUE auf dieser Welt, echte Daten mit Produktstruktur (Gitter, Moleküle mit Ringen), mehr Rauschen,
   Faktoren mit mehr als zwei Klassen, nicht-kartesische Verklebungen von Produkten.
 
+### Ergebnis Schritt 1b: Robustheit gegen Rauschen und gSpan als Gegner (`src/e18.py`, `results/e18_*`)
+
+Gleiche Welt, Rauschkanten pro Komponente 4 / 12 / 24 (Gitter belegen 20-40 Kanten); Testbits, ungesehene Paare (gesehene in Klammern), Mittel über 3 Seeds
+(Rauschen 4: nur 1 Seed, n=50).
+
+| Rauschen | n | Kleben | prod_auto | Orakel | gSpan+MDL |
+|---|---|---|---|---|---|
+| 4 | 50 | 324 (272) | 210 (195) | 187 (192) | 410 (369) |
+| 12 | 50 | 473 (409) | 375 (324) | 337 (310) | 633 (525), 2 von 3 Seeds |
+| 12 | 150 | 478 (400) | 330 (304) | 332 (309) | 597 (510) |
+| 24 | 50 | 612 (538) | 560 (499) | 466 (449) | Timeout (400 s) |
+| 24 | 150 | 606 (534) | 491 (465) | 471 (446) | 649 (626), 1 von 3 Seeds |
+
+Lesart: Bei mittlerem Rauschen (12) hält der Vorteil des Abschlusses (ungesehen 100-150 Bit unter Kleben), bei n=150 liegt er auf dem Orakel.
+Bei starkem Rauschen (24) schrumpft er auf 45-115 Bit und bleibt ein gutes Stück vom Orakel entfernt, bei n=50 ist die Faktorfindung dann der Engpass
+(Fasern werden durch Rauschkanten verändert, Quadrate seltener). gSpan mit MDL-Auswahl findet hier fast nichts Brauchbares (große Gitter überschreiten
+Knotenlimit und Laufzeit, bei Rauschen 24 Timeouts); auf ungesehenen Paaren liegt es bei oder über dem leeren Wörterbuch. Das ist ein Vergleich mit einem
+Gegner, der für diese Welt schlecht passt (kein Produkt-Abschluss, Grenzen für Knoten und Laufzeit), kein Beweis, dass kein Miner es kann. SUBDUE und GraphMDL
+wurden hier nicht gemessen.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In

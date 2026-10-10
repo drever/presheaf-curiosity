@@ -96,6 +96,8 @@ Synthetic grids = Cartesian products of two chain families; 10 of 25 factor pair
 MDL selection) lowers test bits on unseen pairs from 369 (gluing only) to 257 (n=50) and 230 (n=150); oracle factors give 225. At n=20 the gain is small (329 vs 385).
 Synthetic world matching the algorithm's assumptions; no comparison with gSpan/SUBDUE yet. Details and caveats: strategy.md, section 4.
 
+Noise sweep (src/e18.py): with 12 noise edges per component the advantage holds (unseen 330 vs 478 gluing at n=150, oracle 332); with 24 it shrinks (491 vs 606, oracle 471). gSpan+MDL is far behind on this world (597-649), partly due to size/time limits.
+
 ## Caveats
 
 * Our learner optimizes the same function that is used for evaluation (home advantage).
