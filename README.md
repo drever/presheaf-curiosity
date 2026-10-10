@@ -73,6 +73,22 @@ Same depth-world as above, 5 seeds. Train cover + dictionary/n under the hierarc
 (depth 3, n=100: 1825 -> 504 bits), grow's dictionary only about 2x. Selecting with the hierarchical cost adds 5-11 bits on top of the search advantage,
 mostly with little data and large motifs. The glue-cost model is my own choice and the objective is also the evaluation measure.
 
+## Real data with the hierarchical dictionary cost (src/e15.py, e16.py; results/e15_*, e16_*)
+
+Kinships/UMLS: 1000 sampled 5-node components (700 train / 300 test), K=40, 5 seeds. Molecules (RDKit solubility): 300 components of 12 or 16 atoms
+(210 train / 90 test), K=40, 5 seeds. Test bits per component; in brackets Train+Dictionary/n under the hierarchical dictionary cost.
+`hier_*`/`grow_*` = gluing any two pieces / growing by one edge; `_flat`/`_hier` = flat or hierarchical dictionary cost used for selection.
+
+| data | hier_flat | hier_hier | grow_flat | grow_hier | gSpan+MDL | SUBDUE |
+|---|---|---|---|---|---|---|
+| Kinships | 96.2 (96.6) | 96.3 (96.7) | 99.6 (99.9) | 98.9 (99.2) | 108.7 (108.2) | 112.7 (1 seed) |
+| UMLS | 86.9 (85.9) | 86.9 (85.7) | 86.5 (85.5) | 86.3 (85.4) | 106.7 (104.1) | not run |
+| Molecules, 16 atoms | 123.0 (123.9) | 120.2 (121.6) | 130.0 (130.1) | 127.2 (128.5) | 142.1 (143.8) | 127.7 (130.4) |
+| Molecules, 12 atoms | 88.4 (86.8) | 84.9 (84.7) | 90.9 (90.2) | 88.1 (89.0) | 94.6 (94.3) | 90.5 (90.4) |
+
+Gluing beats one-edge growth by 2.6-3.4 bits on Kinships (5/5 seeds), 7 bits on 16-atom molecules (5/5), 2.5-3.2 on 12-atom molecules (5/5), and not at all on UMLS (-0.5).
+The hierarchical selection cost helps only on molecules (2.8-3.5 bits). GraphMDL was not run at this scale (infeasible in the pure-Python port).
+
 ## Caveats
 
 * Our learner optimizes the same function that is used for evaluation (home advantage).
