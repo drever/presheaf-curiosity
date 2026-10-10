@@ -92,8 +92,9 @@ The hierarchical selection cost helps only on molecules (2.8-3.5 bits). GraphMDL
 ## Products and compositional generalization (src/und4.py, e17.py; results/e17_*)
 
 Synthetic grids = Cartesian products of two chain families; 10 of 25 factor pairs never appear in training. A dictionary with product closure
-(all products of chosen factors are implicit entries) lowers test bits on unseen pairs from 368 (gluing only) to 317-330 (factors found from data,
-using the prior that there are two relation classes), against 225 with oracle factors. The bottleneck is factor discovery. Details and caveats: strategy.md, section 4.
+(all products of chosen factors are implicit entries) and fully data-driven factor discovery (relation classes from squares, factors = fibers,
+MDL selection) lowers test bits on unseen pairs from 369 (gluing only) to 257 (n=50) and 230 (n=150); oracle factors give 225. At n=20 the gain is small (329 vs 385).
+Synthetic world matching the algorithm's assumptions; no comparison with gSpan/SUBDUE yet. Details and caveats: strategy.md, section 4.
 
 ## Caveats
 

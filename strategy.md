@@ -66,29 +66,36 @@ Angriffsplan, in dieser Reihenfolge:
 ### Ergebnis Schritt 1 (Produkte), `src/e17.py`, `src/und4.py`, `results/e17_*`
 
 Welt: 5 horizontale + 5 vertikale Ketten (Relationsklassen 0-5 / 6-11), 25 mögliche Paare, davon 15 im Training, 10 nie gesehen;
-jede Komponente enthält 2 Gitter (kartesisches Produkt eines Paares) plus 4 Rauschkanten. Testbits pro Komponente, Mittel über 5 Seeds:
+jede Komponente enthält 2 Gitter (kartesisches Produkt eines Paares) plus 4 Rauschkanten. Testbits pro Komponente, Mittel über 5 Seeds.
 
-| Methode | n=50 gesehen | n=50 ungesehen | n=150 gesehen | n=150 ungesehen |
-|---|---|---|---|---|
-| ohne Wörterbuch | 482.9 | 495.1 | 478.2 | 495.2 |
-| Kleben (glue_hier) | 301.9 | 368.0 | 304.3 | 368.8 |
-| Kleben + Produkt-Abschluss, Faktoren aus D0 | 279.9 | 360.9 | 274.8 | 357.9 |
-| dito, nur Kreuzprodukte | 278.3 | 344.1 | 272.8 | 352.9 |
-| Abschluss, Faktoren aus den Daten (Pfad-Muster, Paar-Schritt) | 260.2 | 329.8 | 247.4 | 317.2 |
-| Orakel (wahre Ketten als Faktoren) | 212.0 | 225.6 | 211.1 | 224.6 |
-| Wachsen (grow_hier) | 331.9 | 353.2 | 328.1 | 347.2 |
+| Methode | n=20 ges. | n=20 unges. | n=50 ges. | n=50 unges. | n=150 ges. | n=150 unges. |
+|---|---|---|---|---|---|---|
+| Kleben (glue_hier) | 306.7 | 384.7 | 301.9 | 368.0 | 304.3 | 368.8 |
+| Wachsen (grow_hier) | 326.1 | 370.0 | 331.9 | 353.2 | 328.1 | 347.2 |
+| Abschluss, Faktoren aus Kleben-Wörterbuch (nur Kreuzprodukte) | 289.2 | 365.1 | 278.3 | 344.1 | 272.8 | 352.9 |
+| Abschluss, Pfad-Faktoren, Klassen vorgegeben | 263.7* | 341.0* | 260.2 | 329.8 | 247.4 | 317.2 |
+| **Abschluss, voll datengetrieben (`prod_auto`)** | 236.1 | 329.2 | 214.1 | 257.3 | 204.5 | 230.3 |
+| Orakel (wahre Ketten als Faktoren) | 210.6 | 229.6 | 212.0 | 225.6 | 211.1 | 224.6 |
+
+(*Zeile "Klassen vorgegeben" ist hier die mit gelernten Klassen, `prod_data_learnedcls`; mit vorgegebenen Klassen ähnlich.)
+
+Voll datengetrieben (`prod_auto`) heißt: (1) Relationsklassen aus **Quadraten** (4-Zyklen mit gleichen Gegenkanten) lernen, die Gegenüber-Beziehung der Labels
+wird gewichtet 2-gefärbt; (2) Faktor-Kandidaten sind die **Fasern**, also die Zusammenhangskomponenten des auf eine Klasse eingeschränkten Graphen,
+mindestens in 2 Komponenten vorhanden; (3) Auswahl per MDL, Einzelschritte vor Paarschritten (ein Faktor allein erzeugt mit Kreuzprodukten nichts).
 
 Lesart, ehrlich:
-* **Obergrenze bestätigt die Hypothese:** Mit den richtigen Faktoren ist der Abstand zwischen gesehen und ungesehen fast verschwunden
-  (212 vs 226), ein reines Kolimes-Wörterbuch bleibt bei 302 vs 368. Produkt-Abschluss ermöglicht kompositionale Generalisierung.
-* **Erreicht wird davon nur ein Teil:** Datengetriebene Faktorsuche holt auf ungesehenen Paaren 38-52 Bit gegenüber Kleben (ca. 40% der
-  Lücke zum Orakel), aber nicht mehr. Der Engpass ist die Faktorfindung, nicht der Abschluss.
-* Faktoren aus dem Kleben-Wörterbuch reichen nicht (es findet nur etwa die Hälfte der wahren Ketten); Einzelschritt-Auswahl scheitert,
-  weil ein Faktor allein kein Produkt erzeugt (lokales Optimum), daher der Paar-Schritt.
-* **Einschränkungen:** Die Faktorsuche nutzt als Vorwissen, dass es zwei Relationsklassen gibt (reine Pfade, Kreuzprodukte). Ohne diese
-  Annahme (Spalte "aus D0") ist der Gewinn auf ungesehenen Paaren klein (7-10 Bit bzw. 11-17 mit Kreuzfilter). Synthetische Welt von uns,
-  Lerner und Auswertung teilen die Kostenfunktion. Wachsen (grow_hier) ist mit kleinem Wörterbuch auf ungesehenen Paaren konkurrenzfähig.
-* Nicht gemessen: gSpan/SUBDUE auf dieser Welt, echte Daten mit Produktstruktur (Gitter, Moleküle mit Ringen).
+* **Hypothese bestätigt:** Mit Produkt-Abschluss verschwindet der Abstand zwischen gesehenen und ungesehenen Faktorpaaren fast. Bei n=150 liegt die
+  automatische Methode auf ungesehenen Paaren bei 230 gegenüber 225 (Orakel) und 369 (Kleben): rund 140 Bit weniger, ohne Klassen-Vorwissen.
+* **Das ist kompositionale Generalisierung, die ein reines Kolimes-Wörterbuch nicht leistet.** Kleben bleibt bei 304 vs 369 (gesehen/ungesehen).
+* **Abhängigkeit von n:** Bei n=20 fehlen die Fasern (die Schwelle von 2 Komponenten und seltene Ketten); Gewinn auf ungesehenen Paaren dort 55 Bit,
+  bei n=50 111, bei n=150 138. Das ist die erwartete Richtung (mehr Daten, mehr Kompositionalität).
+* **Fehler auf dem Weg, korrigiert:** (a) Quadrat-Erkennung hatte Kanten falsch verglichen; (b) BFS-Färbung ließ ein Rauschquadrat ein Label falsch färben und
+  entfernte damit alle Ketten mit diesem Label (n=50, Seed 3: 348 statt 244); (c) 10%-Häufigkeitsschwelle verwarf seltene Ketten.
+* **Einschränkungen:** Die Welt ist von uns gebaut und genau die Struktur, die der Algorithmus sucht (Produkt aus zwei Relationsklassen, Ketten als
+  Faktoren, Gegenkanten gleich beschriftet). Lerner und Auswertung teilen die Kostenfunktion. Die Methode wählt 12-14 Faktoren, davon 8-10 echte; die
+  übrigen sind harmlose Zusatzfaktoren (Maximum maxf=14 wird bei n=150 erreicht). Rauschen: nur 4 Kanten pro Komponente.
+* **Nicht gemessen:** gSpan/SUBDUE auf dieser Welt, echte Daten mit Produktstruktur (Gitter, Moleküle mit Ringen), mehr Rauschen,
+  Faktoren mit mehr als zwei Klassen, nicht-kartesische Verklebungen von Produkten.
 
 ## 5. Offener Faden: Simplizes (für später)
 

@@ -139,3 +139,95 @@ def learn_prod_data(train, R, K, maxn, maxe, cross=None, topk=16, maxf=14, pure=
         cur, F = best[0], F + [best[1]]
     Dp, Deff = effective_dict(D0, F, maxe, cross)
     return D0, F, Dp, Deff
+
+def learn_classes(train, minsq=3):
+    """Relationsklassen aus Quadraten: 4-Zyklen u-v-w-x mit gleichen Gegenkanten (a,b,a,b). Labels a,b stehen sich gegenueber;
+    der Gegenueber-Graph wird 2-gefaerbt. Gibt (colors, nsquares) zurueck; unbekannte Labels haben keine Farbe."""
+    from collections import defaultdict, Counter, deque
+    cnt = Counter()
+    for c in train:
+        adj = defaultdict(list)
+        for _, a, r, b in c.E: adj[a].append((b, r)); adj[b].append((a, r))
+        for u in adj:
+            for v, a in adj[u]:
+                for x, b in adj[u]:
+                    if x == v or a == b and False: continue
+                    for w, a2 in adj[v]:
+                        if w == u or w == x or a2 != b: continue
+                        if any(y == x and r == a for y, r in adj[w]):
+                            cnt[tuple(sorted((a, b)))] += 1
+    par = {}; pr = {}                       # Union-Find mit Paritaet; Kanten nach Gewicht absteigend, Widersprueche werden verworfen
+    def find(x):
+        if par.setdefault(x, x) == x: pr.setdefault(x, 0); return x, 0
+        r, p = find(par[x]); par[x] = r; pr[x] = pr.get(x, 0) ^ p; return r, pr[x]
+    for (a, b), k in sorted(cnt.items(), key=lambda t: -t[1]):
+        if k < minsq or a == b: continue
+        ra, pa = find(a); rb, pb = find(b)
+        if ra != rb: par[ra] = rb; pr[ra] = pa ^ pb ^ 1
+    col = {}
+    roots = {}
+    for x in list(par):
+        r, p = find(x); col[x] = p
+    # Komponenten verschiedener Wurzeln: Farben koennten kollidieren; wir nehmen nur die groesste Komponente (Hauptgraph)
+    from collections import Counter as _C
+    big = _C(find(x)[0] for x in par).most_common(1)[0][0] if par else None
+    col = {x: find(x)[1] for x in par if find(x)[0] == big}
+    return col, sum(cnt.values())
+
+def class_preds(col):
+    def pure(p):
+        cs = {col.get(r) for _, r, _ in p}; return len(cs) == 1 and None not in cs
+    def cross(A, B):
+        ca = {col.get(r) for _, r, _ in A}; cb = {col.get(r) for _, r, _ in B}
+        return len(ca) == 1 and len(cb) == 1 and None not in ca | cb and ca != cb
+    return pure, cross
+
+def fiber_factors(train, col, topk=24, minfrac=0.0, maxe=4, mincount=2):
+    """Kandidaten = Zusammenhangskomponenten des auf eine Klasse eingeschraenkten Graphen (die 'Fasern' eines Gitters), nach Haeufigkeit."""
+    from collections import Counter, defaultdict
+    cnt = Counter(); rep = {}
+    for c in train:
+        seen_k = set()
+        for k in (0, 1):
+            E = [(a, r, b) for _, a, r, b in c.E if col.get(r) == k]
+            par = {}
+            def f(x):
+                while par.setdefault(x, x) != x: par[x] = par[par[x]]; x = par[x]
+                return x
+            for a, r, b in E: par[f(a)] = f(b)
+            comp = defaultdict(list)
+            for e in E: comp[f(e[0])].append(e)
+            for es in comp.values():
+                if len(es) > maxe: continue
+                p = normalize(es); key = canon_u(p, False)
+                if key not in seen_k: seen_k.add(key); cnt[key] += 1; rep[key] = p
+    out = [(n, rep[k]) for k, n in cnt.items() if n >= max(mincount, minfrac * len(train))]
+    out.sort(key=lambda x: (-x[0], -len(x[1])))
+    return [tuple(order_pattern(p)) for n, p in out[:topk]]
+
+def learn_prod_auto(train, R, K, maxn, maxe, topk=30, maxf=14, D0=None):
+    """Voll datengetrieben: Klassen aus Quadraten, Faktoren aus Fasern, Auswahl per MDL (Einzel- und Paar-Schritte)."""
+    col, nsq = learn_classes(train); pure, cross = class_preds(col)
+    if D0 is None: D0 = learn_h(train, R, K, maxn, False, mode='hier', topc=30, maxe=maxe, objective='hier')
+    cand = fiber_factors(train, col, topk=topk)
+    def L(F):
+        Dp, Deff = effective_dict(D0, F, maxe, cross)
+        return total_u(train, Deff, R, maxn, False) + dict_bits_h(Dp, R, maxn) + sum(LOG(len(Dp) + 1) + 1 for _ in F)
+    F = []; cur = L(F)
+    while len(F) < maxf:
+        best = None
+        for c in cand:
+            if c in F: continue
+            Ln = L(F + [c])
+            if Ln < cur and (best is None or Ln < best[0]): best = (Ln, [c])
+        if best is None:
+            for i, c1 in enumerate(cand):
+                if c1 in F: continue
+                for c2 in cand[i + 1:]:
+                    if c2 in F or not cross(c1, c2): continue
+                    Ln = L(F + [c1, c2])
+                    if Ln < cur and (best is None or Ln < best[0]): best = (Ln, [c1, c2])
+        if best is None: break
+        cur, F = best[0], F + best[1]
+    Dp, Deff = effective_dict(D0, F, maxe, cross)
+    return D0, F, Dp, Deff, col

@@ -55,6 +55,14 @@ def main(n, seed, K=40):
     pure = lambda p: len({r < 6 for _, r, _ in p}) == 1
     t0 = time.time(); _, Fd, Dpd, Deffd = learn_prod_data(train, R, K, maxn, MAXE, cross=cross, pure=pure, topk=20); tmd = time.time() - t0
     ev('prod_data_cross', Deffd, dict_bits_h(Dpd, R, maxn) + sum(LOG(len(Dpd) + 1) + 1 for _ in Fd), tmd, {'nfactors': len(Fd), 'nexplicit': len(Dpd)})
+    col, nsq = learn_classes(train); pure2, cross2 = class_preds(col)
+    ok = sum((l < 6) == (c == col[0 if 0 in col else min(col)] ) for l, c in col.items()) if col else 0
+    acc = max(sum((l < 6) == (c == 0) for l, c in col.items()), sum((l < 6) == (c == 1) for l, c in col.items())) / 12
+    t0 = time.time(); _, Fl, Dpl, Deffl = learn_prod_data(train, R, K, maxn, MAXE, cross=cross2, pure=pure2, topk=20); tml = time.time() - t0
+    ev('prod_data_learnedcls', Deffl, dict_bits_h(Dpl, R, maxn) + sum(LOG(len(Dpl) + 1) + 1 for _ in Fl), tml, {'nfactors': len(Fl), 'cls_acc': acc, 'nsquares': nsq})
+    t0 = time.time(); _, Fa, Dpa, Deffa, cola = learn_prod_auto(train, R, K, maxn, MAXE, D0=D0); tma = time.time() - t0
+    tru = {canon_u(normalize(c), False) for c in H + V}
+    ev('prod_auto', Deffa, dict_bits_h(Dpa, R, maxn) + sum(LOG(len(Dpa) + 1) + 1 for _ in Fa), tma, {'nfactors': len(Fa), 'true_factors': sum(canon_u(f, False) in tru for f in Fa)})
     Fo = [tuple(order_pattern(normalize(c))) for c in H + V]
     Dpo, Deffo = effective_dict(D0, Fo, MAXE, cross)
     ev('oracle_closure', Deffo, dict_bits_h(Dpo, R, maxn) + len(Fo) * (LOG(len(Dpo) + 1) + 1), 0, {'nexplicit': len(Dpo)})
