@@ -7,7 +7,7 @@ Stand: 11. Oktober 2026. Zweck: Theorie/Literatur klären, bevor wir „Makros m
 - **[Deutung]** – meine eigene Brücke; plausibel, aber nicht von den Autoren behauptet.
 - **[ungeprüft]** – aus dem Gedächtnis, nicht verifiziert.
 
-Zugriffsprobleme: arXiv 2206.05080 (WebFetch verweigert) und die HAL-Seite von GraphMDL+ (Zugriff verweigert) konnte ich nicht lesen; Aguiñaga et al. (arXiv 1608.03192) wurde gefunden, aber nicht gelesen.
+Zugriffsprobleme: die HAL-Seite von GraphMDL+ (Zugriff verweigert) konnte ich nicht lesen; Aguiñaga et al. (arXiv 1608.03192) wurde gefunden, aber nicht gelesen.
 
 ---
 
@@ -37,7 +37,9 @@ Ein Makro **mit Löchern** hat zusätzlich *Parameter*: Stellen, an denen bei je
 
 - **[belegt]** DreamCoder (Ellis et al.), Stitch (Bowers et al.), Babble (Cao et al.): *Abstraktionen* sind λ-Terme mit Löchern („Makros"), gefunden durch Anti-Unifikation (Babble: auf E-Graphen) und per Kompression/MDL bewertet. Das ist das nächste Analogon: Abstraktion = Makro mit Parametern; Anwendung = Einsetzen.
 - **[belegt]** Term-Graph-Anti-Unifikation (Baumgartner et al., FSCD 2018) berechnet die speziellste gemeinsame Verallgemeinerung von Termgraphen – formal unser „Muster aus zwei Vorkommen mit Löchern an den Unterschieden".
-- **[ungeprüft]** ten Cate–Dalmau: Das Produkt zweier Strukturen ist die speziellste Verallgemeinerung (lgg) bzgl. der Homomorphismen-Ordnung. Nur das Abstract gesehen, 2206.05080 nicht lesbar. Falls wahr, wäre das die saubere Verbindung: **Produkt = Anti-Unifikation**, Pushout = Unifikation (Dualität lim/colim). Das wäre eine echte, prüfbare Brücke zu unserem Produktabschluss.
+- **[belegt, jetzt im Volltext gelesen]** ten Cate–Dalmau–Funk–Lutz, *Extremal Fitting Problems for Conjunctive Queries* (arXiv 2206.05080v3): Das direkte (kategorielle) Produkt zweier Instanzen ist die größte untere Schranke in der Homomorphismen-Präordnung (Prop. 2.7: Projektionen + universelle Eigenschaft). Existiert überhaupt eine passende Anfrage, so ist die kanonische Anfrage des Produkts aller positiven Beispiele eine passende (Thm 3.3); sie ist die (stark/schwach) *most-specific fitting* Anfrage (Intro-Charakterisierung: q ist most-specific genau dann, wenn das Produkt der positiven Beispiele auf I_q abbildet). Das ist die bekannte Rolle des Produkts als *least general generalization*. Dual dazu ist die disjunkte Vereinigung die kleinste obere Schranke (Koprodukt).
+- **Grenzen/Vorbehalte [belegt]:** (i) Es geht um *Homomorphismen*-Semantik auf relationalen Strukturen/CQs, nicht um unsere Einbettungs-/Teilgraph-Semantik. (ii) Das Produkt muss ein „data example" sein (ausgezeichnete Elemente müssen vorkommen; Bsp. 2.6). (iii) Die Größe wächst multiplikativ (exponentiell im Produkt vieler Beispiele); das Paper merkt selbst an, dass die naive Kandidaten-UCQ nicht „komprimiert oder generalisiert" (S. 15) – für Kompression wäre also der *Kern* (core) des Produkts relevant, nicht das Produkt selbst.
+- **[Deutung, Korrektur zu meiner ersten Fassung]** Unser Produktabschluss ist *kein* Spezialfall davon: dieselbe Operation (× in der Prägarbenkategorie), aber andere Rolle. Wir multiplizieren *Faktor-Muster* (Gitter = Pfad × Pfad), um ein größeres Muster zu erzeugen; ten Cate et al. multiplizieren *Beispiele*, um ihre Gemeinsamkeit zu extrahieren. Für Makros mit Loch ist letzteres das Relevante: lgg(Fenster₁, Fenster₂) = das Muster, in das beide Vorkommen abbilden, die Abweichungen sind die Löcher. Pushout = „Unifikation" bleibt meine Dualitäts-Lesart (die Quelle spricht von Koprodukt/Produkt, nicht von Pushouts).
 
 ## 5. Kategorientheorie
 
@@ -63,7 +65,7 @@ Ein Makro **mit Löchern** hat zusätzlich *Parameter*: Stellen, an denen bei je
 ## 7. Vorschlag für den ersten Test (noch nicht gestartet, Bestätigung abwarten)
 
 - **Test A (Interface-Kosten):** gleicher `glue`-Lerner, aber Muster mit Interface: Instanzkosten nur externe Knoten (Rest wird implizit „frisch" vergeben, Verbindung nur über Ports). Frage: Wie viele Bits spart das auf c6288 (Gate- und Zellebene) und Straßen? Das testet, ob der Gewinn aus Interface-Typisierung kommt. Billig, nutzt vorhandenen Code.
-- **Test B (Anti-Unifikation):** Muster = lgg zweier Fenster (unser Produktabschluss ist ein Spezialfall, falls ten Cate–Dalmau stimmt); Löcher = gelöschte/unterschiedliche Knotenlabels. Frage: Gewinn bei verrauschten Wiederholungen (e18-Rauschsweep).
+- **Test B (Anti-Unifikation):** Muster = lgg zweier Fenster (Produkt zweier Fenster, dann Kern bilden; Hom-Semantik beachten); Löcher = gelöschte/unterschiedliche Knotenlabels. Frage: Gewinn bei verrauschten Wiederholungen (e18-Rauschsweep).
 - **Test C (höherstufig):** Makro enthält Nichtterminal (Rekursion à la Kukluk et al.), z.B. n-Bit-Adderkette. Teuerster Test, erst nach A/B.
 
 ## 8. Verifikationsstatus (kurz)
@@ -72,7 +74,7 @@ Ein Makro **mit Löchern** hat zusätzlich *Parameter*: Stellen, an denen bei je
 |---|---|
 | gRePair = SL-HR, Digramm-Ersetzung, Rang | Abstract/Suche gelesen; Details der Digramm-Auswahl **[ungeprüft]** |
 | DreamCoder/Stitch/Babble = Abstraktion via (Anti-)Unifikation | belegt (Abstracts); MDL-Details von DreamCoder **[ungeprüft]** |
-| Produkt = lgg (ten Cate–Dalmau) | **[ungeprüft]**, Quelle nicht lesbar |
+| Produkt = glb in Hom-Ordnung = most-specific fitting CQ (ten Cate et al.) | **belegt** (Volltext: Prop. 2.7, Thm 3.3, Intro); Übertragung auf Einbettungssemantik/Kompression ist Deutung |
 | GraphMDL+ Ports | nur erwähnt gelesen |
 | Aguiñaga et al. (CIKM 2016) | nur Treffer, nicht gelesen |
 | Pshenitsyn: kein CCC-Bezug | belegt |
@@ -89,5 +91,5 @@ Ein Makro **mit Löchern** hat zusätzlich *Parameter*: Stellen, an denen bei je
 - Baumgartner et al., Anti-unification for term graphs (FSCD 2018)
 - Koutra et al., VoG
 - Kukluk, Holder, Cook, Inference of node replacement recursive graph grammars
-- ten Cate & Dalmau (arXiv 2206.05080, nur Abstract)
+- ten Cate & Dalmau (arXiv 2206.05080v3, Volltext gelesen)
 - Aguiñaga et al., arXiv 1608.03192 (nicht gelesen)
