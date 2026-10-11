@@ -7,6 +7,9 @@ the interactive demo (graphs, subgraph macros, triangles) is published separatel
 
 ## Status in one paragraph
 
+(Interim conclusion of 2026-10-11: strategy.md, section 4a.)
+
+
 On gSpan+MDL and SUBDUE the learner wins clearly. GraphMDL (scikit-mine, pure Python) is the strongest
 opponent measured so far; with 100 candidates our learner is on par with it on Kinships at a fraction of the runtime.
 The only clear *conceptual* advantage found so far appears when the data contain a hidden symmetry

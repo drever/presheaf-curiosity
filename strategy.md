@@ -1,6 +1,6 @@
 # Strategie: Hat die Prägarben-Sicht einen algorithmischen Vorteil?
 
-Stand: 10. Oktober 2026. Dieses Dokument hält fest, wie wir vorgehen, was wir bisher wissen und welche Fäden offen sind,
+Stand: 11. Oktober 2026 (Zwischenfazit in Abschnitt 4a). Dieses Dokument hält fest, wie wir vorgehen, was wir bisher wissen und welche Fäden offen sind,
 damit wir später wieder einsteigen können. Ergebnisse im Detail stehen in `README.md` und `results/`.
 
 ## 1. Ausgangsidee
@@ -154,6 +154,50 @@ Straßenfenster wie in 1c (n=100, 3 Seeds, Test auf Barcelona-Ausgelassenen und 
 * **Einordnung:** Das ist ein generischer Kontextmodell-Gewinn (jede Methode könnte Nachbarlabels als Kontext nutzen), kein Vorteil der Prägarbensicht. Es zeigt nur, dass unsere
   markierten Muster Labelkontinuität nicht optimal ausnutzen.
 * **Offen:** gSpan/SUBDUE/GraphMDL auf Straßen nicht gemessen; ein Gegner mit demselben Beschriftungsmodell würde den Gewinn ebenfalls erhalten.
+
+## 4a. Zwischenfazit (11. Oktober 2026)
+
+**Frage:** Hat die Prägarben-Sicht (Graph als Kolimes repräsentierbarer Stücke, Makros als Pushouts, jetzt auch Produkte) einen messbaren algorithmischen Vorteil
+gegenüber dem, was man ohnehin täte (Re-Pair/gSpan/SUBDUE/GraphMDL mit MDL-Auswahl)?
+
+**Kurzantwort, Stand heute:** Auf unseren synthetischen Welten ja, auf echten Daten bisher nein oder nur klein und nicht spezifisch.
+
+### Was belegt ist, nach Stärke des Belegs
+
+| Aussage | Beleg | Einschränkung |
+|---|---|---|
+| MDL-Auswahl erklärt den Großteil des Vorsprungs vor gSpan/SUBDUE | mehrere Datensätze, Seeds | nicht prägarben-spezifisch (jeder Miner kann MDL-Auswahl) |
+| Verkleben (Pushout) schlägt Wachsen um eine Kante, Vorsprung wächst mit Hierarchietiefe | synthetische Hierarchien: 17/48/63 Bit bei Tiefe 1/2/3 | zum Teil Suchvorteil gegen ein lokal hängendes `grow` |
+| Verkleben auf echten Daten | Kinships 2,5-3,4 Bit, Moleküle bis 7 Bit, UMLS 0 | klein (ca. 1-3%), abhängig vom Datensatz |
+| Hierarchische Wörterbuchkosten | Moleküle 2,8-3,5 Bit | nur dort |
+| Äquivalenz (Umkehrrelation) | synthetisch bis ca. 17 Bit bei sauberer Symmetrie | Kinships: nichts bis leicht negativ |
+| **Produkt-Abschluss ermöglicht kompositionale Generalisierung** | synthetische Gitterwelt, 5 Seeds: ungesehene Faktorpaare 230 vs 369 Bit (n=150), Orakel 225; hält bei mittlerem Rauschen | Welt ist genau die gesuchte Struktur gebaut; Faktoren nur mit Klassenlernen aus Quadraten und Fasern gefunden |
+| Beschriftung bedingt auf Nachbarlabels (Straßen) | 3,6-8,4 Bit pro Fenster, 12 von 12 Fällen | **generisch**, kein Prägarben-Vorteil |
+
+### Was widerlegt oder nicht gezeigt ist
+
+* **Produkt-Abschluss auf echten Straßen: kein Gewinn** (höchstens 1,6 Bit Unterschied, markiert wie unmarkiert, 3 Seeds). Gründe vermutlich: kleine unregelmäßige Gitter,
+  Quadrate und Leitern deckt das Kleben schon billig ab, Straßenklasse hängt an der Straße, nicht an der Position.
+* **"Beschriftung hängt an der Reihe" (Produktgedanke für Labels):** Kontext Gegenkante im Quadrat bringt nichts.
+* Kein Vorteil gegenüber GraphMDL/SUBDUE/gSpan **mit denselben Zusatzmodellen** gemessen; auf der Gitterwelt und den Straßen war gSpan+MDL nur eingeschränkt vergleichbar (Knotenlimit, Zeitlimit),
+  GraphMDL und SUBDUE dort gar nicht gelaufen.
+* Höhere Ordnung über Produkte hinaus (parametrisierte Makros, Exponentiale, Simplizes) ist **ungetestet**.
+
+### Ehrliche Einordnung
+
+1. Der Kern "Kolimes aus Stücken, MDL-Auswahl" ist ein solides, aber bekanntes Verfahren; der Prägarben-Rahmen liefert dafür die Sprache, bisher keinen nachweisbaren Zusatzgewinn.
+2. Der einzige Befund, der **nur** mit einer kategorialen Idee zu erklären ist (Abschluss unter Produkten, damit Generalisierung auf ungesehene Kombinationen), gilt bisher nur dort, wo die Daten
+   exakt diese Struktur haben. Das ist ein Machbarkeitsbeleg, kein Beleg für Nutzen in der Praxis.
+3. Alle Tests teilen Kostenfunktion von Lerner und Auswertung (Heimvorteil), die Welten sind von uns gebaut, Seeds sind wenige (3-10).
+4. Die Kernfrage hängt jetzt an **Daten mit exakter, großer Produkt- oder Parametrisierungsstruktur**; Straßenfenster sind dafür offenbar zu klein und zu unregelmäßig.
+
+### Mögliche nächste Schritte (zur Entscheidung)
+
+* **A. Echte Daten mit exakter Produktstruktur suchen** (Schaltpläne/Chip-Layouts, Gitter-Simulationen, Zellularautomaten-Raumzeit, Netzwerk-Topologien wie Torus/Hypercube); nur GitHub und PyPI sind von hier erreichbar.
+* **B. Parametrisierte Makros** (Schritt 2, Löcher/Schnittstellen): ein anderer Mechanismus, könnte auf Molekülen und Wissensgraphen tragen, wo Produkte nicht vorkommen.
+* **C. Relationskomposition** auf Kinships/UMLS (Schritt 3), Vergleich mit AMIE-artigen Regelminern: ein Gegner, der die Frage direkt trifft.
+* **D. Gegner gleichstellen:** Beschriftungs- und Äquivalenzmodelle auch an SUBDUE/GraphMDL/gSpan anbauen, damit der Vergleich nicht an Zusatzmodellen hängt.
+* **E. Abbruchkriterium festlegen:** wenn A-C auf echten Daten ebenfalls keinen Vorsprung liefern, das Projekt als "Rahmen ja, Vorteil nein" dokumentieren.
 
 ## 5. Offener Faden: Simplizes (für später)
 
