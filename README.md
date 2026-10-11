@@ -7,7 +7,7 @@ the interactive demo (graphs, subgraph macros, triangles) is published separatel
 
 ## Status in one paragraph
 
-(Interim conclusion of 2026-10-11: strategy.md, section 4a.)
+(Interim conclusion of 2026-10-11: strategy.md, section 4a. Literature review on macros with holes / category theory: review-makros.md.)
 
 
 On gSpan+MDL and SUBDUE the learner wins clearly. GraphMDL (scikit-mine, pure Python) is the strongest

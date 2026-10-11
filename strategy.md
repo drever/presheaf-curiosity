@@ -279,6 +279,10 @@ und ungerichteter Kanonisierung (`und4.UND`). Gleiche Fenster und Seeds wie zuvo
 * **Produkt-Abschluss, markiert (Straßenklassen):** Differenz (Produkt minus Kleben) Barcelona +3,1 / -2,2 / +0,1, Madrid +2,2 / -1,4 / +1,4, Zaragoza +1,3 / -2,5 / +0,6, Sevilla +3,3 / -2,3 / +2,2: gemischte Vorzeichen, im Mittel leicht negativ. **Kein Effekt.**
 * **Fazit unverändert, aber jetzt sauber:** Auf echten Straßen gibt es keinen belastbaren Produktvorteil; der Beschriftungsgewinn bleibt, ist aber nicht prägarbenspezifisch.
 
+## 4b. Literaturreview zu Makros mit Löchern
+
+Siehe `review-makros.md` (Makros/Interfaces in der Graphkompression, Cospans, Exponentialobjekt; Testvorschläge A–C).
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In
