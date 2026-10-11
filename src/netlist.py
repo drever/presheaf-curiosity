@@ -46,8 +46,8 @@ def windows_from(E, rng, k, nmax=30, emin=8, labeler=None):
     """BFS-Baelle um zufaellige Startknoten (ungerichtet), induzierte Kanten; Label via labeler."""
     adj = defaultdict(set)
     for u, v, _ in E: adj[u].add(v); adj[v].add(u)
-    lab = {}; outs = defaultdict(set)      # gerichtet: Treiber -> Senke
-    for u, v, l in E: lab[(u, v)] = labeler(l); outs[u].add(v)
+    lab = defaultdict(set); outs = defaultdict(set)      # gerichtet: Treiber -> Senke; parallele Kanten (mehrere Labels) bleiben erhalten
+    for u, v, l in E: lab[(u, v)].add(labeler(l)); outs[u].add(v)
     nodes = sorted(adj); out = []; tries = 0
     while len(out) < k and tries < 20 * k:
         tries += 1; s = rng.choice(nodes); seen = {s}; q = deque([s])
@@ -55,7 +55,7 @@ def windows_from(E, rng, k, nmax=30, emin=8, labeler=None):
             u = q.popleft()
             for v in sorted(adj[u]):
                 if v not in seen and len(seen) < nmax: seen.add(v); q.append(v)
-        es = [(u, v, lab[(u, v)]) for u in seen for v in outs[u] if v in seen]
+        es = [(u, v, l) for u in seen for v in outs[u] if v in seen for l in sorted(lab[(u, v)])]
         if len(es) >= emin: out.append(es)
     return out
 

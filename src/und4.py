@@ -205,11 +205,11 @@ def fiber_factors(train, col, topk=24, minfrac=0.0, maxe=4, mincount=2):
     out.sort(key=lambda x: (-x[0], -len(x[1])))
     return [tuple(order_pattern(p)) for n, p in out[:topk]]
 
-def learn_prod_auto(train, R, K, maxn, maxe, topk=30, maxf=14, D0=None):
+def learn_prod_auto(train, R, K, maxn, maxe, topk=30, maxf=14, D0=None, minsq=3, fib_maxe=4):
     """Voll datengetrieben: Klassen aus Quadraten, Faktoren aus Fasern, Auswahl per MDL (Einzel- und Paar-Schritte)."""
-    col, nsq = learn_classes(train); pure, cross = class_preds(col)
+    col, nsq = learn_classes(train, minsq=minsq); pure, cross = class_preds(col)
     if D0 is None: D0 = learn_h(train, R, K, maxn, False, mode='hier', topc=30, maxe=maxe, objective='hier')
-    cand = fiber_factors(train, col, topk=topk)
+    cand = fiber_factors(train, col, topk=topk, maxe=fib_maxe)
     def L(F):
         Dp, Deff = effective_dict(D0, F, maxe, cross)
         return total_u(train, Deff, R, maxn, False) + dict_bits_h(Dp, R, maxn) + sum(LOG(len(Dp) + 1) + 1 for _ in F)

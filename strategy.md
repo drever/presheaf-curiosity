@@ -234,6 +234,30 @@ verschiedener Namensreihenfolge nicht aufeinander. Die Zahlen unten sind mit kor
 * **Nächster Schritt (Vorschlag):** Zellebene. (1) Zell-Makro lernen (größeres `maxe`), (2) Netzliste mit dem Makro überdecken, (3) Quotientengraph (Knoten = Zellinstanz, Kante = Verdrahtung mit
   Port-Paar als Label), (4) darauf Klassen aus Quadraten, Fasern und Produkt-Abschluss wie in e17. Das wäre der eigentliche Test "Produkt von Zellen".
 
+### Ergebnis Schritt 1f: Zellebene von c6288 (Quotientengraph), `src/cells*.py`, `quotient.py`, `e23.py`, `results/e23_*`, `results/cells_D*.json`
+
+**Aufbau (alles gelernt, keine Handarbeit an der Zellstruktur):**
+1. Muster (bis 12 Kanten) aus 30 BFS-Fenstern lernen (17 Einträge) und damit die **ganze** c6288-Netzliste (2448 Gatter, 4800 Kanten) überdecken: nur 81 Kanten bleiben roh.
+   Drei Muster tauchen je ca. 225-240-mal auf (12, 5 und 3 Kanten) und bilden zusammen die Zelle (ca. 240 Volladdierer).
+2. Zwei MDL-getriebene Verklebungsrunden auf dem Gesamtgraphen (Gewinn 5089 und 2425 Bit) ergeben die **Zelle mit 20 Kanten, 195 vollständige Instanzen**, daneben Randzellen.
+3. **Quotientengraph:** Knoten = Zellinstanz (361 Knoten); Kanten = von zwei Instanzen geteilte Gatter und freie Drähte; Label = Port-Paar (86 Labels). Die 32 Primäreingänge
+   (Bus, je 16 Zellen) sind aus dem Quotienten herausgenommen (sonst Cliquen); welcher Eingang in welche Zelle geht, wäre die Beschriftung.
+4. Auf dem Quotienten gibt es echte **kommutierende Quadrate** (259 Quadrate, 155 je Port-Paar): in der einen Richtung ein Bündel aus 3 parallelen Verdrahtungen zwischen benachbarten Zellen,
+   in der anderen eine Verdrahtung. Das ist der Gitterfaktor "Bündel x Kante". (Der Fenster-Lader verlor zunächst parallele Kanten; behoben.)
+
+**Messung** (n=40 Trainingsfenster à 16 Zellknoten, 100 Testfenster, 3 Seeds; Testbits pro Fenster, Mittel):
+leer 627,6 | Kleben 243,1 | Wachsen 257,4 (Differenz 3,5 / 25,3 / 14,3 je Seed) | **Produkt-Abschluss 242,9** (Faktoren gewählt: 0 / 2 / 0; Gewinn gegenüber Kleben 0,0 / 0,6 / 0,0 Bit).
+
+* **Der Produkt-Abschluss bringt auch auf Zellebene nichts.** Klassen werden korrekt gelernt (Bündel-Labels gegen die Einzelkante), Faktoren (Bündel, Bündelketten, Einzelkanten) sind Kandidaten, aber
+  die Auswahl nimmt sie nicht: Das erweiterte Wörterbuch kostet mehr Zeigerbits (ca. +12,7 Bit über 40 Fenster im Test mit Paarschritt) als es spart.
+* **Warum vermutlich:** Das geklebte Wörterbuch enthält schon die kleinen Gitterstücke bis 16 Kanten (Bündel x Kante hat 8, Bündelpaar x Pfad 15). Die Testfenster (16 Zellknoten, ca. 38 Kanten) sind nur
+  2-4 Zellen breit; größere Produkte würden helfen, aber gerade die kann der Einbettungs-Suchalgorithmus (backtracking) nicht mehr bezahlbar abdecken. Mit Obergrenze 32 für Produkte änderte sich nichts.
+* **Kompositionsvorteil auf Zellebene kleiner als auf Gatterebene:** 3,5-25 Bit gegen Wachsen (Gatterebene: 46-53 Bit), weil Zellen schon die große Struktur tragen.
+* **Einschränkungen:** Eine Schaltung, überlappende Fenster (Trainings-/Testfenster teilen Zellen), Fenstergröße begrenzt durch den Matcher, Zelle in Windows nur bis 12 Kanten gelernt und erst auf dem Gesamtgraphen
+  verklebt, Primäreingänge ausgeklammert, 3 Seeds; die Port-Paar-Labels sind eine Kodierungsentscheidung von uns.
+* **Fazit zu Chips:** Der einzige Kompositionseffekt auf echten Daten mit klarer Größe (c6288, Gatterebene) kommt vom **Kleben**, nicht von Produkten. Ein Produkt-Vorteil auf echten Daten
+  ist weiterhin nicht belegt (Straßen: Null; Chips: Null). Der Befund bleibt: Produkte wirken nur dort, wo die Daten viele große, exakt gleiche Gitter in vielen Formen enthalten.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In
