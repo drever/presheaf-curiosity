@@ -103,6 +103,8 @@ Noise sweep (src/e18.py): with 12 noise edges per component the advantage holds 
 
 Real street data (src/streets.py, e19*.py): OSM roads of Spanish cities (from a GitHub repo, since OSM servers are not reachable from the sandbox). Product closure gives no gain (differences <= 1.6 bits, 3 seeds, labelled and unlabelled); gluing compresses windows by ~30%. See strategy.md, 1c.
 
+(Street results were re-run with symmetric edges, `SYM=1`: see strategy.md, correction after 1d; conclusions unchanged.)
+
 Shape x labeling model on streets (src/e20*.py): unlabelled shape dictionary + neighbour-context label coder beats labelled gluing by 3.6-8.4 bits per window (1.5-3.5%, 12/12 cases), but this is a generic context-model gain, not a presheaf advantage; "opposite edge in a square" gives nothing. See strategy.md, 1d.
 
 Chip netlists (src/netlist.py, e21.py): ISCAS85 c6288 (16x16 array multiplier) windows (correct driver->sink orientation): gluing beats grow-by-one-edge by 46-53 bits (23-25%, 3 seeds), SUBDUE sits near grow-by-one, gSpan only runs with patterns <= 6 edges (larger limits time out) and is much worse; the largest composition effect on real data so far; no product factors at gate level (the cell lattice only exists after contracting cells). Data: github.com/ispras/hdl-benchmarks, EPFL arithmetic benchmarks. See strategy.md, 1e.

@@ -229,8 +229,7 @@ verschiedener Namensreihenfolge nicht aufeinander. Die Zahlen unten sind mit kor
 * **Einschränkungen:** Eine einzige, extrem regelmäßige, von Hand entworfene Schaltung; BFS-Fenster überlappen (Trainings- und Testfenster derselben Schaltung teilen Zellen); Obergrenze 12 Kanten für unseren Lerner schneidet die Zelle vermutlich;
   die Gegner wurden mit den vorhandenen Wrappern betrieben (greedy MDL-Auswahl der gSpan-Kandidaten, SUBDUE mit 20 Iterationen), ohne Parameter-Tuning; wir optimieren dieselbe Kostenfunktion, mit der wir messen (Heimvorteil).
   Der AIG-Multiplizierer (nur 4 Labels) war für den Lerner zu langsam (über 20 Minuten, abgebrochen).
-* **Wichtig für die Straßen-Ergebnisse (1c, 1d):** Dort wurden Kanten nach Koordinatenreihenfolge orientiert und nicht als symmetrisch (`SYMS`) behandelt. Straßen sind ungerichtet; die Nullergebnisse zum Produkt-Abschluss
-  und die Beschriftungsergebnisse sind daher unter einer Orientierungs-Erschwernis entstanden und müssen mit symmetrischen Labels wiederholt werden (Vermerk, noch offen).
+* **Straßen-Ergebnisse (1c, 1d):** Orientierungsproblem inzwischen behoben und mit symmetrischen Labels wiederholt, siehe Korrektur-Abschnitt nach 1d; die Schlussfolgerungen bleiben.
 * **Nächster Schritt (Vorschlag):** Zellebene. (1) Zell-Makro lernen (größeres `maxe`), (2) Netzliste mit dem Makro überdecken, (3) Quotientengraph (Knoten = Zellinstanz, Kante = Verdrahtung mit
   Port-Paar als Label), (4) darauf Klassen aus Quadraten, Fasern und Produkt-Abschluss wie in e17. Das wäre der eigentliche Test "Produkt von Zellen".
 
@@ -257,6 +256,28 @@ leer 627,6 | Kleben 243,1 | Wachsen 257,4 (Differenz 3,5 / 25,3 / 14,3 je Seed) 
   verklebt, Primäreingänge ausgeklammert, 3 Seeds; die Port-Paar-Labels sind eine Kodierungsentscheidung von uns.
 * **Fazit zu Chips:** Der einzige Kompositionseffekt auf echten Daten mit klarer Größe (c6288, Gatterebene) kommt vom **Kleben**, nicht von Produkten. Ein Produkt-Vorteil auf echten Daten
   ist weiterhin nicht belegt (Straßen: Null; Chips: Null). Der Befund bleibt: Produkte wirken nur dort, wo die Daten viele große, exakt gleiche Gitter in vielen Formen enthalten.
+
+### Korrektur Schritt 1c/1d: Straßen mit symmetrischen Kanten (`SYM=1`, Ergebnisdateien `*_sym.json`)
+
+Die ersten Straßenläufe (1c, 1d) hatten Kanten nach Koordinatenreihenfolge orientiert und nicht als symmetrisch behandelt; Straßen sind ungerichtet. Wiederholt mit `und.SYMS` = alle Labels
+und ungerichteter Kanonisierung (`und4.UND`). Gleiche Fenster und Seeds wie zuvor. Testbits pro Fenster (Mittel über 3 Seeds, außer wo vermerkt):
+
+| Messung | Barcelona | Madrid | Zaragoza | Sevilla |
+|---|---|---|---|---|
+| leer | 369,3 | 337,6 | 301,9 | 361,6 |
+| Kleben, gerichtet (alt) | 258,3 | 240,8 | 218,5 | 247,7 (Seed 0) |
+| **Kleben, symmetrisch** | 239,2 | 219,4 | 193,0 | 233,5 |
+| **Wachsen, symmetrisch** | 238,6 | 217,6 | 191,6 | 231,4 |
+| Form+Beschriftung (Nachbarkontext), symmetrisch | 233,1 | 210,3 | 186,1 | 225,1 |
+| Form+Beschriftung (nur iid-Labels), symmetrisch | 250,3 | 230,8 | 205,4 | 246,6 |
+
+* **Absolute Kompression besser** (ca. 17-25 Bit gegenüber dem gerichteten Lauf), die Orientierung war also eine reale Erschwernis.
+* **Kleben ≈ Wachsen bleibt** (Differenz Kleben minus Wachsen: -0,6 bis +5,0 Bit, im Mittel +0,6 zugunsten von Wachsen). Die Aussage "kein Kompositionsvorteil auf Straßen" gilt auch symmetrisch.
+* **Form+Beschriftung mit Nachbarkontext schlägt markiertes Kleben weiterhin**, in allen 12 Fällen (4 Städte x 3 Seeds) um 4,7-9,8 Bit pro Fenster (vorher 3,6-8,4). Das ist ein generischer Kontextmodell-Gewinn.
+* **Produkt-Abschluss, unmarkiert (Geometrie, alle Kanten gleiches Label):** Seed 0: Faktor gefunden, Gewinn 1,5-2,5 Bit (Barcelona 203,4 -> 201,3; Madrid 186,3 -> 184,8; Zaragoza 174,3 -> 172,6; Sevilla 193,0 -> 190,5);
+  Seed 1: kein Faktor, Gewinn 0,2-0,4 Bit. Seed 2 nach über 75 Minuten abgebrochen (die symmetrische Faktorsuche ist deutlich langsamer). **Zwei Seeds, kleiner Gewinn von bis zu 1% (Seed 0), nicht belastbar.**
+* **Produkt-Abschluss, markiert (Straßenklassen):** Differenz (Produkt minus Kleben) Barcelona +3,1 / -2,2 / +0,1, Madrid +2,2 / -1,4 / +1,4, Zaragoza +1,3 / -2,5 / +0,6, Sevilla +3,3 / -2,3 / +2,2: gemischte Vorzeichen, im Mittel leicht negativ. **Kein Effekt.**
+* **Fazit unverändert, aber jetzt sauber:** Auf echten Straßen gibt es keinen belastbaren Produktvorteil; der Beschriftungsgewinn bleibt, ist aber nicht prägarbenspezifisch.
 
 ## 5. Offener Faden: Simplizes (für später)
 

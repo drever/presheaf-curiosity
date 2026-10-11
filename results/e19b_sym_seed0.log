@@ -1,0 +1,5 @@
+D0 done 24
+cand 8 L0 14402
+factors [(2, 2)] time 45
+glue 24 {'in:barcelona': 237.3, 'madrid': 247.5, 'zaragoza': 181.5, 'sevilla': 225.8} train 231.0
+prod 24 {'in:barcelona': 240.4, 'madrid': 249.7, 'zaragoza': 182.8, 'sevilla': 229.1} train 231.4

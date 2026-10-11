@@ -1,4 +1,5 @@
 import itertools
+UND = False   # True: ungerichtete Kanonisierung (zusammen mit und.SYMS)
 import und
 from und import cover_u, canon_u, total_u
 from core import LOG, normalize, order_pattern, dict_bits
@@ -21,27 +22,27 @@ def implicit_products(F, maxe, cross=None):
             if cross and not cross(F[i], F[j]): continue
             p = prod_pattern(F[i], F[j])
             if len(p) > maxe: continue
-            k = canon_u(p, False)
+            k = canon_u(p, UND)
             if k in seen: continue
             seen.add(k); out.append(tuple(order_pattern(p)))
     return out
 
 def effective_dict(D0, F, maxe, cross=None):
-    imp = implicit_products(F, maxe, cross); keys = {canon_u(p, False) for p in imp}
-    Dp = [p for p in D0 if canon_u(p, False) not in keys]
-    have = {canon_u(p, False) for p in Dp}
-    return Dp, Dp + [p for p in imp if canon_u(p, False) not in have]
+    imp = implicit_products(F, maxe, cross); keys = {canon_u(p, UND) for p in imp}
+    Dp = [p for p in D0 if canon_u(p, UND) not in keys]
+    have = {canon_u(p, UND) for p in Dp}
+    return Dp, Dp + [p for p in imp if canon_u(p, UND) not in have]
 
 def dict_bits_hp(D, R, maxn):
     """Hierarchische Kosten, zusaetzlich: Produkt zweier frueherer Eintraege kostet 2 Verweise + 1 Operator-Bit."""
-    tot = 0; keys = [canon_u(p, False) for p in D]; prods = {}
+    tot = 0; keys = [canon_u(p, UND) for p in D]; prods = {}
     for k, p in enumerate(D):
         c = pat_cost_h(p, D[:k], R, maxn)
-        pk = canon_u(p, False)
+        pk = canon_u(p, UND)
         for i in range(k):
             for j in range(i, k):
                 q = prod_pattern(D[i], D[j])
-                if len(q) == len(p) and canon_u(q, False) == pk:
+                if len(q) == len(p) and canon_u(q, UND) == pk:
                     c = min(c, 2 + 2 * LOG(k + 1) + 1); break
             else: continue
             break
@@ -71,7 +72,7 @@ def connected_subpatterns(p, maxs):
     for size in range(1, maxs + 1):
         nxt = set()
         for s in cur:
-            es = [p[i] for i in s]; pat = normalize(es); k = canon_u(pat, False)
+            es = [p[i] for i in s]; pat = normalize(es); k = canon_u(pat, UND)
             if k not in out: out[k] = pat
             if size < maxs:
                 vs = set().union(*[nodes[i] for i in s])
@@ -85,14 +86,14 @@ def find_factors(D, maxs=5):
     facs = {}
     for p in D:
         if len(p) < 4: continue
-        vp = len({x for a, r, b in p for x in (a, b)}); pk = canon_u(p, False)
+        vp = len({x for a, r, b in p for x in (a, b)}); pk = canon_u(p, UND)
         subs = connected_subpatterns(p, maxs)
         info = [(s, len({x for a, r, b in s for x in (a, b)})) for s in subs]
         for i, (A, va) in enumerate(info):
             for B, vb in info[i:]:
                 if va * vb != vp or len(A) * vb + len(B) * va != len(p): continue
-                if canon_u(prod_pattern(A, B), False) == pk:
-                    for f in (A, B): facs[canon_u(f, False)] = tuple(order_pattern(f))
+                if canon_u(prod_pattern(A, B), UND) == pk:
+                    for f in (A, B): facs[canon_u(f, UND)] = tuple(order_pattern(f))
     return list(facs.values())
 
 def is_path(p):
@@ -199,7 +200,7 @@ def fiber_factors(train, col, topk=24, minfrac=0.0, maxe=4, mincount=2):
             for e in E: comp[f(e[0])].append(e)
             for es in comp.values():
                 if len(es) > maxe: continue
-                p = normalize(es); key = canon_u(p, False)
+                p = normalize(es); key = canon_u(p, UND)
                 if key not in seen_k: seen_k.add(key); cnt[key] += 1; rep[key] = p
     out = [(n, rep[k]) for k, n in cnt.items() if n >= max(mincount, minfrac * len(train))]
     out.sort(key=lambda x: (-x[0], -len(x[1])))
