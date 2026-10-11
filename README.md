@@ -135,3 +135,5 @@ python e3.py sym 0 90         # opponents (gSpan, SUBDUE, GraphMDL) on that worl
 python e4.py 0 300 1          # Kinships: plain vs equivalence vs opponents
 python e8.py nosym 0 && python e10.py sym 0
 ```
+
+Test A (macros with interface, src/iface.py, e24*.py): charging instances only for boundary vertices saves ~41 bits (26%) for glue and ~20 bits (10%) for grow on c6288 windows (3 seeds, re-costed dictionaries); on streets ~21-26 bits for both, i.e. a generic coding gain. See strategy.md, 4c.

@@ -283,6 +283,24 @@ und ungerichteter Kanonisierung (`und4.UND`). Gleiche Fenster und Seeds wie zuvo
 
 Siehe `review-makros.md` (Makros/Interfaces in der Graphkompression, Cospans, Exponentialobjekt; Testvorschläge A–C).
 
+## 4c. Test A: Makros mit Interface (Instanzkosten nur für Randknoten) – 11. Oktober 2026
+
+Code: `src/iface.py`, `src/e24.py` (c6288), `src/e24s.py` (Straßen, symmetrisch). Kostenmodell: Eine Instanz zahlt Musterindex + Zähler k + Teilmenge der k *Randknoten* (Knoten mit Kanten außerhalb der Instanz; `log C(|V_p|,k)`) + k Zeiger; innere Knoten vergibt der Dekoder frisch. Sicherheitshalber `min` mit dem alten Schema + 1 Flagbit je Instanz. Wörterbuchkosten nicht enthalten (wie bisher in den Pro-Fenster-Zahlen); gleiche Wörterbücher, nur anders kodiert, plus Lerner, die direkt auf das Interface-Ziel optimieren.
+
+**c6288 (Gate-Ebene), 40 Trainingsfenster, in-sample Bits/Fenster, Mittel über 3 Seeds (Umkodierung der alten Wörterbücher):**
+
+| | alt | mit Interface | Gewinn |
+|---|---|---|---|
+| glue | 156.9 | 116.2 | 40.7 (26 %) |
+| grow | 196.7 | 176.8 | 19.9 (10 %) |
+
+Der Abstand glue–grow wächst von 39.8 auf 60.6 Bit: große Muster haben mehr innere Knoten und profitieren stärker. Mittlere Muster-/Instanzgröße: glue |V| ≈ 5.4, k ≈ 2.3 Randknoten; grow |V| ≈ 3.3, k ≈ 2.1. Lerner mit Interface-Ziel (nur Seeds 1, 2; Seed 0 war beim Schreiben noch nicht fertig): glue 113.0 (vs. 119.9 umkodiert), grow 198.3 (vs. 175.4 – hier lernt der Lerner *schlechter*, Ausreißer durch Seed 2; ein Hinweis auf Rauschen bei n=2, nicht auf ein Ergebnis). Auf fremden Schaltungen (c1355, c499, c880, c1908) ändert sich fast nichts (≤ 4 Bit von ~310–430): das Wörterbuch überträgt kaum.
+
+**Straßen (Barcelona → Madrid/Zaragoza/Sevilla, symmetrisch, 50 Fenster, 3 Seeds):** glue spart 21–25 Bit, grow 21–26 Bit; Abstand glue–grow bleibt ≈ 0–2 Bit. Der Gewinn ist hier ein *allgemeiner* Kodierungsgewinn (innere Knoten gratis), kein Vorteil für Verkleben.
+
+**Lesart.** (1) Das Interface-Kostenmodell ist ein echter, aber bescheidener Hebel: ~10–26 % auf c6288. (2) Es verstärkt den schon bekannten Vorteil des Verklebens auf c6288 (glue schlägt grow nun um ~61 statt ~40 Bit), aber nicht auf Straßen. (3) Vorbehalt: Das alte Schema (`#Knoten · log n` je Instanz) ist besonders großzügig gegenüber einem fairen Baseline-Kodierer, der innere Knoten ebenfalls implizit lässt; der Gewinn gilt also relativ zu *unserem* alten Modell, nicht relativ zu gRePair/SUBDUE (die Interfaces ohnehin haben). Ein fairer Vergleich mit einem Interface-fähigen Baseline-Miner fehlt. (4) Test A prüft nur Interface-Kosten; *echte Löcher* (Muster, in deren Loch verschiedene Teilmuster passen) sind weiter Test B/C im Review.
+Rohdaten: `results/e24*.json|log`.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In
