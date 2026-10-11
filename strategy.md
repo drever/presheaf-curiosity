@@ -271,8 +271,8 @@ und ungerichteter Kanonisierung (`und4.UND`). Gleiche Fenster und Seeds wie zuvo
 | Form+Beschriftung (Nachbarkontext), symmetrisch | 233,1 | 210,3 | 186,1 | 225,1 |
 | Form+Beschriftung (nur iid-Labels), symmetrisch | 250,3 | 230,8 | 205,4 | 246,6 |
 
-* **Absolute Kompression besser** (ca. 17-25 Bit gegenüber dem gerichteten Lauf), die Orientierung war also eine reale Erschwernis.
-* **Kleben ≈ Wachsen bleibt** (Differenz Kleben minus Wachsen: -0,6 bis +5,0 Bit, im Mittel +0,6 zugunsten von Wachsen). Die Aussage "kein Kompositionsvorteil auf Straßen" gilt auch symmetrisch.
+* **Absolute Kompression besser** (ca. 15-18 Bit gegenüber dem gerichteten Lauf, Mittel über 3 Seeds), die Orientierung war also eine reale Erschwernis.
+* **Kleben ≈ Wachsen bleibt** (Differenz Kleben minus Wachsen: -0,6 bis +5,0 Bit, im Mittel +1,5 zugunsten von Wachsen). Die Aussage "kein Kompositionsvorteil auf Straßen" gilt auch symmetrisch.
 * **Form+Beschriftung mit Nachbarkontext schlägt markiertes Kleben weiterhin**, in allen 12 Fällen (4 Städte x 3 Seeds) um 4,7-9,8 Bit pro Fenster (vorher 3,6-8,4). Das ist ein generischer Kontextmodell-Gewinn.
 * **Produkt-Abschluss, unmarkiert (Geometrie, alle Kanten gleiches Label):** Seed 0: Faktor gefunden, Gewinn 1,5-2,5 Bit (Barcelona 203,4 -> 201,3; Madrid 186,3 -> 184,8; Zaragoza 174,3 -> 172,6; Sevilla 193,0 -> 190,5);
   Seed 1: kein Faktor, Gewinn 0,2-0,4 Bit. Seed 2 nach über 75 Minuten abgebrochen (die symmetrische Faktorsuche ist deutlich langsamer). **Zwei Seeds, kleiner Gewinn von bis zu 1% (Seed 0), nicht belastbar.**
