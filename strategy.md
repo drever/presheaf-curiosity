@@ -135,6 +135,26 @@ Training: 60-100 Fenster aus Barcelona; Test: 100 Fenster aus Barcelona (ausgela
   Modell wäre Gitterform x Beschriftungsfunktion. Das haben wir nicht gebaut.
 * **Konsequenz:** Der Vorteil des Produkt-Abschlusses ist bisher nur auf der von uns konstruierten Welt belegt. Auf echten Straßen hat er sich nicht gezeigt.
 
+### Ergebnis Schritt 1d: Modell "Gitterform x Beschriftungsfunktion" auf Straßen, `src/e20.py`, `e20b.py`, `results/e20*`
+
+Modell: Zwei Schichten. (1) Form: Graph ohne Labels (R=1), Wörterbuch wie bisher. (2) Beschriftung: Label jeder Kante, bedingt auf Labels bereits codierter Nachbarkanten
+(BFS-Reihenfolge; Kontext = Labelpaar der ersten codierten Kante an jedem Endpunkt; Tabelle aus dem Training, Laplace 0,5). Vergleich mit dem bisherigen markierten Kleben.
+Straßenfenster wie in 1c (n=100, 3 Seeds, Test auf Barcelona-Ausgelassenen und drei anderen Städten).
+
+* **Zerlegung:** Form (R=1) kostet ca. 223 Bit (leer 299), Beschriftung ca. 48 Bit (iid) bzw. 31 Bit (Nachbarkontext). Der Produkt-Abschluss auf der Form bringt nichts (1c).
+  Alles, was zu holen ist, liegt in der Beschriftungsschicht, höchstens ca. 17-20 Bit von ca. 255.
+* **Nachbarkontext hilft:** Label-Kosten 48 -> 31 Bit pro Fenster (Barcelona, ähnlich in den anderen Städten). Straßen wechseln ihre Klasse selten mitten im Verlauf.
+* **Gesamt (Testbits pro Fenster), markiertes Kleben vs Form+Beschriftung (Nachbarkontext), Mittel über 3 Seeds:**
+  Barcelona 256,2 vs 251,5 | Madrid 237,4 vs 229,7 | Zaragoza 208,3 vs 201,8 | Sevilla 250,9 vs 243,6. Gewinn 4-8 Bit pro Fenster (2-3%) in jedem der 12 Fälle.
+  Form+Beschriftung mit iid-Labels (ohne Kontext) ist **schlechter** als markiertes Kleben (ca. 268 vs 256 in Barcelona): Die markierten Muster fangen Labelkorrelationen schon teilweise ab.
+* **Kosten:** Wörterbuch- plus Parameterbits sind höher (Kontexttabelle ca. 400-430 Bit gegen ca. 30 Bit bei iid, bei insgesamt 100 Trainingsfenstern, also ca. 4 Bit pro Fenster
+  bei vollem Ansatz; netto bleibt auf den Trainingsdaten ein Gewinn von ca. 0,5-3 Bit pro Fenster, auf Testdaten, wo Wörterbuch nicht zählt, 4-8).
+* **Produktgedanke geprüft und verworfen:** Kontext "Label der Gegenkante im Quadrat" (Beschriftung hängt an der Reihe): 47,6 vs 48,3 (iid) bzw. 31,2 vs 30,9 (mit Nachbarkontext).
+  Die Beschriftung hängt an der Kontinuität der Straße (Nachbarschaft), nicht an Produktstruktur.
+* **Einordnung:** Das ist ein generischer Kontextmodell-Gewinn (jede Methode könnte Nachbarlabels als Kontext nutzen), kein Vorteil der Prägarbensicht. Es zeigt nur, dass unsere
+  markierten Muster Labelkontinuität nicht optimal ausnutzen.
+* **Offen:** gSpan/SUBDUE/GraphMDL auf Straßen nicht gemessen; ein Gegner mit demselben Beschriftungsmodell würde den Gewinn ebenfalls erhalten.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In

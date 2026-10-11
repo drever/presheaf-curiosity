@@ -100,6 +100,8 @@ Noise sweep (src/e18.py): with 12 noise edges per component the advantage holds 
 
 Real street data (src/streets.py, e19*.py): OSM roads of Spanish cities (from a GitHub repo, since OSM servers are not reachable from the sandbox). Product closure gives no gain (differences <= 1.6 bits, 3 seeds, labelled and unlabelled); gluing compresses windows by ~30%. See strategy.md, 1c.
 
+Shape x labeling model on streets (src/e20*.py): unlabelled shape dictionary + neighbour-context label coder beats labelled gluing by 4-8 bits per window (2-3%, 12/12 cases), but this is a generic context-model gain, not a presheaf advantage; "opposite edge in a square" gives nothing. See strategy.md, 1d.
+
 ## Caveats
 
 * Our learner optimizes the same function that is used for evaluation (home advantage).
