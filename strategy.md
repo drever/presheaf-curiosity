@@ -117,6 +117,24 @@ Knotenlimit und Laufzeit, bei Rauschen 24 Timeouts); auf ungesehenen Paaren lieg
 Gegner, der für diese Welt schlecht passt (kein Produkt-Abschluss, Grenzen für Knoten und Laufzeit), kein Beweis, dass kein Miner es kann. SUBDUE und GraphMDL
 wurden hier nicht gemessen.
 
+### Ergebnis Schritt 1c: echte Straßendaten (negativ), `src/streets.py`, `e19*.py`, `results/e19*`
+
+Daten: Das GitHub-Repo `amoraschi/spain-cities-geojson` (OSM-Straßen der spanischen Provinzhauptstädte, `highway`-Tag je Weg). Direkter OSM-Zugriff
+(Overpass, Geofabrik, Nominatim) und SNAP sind aus dem Container nicht erreichbar, nur GitHub und PyPI. Das Valencia-File im Repo ist leer.
+Aufbereitung: Kreuzungsgraph (Knoten = Endpunkte und gemeinsam genutzte Punkte), nur Fahrstraßen (ohne Fuß-/Radwege, die sonst 70% der Kanten ausmachen),
+Kantenlabel = Straßenklasse (groß / mittel / Wohn- / Service). Komponenten = räumliche Fenster (0,004 Grad, ca. 26 Kanten im Mittel, höchstens 40 Knoten).
+Training: 60-100 Fenster aus Barcelona; Test: 100 Fenster aus Barcelona (ausgelassen) sowie Madrid, Zaragoza, Sevilla.
+
+* **Straßen sind komprimierbar:** Testbits 372 (leer) -> 258 (Kleben), Muster bis 7-10 Kanten. Kleben und Wachsen sind gleich gut (258,3 vs 257,3 in Barcelona).
+* **Gitterstruktur gibt es:** 45-60% der Fenster enthalten 4-Zyklen, rund 25% mehrere.
+* **Produkt-Abschluss bringt nichts:** mit Straßenklassen als Labels (Faktoren: einfarbige Pfade, 3 Seeds, n=60) 260,1 vs 259,8 / 251,1 vs 251,1 / 256,9 vs 256,6 (Barcelona);
+  in der reinen Geometrie (alle Kanten gleiches Label, 3 Seeds, n=100) 223,2 vs 222,7 / 221,3 vs 221,4 / 217,5 vs 217,5. Auf den anderen Städten ebenso (Differenz höchstens 1,6 Bit).
+* **Deutung (nicht getestet, nur plausibel):** (1) Die Gitter in den Fenstern sind klein und unregelmäßig (nicht-induzierte Einbettung, fehlende Kanten, gemischte Klassen),
+  exakte Produkte großer Pfade kommen selten vor; (2) kleine Gitterbausteine (Quadrat, Leiter) werden vom Kleben bereits billig abgedeckt. (3) In echten Rastern hängt die
+  Straßenklasse an der Reihe (Straße), nicht an der Position entlang der Straße; das ist kein Produkt mit Faktor-Labels, wie es unsere synthetische Welt baut. Ein passenderes
+  Modell wäre Gitterform x Beschriftungsfunktion. Das haben wir nicht gebaut.
+* **Konsequenz:** Der Vorteil des Produkt-Abschlusses ist bisher nur auf der von uns konstruierten Welt belegt. Auf echten Straßen hat er sich nicht gezeigt.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In

@@ -98,6 +98,8 @@ Synthetic world matching the algorithm's assumptions; no comparison with gSpan/S
 
 Noise sweep (src/e18.py): with 12 noise edges per component the advantage holds (unseen 330 vs 478 gluing at n=150, oracle 332); with 24 it shrinks (491 vs 606, oracle 471). gSpan+MDL is far behind on this world (597-649), partly due to size/time limits.
 
+Real street data (src/streets.py, e19*.py): OSM roads of Spanish cities (from a GitHub repo, since OSM servers are not reachable from the sandbox). Product closure gives no gain (differences <= 1.6 bits, 3 seeds, labelled and unlabelled); gluing compresses windows by ~30%. See strategy.md, 1c.
+
 ## Caveats
 
 * Our learner optimizes the same function that is used for evaluation (home advantage).
@@ -107,6 +109,9 @@ Noise sweep (src/e18.py): with 12 noise edges per component the advantage holds 
 * Early scripts (control tests, approximate matching, symmetry on UMLS) were lost in an environment reset; their results are not in this repo.
 
 ## Reproducing
+
+Street experiments additionally need `git clone https://github.com/amoraschi/spain-cities-geojson /tmp/dl/spain-cities-geojson` (path set in src/streets.py).
+
 
 ```
 pip install -r requirements.txt   # use a venv; pynauty needs a recent setuptools

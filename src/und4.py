@@ -121,7 +121,7 @@ def learn_prod_data(train, R, K, maxn, maxe, cross=None, topk=16, maxf=14, pure=
     def L(F):
         Dp, Deff = effective_dict(D0, F, maxe, cross)
         return total_u(train, Deff, R, maxn, False) + dict_bits_h(Dp, R, maxn) + sum(LOG(len(Dp) + 1) + 1 for _ in F)
-    F = []; cur = L(F)
+    F = []; cur = L(F); print('cand', len(cand), 'L0', round(cur), flush=True)
     while len(F) < maxf:
         best = None
         for c in cand:
