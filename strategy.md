@@ -210,21 +210,27 @@ Komponenten = BFS-Fenster um zufällige Gatter (20 Knoten, mindestens 8 Kanten, 
 nicht zwischen Zellen. c6288: im Mittel 2,6 Quadrate pro 40-Kanten-Fenster. Das Gitter des Array-Multiplizierers (Volladdierer in einem Schrägraster, in
 schiefen Koordinaten ein Produkt zweier Pfade) existiert erst auf **Zellebene**, nicht auf Gatterebene.
 
-**Erste Messung (c6288, n=40 Fenster, 3 Seeds, Test = 100 ausgelassene Fenster derselben Schaltung; Testbits):**
+**Messung auf c6288** (n=40 Trainingsfenster, 3 Seeds, Test = 100 ausgelassene Fenster derselben Schaltung; Testbits pro Fenster).
+*Korrektur:* Die erste Fassung orientierte die Kanten nach Knotennamen statt Treiber -> Senke; da das Framework gerichtet rechnet, passten gleiche Zellen mit
+verschiedener Namensreihenfolge nicht aufeinander. Die Zahlen unten sind mit korrekter Orientierung neu gemessen (frühere Zahlen: Kleben 169,5/152,9/170,7, Wachsen 222,6/209,1/221,1).
 
-| Seed | leer | Kleben | Wachsen | Produkt-Abschluss (0 Faktoren gewählt) |
-|---|---|---|---|---|
-| 0 | 422,5 | 169,5 | 222,6 | 169,5 |
-| 1 | 427,8 | 152,9 | 209,1 | 152,9 |
-| 2 | 433,7 | 170,7 | 221,1 | 170,7 |
+| Seed | leer | Kleben (unser Lerner) | Wachsen um 1 Kante | SUBDUE (MDL-Abschnitt) | gSpan (maxv 11, Muster bis 6 Kanten) |
+|---|---|---|---|---|---|
+| 0 | 422,5 | 153,6 | 199,8 | 219,8 | 257,5 |
+| 1 | 427,8 | 158,2 | 205,9 | 200,7 | 233,2 |
+| 2 | 433,7 | 159,4 | 212,2 | 209,0 | 258,5 |
 
-* **Starker Kompositionsvorteil auf echten Daten:** Kleben liegt 50-56 Bit (23-25%) unter Wachsen; auf Straßen/Kinships/Moleküle war es 0-7 Bit. Wachsen bleibt bei Mustern mit
-  3-6 Kanten hängen, Kleben findet Zellen bis zur Obergrenze von 12 Kanten.
+* **Kleben liegt 46-53 Bit (23-25%) unter Wachsen und 41-66 unter SUBDUE** und 75-105 unter gSpan; der Kompositionsvorteil bleibt auf echten Daten bestehen und ist hier der größte bisher.
+* **SUBDUE liegt im Bereich von Wachsen** (Streuung von Lauf zu Lauf ca. 10 Bit: bei Seed 0 gaben zwei Läufe 205,5, 219,8 und 225,2). Es findet Muster bis 26 Kanten, aber deren Auswahl und Instanzzählung sind schlechter.
+* **gSpan ist auf diesen Fenstern praktisch nicht anwendbar:** Mit Knotenlimit 26 und 17 (bond-as-node: ca. 12 bzw. 8 Kanten) und Support 20% brach der Lauf in jedem Seed nach 500-900 s ab (Zeitlimit); nur mit Knotenlimit 11 (Muster bis 6 Kanten) ergeben sich Zahlen. Das ist ein
+  Vergleich mit gSpan unter eingeschränkten Bedingungen; mit Limit-Muster bis 6 Kanten kann es die Zellen von bis zu 12 Kanten prinzipiell nicht abbilden.
 * **Produkt-Abschluss auf Gatterebene: kein Faktor gewählt**, also kein Effekt (erwartet, siehe oben).
-* **Kein Transfer auf andere Schaltungen** (c1355, c499, c880, c1908: Kleben 0-15 Bit besser als leer, Wachsen ähnlich): c6288-Zellen kommen dort nicht vor.
-* **Einschränkungen:** Eine einzige, extrem regelmäßige, von Hand entworfene Schaltung; BFS-Fenster überlappen (Trainings- und Testfenster derselben Schaltung sind nicht unabhängig, sie teilen
-  Zellen); Obergrenze 12 Kanten schneidet die Zelle vermutlich; kein Vergleich mit gSpan/SUBDUE/GraphMDL; der AIG-Multiplizierer (nur 4 Labels, viele symmetrische Einbettungen) war für den Lerner
-  zu langsam (über 20 Minuten ohne Ergebnis, abgebrochen).
+* **Kein Transfer auf andere Schaltungen** (c1355, c499, c880, c1908: Kleben 0-30 Bit besser als leer, ähnlich Wachsen): c6288-Zellen kommen dort nicht vor.
+* **Einschränkungen:** Eine einzige, extrem regelmäßige, von Hand entworfene Schaltung; BFS-Fenster überlappen (Trainings- und Testfenster derselben Schaltung teilen Zellen); Obergrenze 12 Kanten für unseren Lerner schneidet die Zelle vermutlich;
+  die Gegner wurden mit den vorhandenen Wrappern betrieben (greedy MDL-Auswahl der gSpan-Kandidaten, SUBDUE mit 20 Iterationen), ohne Parameter-Tuning; wir optimieren dieselbe Kostenfunktion, mit der wir messen (Heimvorteil).
+  Der AIG-Multiplizierer (nur 4 Labels) war für den Lerner zu langsam (über 20 Minuten, abgebrochen).
+* **Wichtig für die Straßen-Ergebnisse (1c, 1d):** Dort wurden Kanten nach Koordinatenreihenfolge orientiert und nicht als symmetrisch (`SYMS`) behandelt. Straßen sind ungerichtet; die Nullergebnisse zum Produkt-Abschluss
+  und die Beschriftungsergebnisse sind daher unter einer Orientierungs-Erschwernis entstanden und müssen mit symmetrischen Labels wiederholt werden (Vermerk, noch offen).
 * **Nächster Schritt (Vorschlag):** Zellebene. (1) Zell-Makro lernen (größeres `maxe`), (2) Netzliste mit dem Makro überdecken, (3) Quotientengraph (Knoten = Zellinstanz, Kante = Verdrahtung mit
   Port-Paar als Label), (4) darauf Klassen aus Quadraten, Fasern und Produkt-Abschluss wie in e17. Das wäre der eigentliche Test "Produkt von Zellen".
 
