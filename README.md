@@ -105,6 +105,8 @@ Real street data (src/streets.py, e19*.py): OSM roads of Spanish cities (from a 
 
 Shape x labeling model on streets (src/e20*.py): unlabelled shape dictionary + neighbour-context label coder beats labelled gluing by 3.6-8.4 bits per window (1.5-3.5%, 12/12 cases), but this is a generic context-model gain, not a presheaf advantage; "opposite edge in a square" gives nothing. See strategy.md, 1d.
 
+Chip netlists (src/netlist.py, e21.py): ISCAS85 c6288 (16x16 array multiplier) windows: gluing beats grow-by-one-edge by 50-56 bits (23-25%, 3 seeds), the largest composition effect on real data so far; no product factors at gate level (the cell lattice only exists after contracting cells). Data: github.com/ispras/hdl-benchmarks, EPFL arithmetic benchmarks. See strategy.md, 1e.
+
 ## Caveats
 
 * Our learner optimizes the same function that is used for evaluation (home advantage).
@@ -116,6 +118,7 @@ Shape x labeling model on streets (src/e20*.py): unlabelled shape dictionary + n
 ## Reproducing
 
 Street experiments additionally need `git clone https://github.com/amoraschi/spain-cities-geojson /tmp/dl/spain-cities-geojson` (path set in src/streets.py).
+Netlist experiments need `git clone https://github.com/ispras/hdl-benchmarks /tmp/dl/hdl-benchmarks` (and an EPFL benchmarks clone at /tmp/dl/benchmarks; see src/netlist.py).
 
 
 ```

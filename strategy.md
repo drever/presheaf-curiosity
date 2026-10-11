@@ -199,6 +199,35 @@ gegenüber dem, was man ohnehin täte (Re-Pair/gSpan/SUBDUE/GraphMDL mit MDL-Aus
 * **D. Gegner gleichstellen:** Beschriftungs- und Äquivalenzmodelle auch an SUBDUE/GraphMDL/gSpan anbauen, damit der Vergleich nicht an Zusatzmodellen hängt.
 * **E. Abbruchkriterium festlegen:** wenn A-C auf echten Daten ebenfalls keinen Vorsprung liefern, das Projekt als "Rahmen ja, Vorteil nein" dokumentieren.
 
+### Ergebnis Schritt 1e: Chip-Netzlisten (Datensuche und erste Messung), `src/netlist.py`, `src/e21.py`, `results/e21_*`
+
+**Datenfund** (nur GitHub und PyPI sind erreichbar): `ispras/hdl-benchmarks` (ISCAS85 `.bench` inkl. c6288 = 16x16-Array-Multiplizierer, LGSynth91, IWLS05, Quip-Designs wie
+Barrel-Shifter, Crossbar, Multiplexer) und `lsils`/`nbulsi` EPFL-Benchmarks (`arithmetic/*.blif`: adder, bar, multiplier, max, sin, square, sqrt, div, log2).
+Aufbereitung: Knoten = Signale/Gatter, Kante = Verdrahtung (ungerichtet), Label = Typpaar (Treiber, Senke) bzw. bei AIG (Quelle ist Eingang?, Eingang invertiert?).
+Komponenten = BFS-Fenster um zufällige Gatter (20 Knoten, mindestens 8 Kanten, mehrfache Überlappung möglich).
+
+**Produktstruktur auf Gatterebene:** Rohe 4-Zyklen sind selten und liegen meist **in** Zellen (z.B. XOR aus 4 NANDs in c1355, Gegenkanten fast immer gleich beschriftet),
+nicht zwischen Zellen. c6288: im Mittel 2,6 Quadrate pro 40-Kanten-Fenster. Das Gitter des Array-Multiplizierers (Volladdierer in einem Schrägraster, in
+schiefen Koordinaten ein Produkt zweier Pfade) existiert erst auf **Zellebene**, nicht auf Gatterebene.
+
+**Erste Messung (c6288, n=40 Fenster, 3 Seeds, Test = 100 ausgelassene Fenster derselben Schaltung; Testbits):**
+
+| Seed | leer | Kleben | Wachsen | Produkt-Abschluss (0 Faktoren gewählt) |
+|---|---|---|---|---|
+| 0 | 422,5 | 169,5 | 222,6 | 169,5 |
+| 1 | 427,8 | 152,9 | 209,1 | 152,9 |
+| 2 | 433,7 | 170,7 | 221,1 | 170,7 |
+
+* **Starker Kompositionsvorteil auf echten Daten:** Kleben liegt 50-56 Bit (23-25%) unter Wachsen; auf Straßen/Kinships/Moleküle war es 0-7 Bit. Wachsen bleibt bei Mustern mit
+  3-6 Kanten hängen, Kleben findet Zellen bis zur Obergrenze von 12 Kanten.
+* **Produkt-Abschluss auf Gatterebene: kein Faktor gewählt**, also kein Effekt (erwartet, siehe oben).
+* **Kein Transfer auf andere Schaltungen** (c1355, c499, c880, c1908: Kleben 0-15 Bit besser als leer, Wachsen ähnlich): c6288-Zellen kommen dort nicht vor.
+* **Einschränkungen:** Eine einzige, extrem regelmäßige, von Hand entworfene Schaltung; BFS-Fenster überlappen (Trainings- und Testfenster derselben Schaltung sind nicht unabhängig, sie teilen
+  Zellen); Obergrenze 12 Kanten schneidet die Zelle vermutlich; kein Vergleich mit gSpan/SUBDUE/GraphMDL; der AIG-Multiplizierer (nur 4 Labels, viele symmetrische Einbettungen) war für den Lerner
+  zu langsam (über 20 Minuten ohne Ergebnis, abgebrochen).
+* **Nächster Schritt (Vorschlag):** Zellebene. (1) Zell-Makro lernen (größeres `maxe`), (2) Netzliste mit dem Makro überdecken, (3) Quotientengraph (Knoten = Zellinstanz, Kante = Verdrahtung mit
+  Port-Paar als Label), (4) darauf Klassen aus Quadraten, Fasern und Produkt-Abschluss wie in e17. Das wäre der eigentliche Test "Produkt von Zellen".
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In
