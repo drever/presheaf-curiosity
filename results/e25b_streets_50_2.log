@@ -1,0 +1,1 @@
+streets 2 {"glue": {"k": 22, "dict": 451.4, "train_if": 9847.0, "total_per_window": 206.0}, "grow": {"k": 28, "dict": 537.8, "train_if": 9728.7, "total_per_window": 205.3}, "repair": {"k": 78, "dict": 1601.6, "train_if": 10323.5, "total_per_window": 238.5}}

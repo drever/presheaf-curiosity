@@ -301,6 +301,30 @@ Der Abstand glue–grow wächst von 39.8 auf 60.6 Bit: große Muster haben mehr 
 **Lesart.** (1) Das Interface-Kostenmodell ist ein echter, aber bescheidener Hebel: ~10–26 % auf c6288. (2) Es verstärkt den schon bekannten Vorteil des Verklebens auf c6288 (glue schlägt grow nun um ~61 statt ~40 Bit), aber nicht auf Straßen. (3) Vorbehalt: Das alte Schema (`#Knoten · log n` je Instanz) ist besonders großzügig gegenüber einem fairen Baseline-Kodierer, der innere Knoten ebenfalls implizit lässt; der Gewinn gilt also relativ zu *unserem* alten Modell, nicht relativ zu gRePair/SUBDUE (die Interfaces ohnehin haben). Ein fairer Vergleich mit einem Interface-fähigen Baseline-Miner fehlt. (4) Test A prüft nur Interface-Kosten; *echte Löcher* (Muster, in deren Loch verschiedene Teilmuster passen) sind weiter Test B/C im Review.
 Rohdaten: `results/e24*.json|log`.
 
+## 4d. Fairer Vergleich mit einem Interface-fähigen Baseline-Miner (gRePair-artig) – 12. Oktober 2026
+
+Code: `src/repair.py` (Baseline), `src/e25.py` (Held-out-Test), `src/e25b.py` (inkl. Wörterbuch), `src/chk_repair.py` (Verlustfreiheit). Baseline: RePair auf Graphen nach Maneth et al.; Digramm = zwei Hyperkanten mit gemeinsamem Knoten, ersetzt durch eine Nichtterminal-Hyperkante, an der nur Knoten mit Kanten außerhalb des Digramms hängen (innere Knoten verschwinden); greedy nach MDL-Gewinn über alle Trainingsfenster, Regeln werden auf Testfenster in Reihenfolge wiederholt. Gleiches Kostenmodell (Terminalkante `2 log n + log R`, Nichtterminal `log(|D|+1) + Rang·log n`, Regel ≈ 24 Bit). Eigene Nachbildung nach der Beschreibung, **nicht** der Originalcode, **ohne** Regel-Pruning und ohne die Knotenreihenfolge-Optimierung von gRePair. Verlustfreiheit geprüft: Expansion der komprimierten Fenster ist isomorph zum Original (20/20, c6288). Gleiche Fenster wie in Test A (gleiche Seeds); Etikettnummern können zwischen Läufen wegen Hash-Reihenfolge leicht variieren (±3 Bit).
+
+**Neue Fenster, Bit/Fenster ohne Wörterbuch (Mittel über 3 Seeds):**
+
+| | glue (Interface) | grow (Interface) | RePair |
+|---|---|---|---|
+| c6288, neue Fenster | 116.2* | 176.8* | 169.3 |
+| Barcelona | 207.9 | 209.4 | 235.1 |
+| Madrid | 208.8 | 208.3 | 236.6 |
+| Zaragoza | 167.2 | 168.5 | 189.6 |
+| Sevilla | 206.8 | 205.4 | 230.1 |
+
+*c6288: Neu-Kodierung der Wörterbücher aus Test A (3 Seeds), „in" = neu gezogene Fenster derselben Schaltung. Fremde Schaltungen: alle Methoden ≈ unkomprimiert (RePair c1355 417, c499 314, c880 328, c1908 386).
+
+**Mit Wörterbuch (Trainingsfenster + Wörterbuch pro Fenster; c6288 nur 2 Seeds, Seed 2 lief zu lange und wurde abgebrochen; Straßen 3 Seeds):** c6288 glue 122.4, grow 197.7, RePair 183.4; Straßen glue 210.6, grow 212.2, RePair 240.9. RePair lernt 60–80 Regeln (Wörterbuch 1.4–1.6 kbit gegenüber 0.2–0.7 kbit bei glue/grow). Bei Straßen stößt die Regelzahl an die Obergrenze 80; mit Obergrenze 300 (Seed 0) sind es 93 Regeln und die Kosten auf neuen Fenstern gleich (239.9 vs. 239.8), also kein Abschneideartefakt.
+
+**Lesart.**
+1. c6288: Unter fairem Interface-Kostenmodell bleibt glue um ca. 53 Bit (31 %) besser als die gRePair-artige Baseline; die Baseline liegt knapp unter grow-by-one (169 vs. 177). Der Vorteil des Verklebens auf Schaltungen ist also nicht nur ein Artefakt des alten, großzügigen Kostenmodells. Einschränkung: meine Baseline ist vermutlich schwächer als das Original (kein Pruning) und baut große Muster nur über viele Rekursionsstufen.
+2. Straßen: glue ≈ grow, beide ca. 27 Bit besser als die Baseline. Das spricht nicht für das Verkleben, sondern zeigt Überanpassung der Baseline (80 Regeln); mit Regel-Pruning würde sie besser, die Größe des verbleibenden Abstands ist unsicher.
+3. Offen: Original-gRePair und SUBDUE-mit-Interface wurden nicht gegengeprüft.
+Rohdaten: `results/e25*.json|log`.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In

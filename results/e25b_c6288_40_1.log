@@ -1,0 +1,1 @@
+c6288 1 {"glue": {"k": 25, "dict": 545.9, "train_if": 4430.6, "total_per_window": 124.4}, "grow": {"k": 7, "dict": 185.2, "train_if": 7982.9, "total_per_window": 204.2}, "repair": {"k": 68, "dict": 1576.6, "train_if": 5547.0, "total_per_window": 178.1}}
