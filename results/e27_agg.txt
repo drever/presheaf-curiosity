@@ -1,0 +1,13 @@
+fh   pf   pd   nseeds | held-out bits/window (amortised +dict/100)
+ 0.0   0.0   0.0 5 | none: 282.7( 282.7) exact: 110.8( 117.0) shape_raw: 192.4( 194.3) AU: 122.8( 132.5) AU_oracle: 119.2( 126.1) repair: 153.2( 165.2) | exact-AU -12.0 min -19.0
+ 0.0   0.0  0.05 5 | none: 271.7( 271.7) exact: 128.6( 135.5) shape_raw: 194.6( 196.7) AU: 140.0( 156.7) AU_oracle: 156.7( 164.0) repair: 164.7( 176.9) | exact-AU -11.5 min -17.6
+ 0.0  0.05   0.0 5 | none: 283.4( 283.4) exact: 139.5( 146.7) shape_raw: 190.8( 192.7) AU: 126.8( 140.2) AU_oracle: 125.8( 134.9) repair: 175.6( 186.7) | exact-AU  12.6 min   5.8
+ 0.0   0.1   0.0 5 | none: 282.7( 282.7) exact: 161.4( 169.1) shape_raw: 191.0( 193.0) AU: 133.0( 149.1) AU_oracle: 131.9( 143.7) repair: 185.0( 196.0) | exact-AU  28.3 min  24.5
+ 0.3   0.0   0.0 5 | none: 282.8( 282.8) exact: 161.4( 170.8) shape_raw: 192.0( 194.1) AU: 130.9( 145.2) AU_oracle: 127.8( 137.6) repair: 187.8( 199.2) | exact-AU  30.5 min  10.0
+ 0.3   0.0  0.05 5 | none: 272.5( 272.5) exact: 173.0( 182.1) shape_raw: 196.1( 198.1) AU: 151.2( 172.5) AU_oracle: 160.7( 169.8) repair: 197.6( 208.2) | exact-AU  21.8 min   2.2
+ 0.3  0.05   0.0 5 | none: 282.5( 282.5) exact: 189.3( 198.6) shape_raw: 191.8( 194.0) AU: 137.0( 154.2) AU_oracle: 134.7( 146.6) repair: 207.0( 217.3) | exact-AU  52.3 min  32.0
+ 0.3   0.1   0.0 5 | none: 282.8( 282.8) exact: 206.3( 214.5) shape_raw: 192.5( 194.5) AU: 143.8( 163.4) AU_oracle: 142.4( 156.8) repair: 215.2( 224.9) | exact-AU  62.5 min  45.7
+ 0.6   0.0   0.0 5 | none: 282.5( 282.5) exact: 214.3( 223.6) shape_raw: 191.3( 193.3) AU: 137.9( 154.3) AU_oracle: 137.7( 149.4) repair: 223.0( 233.2) | exact-AU  76.5 min  58.0
+ 0.6   0.0  0.05 5 | none: 271.7( 271.7) exact: 215.2( 224.2) shape_raw: 193.9( 196.0) AU: 155.1( 178.3) AU_oracle: 166.4( 177.9) repair: 225.6( 235.3) | exact-AU  60.1 min  46.9
+ 0.6  0.05   0.0 5 | none: 282.6( 282.6) exact: 225.1( 233.8) shape_raw: 194.7( 196.7) AU: 150.6( 170.5) AU_oracle: 143.9( 158.6) repair: 231.5( 240.9) | exact-AU  74.5 min  57.0
+ 0.6   0.1   0.0 5 | none: 282.3( 282.3) exact: 238.7( 246.3) shape_raw: 190.1( 192.1) AU: 147.1( 167.9) AU_oracle: 145.4( 161.7) repair: 241.7( 250.9) | exact-AU  91.6 min  78.2

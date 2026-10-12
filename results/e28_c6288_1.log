@@ -1,0 +1,4 @@
+c6288 1 exact {'held': {'in': 121.4}, 'dict': 534.0, 'k': 25, 'amort': 126.7, 'mean': 121.4}
+c6288 1 shape_raw {'held': {'in': 257.3}, 'dict': 235.7, 'k': 13, 'amort': 259.6, 'mean': 257.3}
+c6288 1 AU {'held': {'in': 119.5}, 'dict': 1350.6, 'k': 13, 'amort': 133.0, 'mean': 119.5}
+c6288 1 repair {'held': {'in': 165.2}, 'dict': 1360.6, 'k': 59, 'amort': 178.9, 'mean': 165.2}

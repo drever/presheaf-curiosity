@@ -1,0 +1,4 @@
+streets 0 exact {'held': {'in': 210.9, 'madrid': 200.0, 'zaragoza': 170.8, 'sevilla': 220.1}, 'dict': 422.0, 'k': 21, 'amort': 204.7, 'mean': 200.4}
+streets 0 shape_raw {'held': {'in': 224.3, 'madrid': 213.7, 'zaragoza': 188.4, 'sevilla': 242.0}, 'dict': 186.2, 'k': 10, 'amort': 218.9, 'mean': 217.1}
+streets 0 AU {'held': {'in': 211.9, 'madrid': 202.6, 'zaragoza': 176.0, 'sevilla': 228.6}, 'dict': 1913.0, 'k': 10, 'amort': 223.9, 'mean': 204.7}
+streets 0 repair {'held': {'in': 234.7, 'madrid': 222.6, 'zaragoza': 195.2, 'sevilla': 242.6}, 'dict': 1693.1, 'k': 82, 'amort': 240.7, 'mean': 223.8}

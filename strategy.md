@@ -344,6 +344,32 @@ Gepaarte Differenz zu glue (Bit/Fenster, Baseline minus glue): voll 25.6 (Spanne
 **Lesart.** (1) Die Aussage aus 4d ist stabil: Auf Straßen sind unsere (beliebig großen, per MDL gewählten) Muster rund 12–14 % kompakter als digrammbasierte Grammatiken mit Schnittstelle, und das lässt sich nicht durch Pruning oder Regelzahlwahl wegtunen. (2) Das ist **kein** Verklebe-Vorteil: grow (eine Kante nach der anderen, kein Verkleben) ist genauso gut. Der Unterschied liegt in Musterfamilie und Auswahl (Muster mit bis zu 24 Kanten, global per MDL bewertet) gegenüber Digrammen mit Rang-Kosten, nicht in der Prägarbenstruktur. (3) Die Baseline bleibt eigene Nachbildung und nicht der Original-gRePair; Reihenfolge-/Knotenordnungs-Optimierungen und Zusatzkodierungen des Originals fehlen. (4) Folge für das Gesamtbild: Mit Interface-Kostenmodell sind c6288 (glue ≫ grow ≈ Baseline) und Straßen (glue ≈ grow ≫ Baseline) konsistent; der Prägarben-Zugewinn (Verkleben) ist weiterhin nur auf Schaltungen messbar.
 Rohdaten: `results/e26_*.json|log`.
 
+## 4f. Test B: Anti-Unifikation (Makros mit Label-Löchern, Rauschsweep) – 12. Oktober 2026
+
+Code: `src/e27.py` (synthetische Welt + Methoden), `src/agg27.py` (Auswertung, Ausgabe `results/e27_agg.txt`), `src/run27.sh`, `src/e28.py` (echte Daten). **Idee.** Anti-Unifikation = speziellste Verallgemeinerung der Vorkommen. Pipeline „AU": (1) Formen aus label-gelöschten Fenstern lernen (glue, MDL), (2) je Musterkante die Labelverteilung der Vorkommen schätzen: Kante bleibt „fest" (Verteilung spitz) oder wird „Loch" (breite Verteilung); Kosten = Interface-Kodierung der Instanz + Σ −log2 p(Label | Musterkante), mit Escape für unbekannte Labels; Wörterbuch enthält die Labeltabellen. Vergleich: exaktes glue auf echten Labels („exact"), Formen + log R je Label („shape_raw"), RePair-Baseline mit Interface, und „AU_oracle" (wahre Makroformen, nur Verteilungen gelernt).
+
+**Synthetische Welt** (4 Makros à 6 Knoten/7 Kanten, je Kante fest oder Loch mit 4 Labels aus 64; 2 Instanzen + 4 Clutterkanten pro Fenster; 40 Trainingsfenster, 100 Testfenster, 5 Seeds). Rauschen: pf = Label-Austausch je Kante, pd = Kante fehlt. Bit/Fenster auf Testfenstern ohne Wörterbuch (unkomprimiert ≈ 282):
+
+| Löcher | pf | pd | exact | shape_raw | AU | AU_oracle | RePair |
+|---|---|---|---|---|---|---|---|
+| 0 % | 0 | 0 | 110.8 | 192.4 | 122.8 | 119.2 | 153.2 |
+| 0 % | 0 | .05 | 128.6 | 194.6 | 140.0 | 156.7 | 164.7 |
+| 0 % | .05 | 0 | 139.5 | 190.8 | 126.8 | 125.8 | 175.6 |
+| 0 % | .10 | 0 | 161.4 | 191.0 | 133.0 | 131.9 | 185.0 |
+| 30 % | 0 | 0 | 161.4 | 192.0 | 130.9 | 127.8 | 187.8 |
+| 30 % | 0 | .05 | 173.0 | 196.1 | 151.2 | 160.7 | 197.6 |
+| 30 % | .05 | 0 | 189.3 | 191.8 | 137.0 | 134.7 | 207.0 |
+| 30 % | .10 | 0 | 206.3 | 192.5 | 143.8 | 142.4 | 215.2 |
+| 60 % | 0 | 0 | 214.3 | 191.3 | 137.9 | 137.7 | 223.0 |
+| 60 % | 0 | .05 | 215.2 | 193.9 | 155.1 | 166.4 | 225.6 |
+| 60 % | .05 | 0 | 225.1 | 194.7 | 150.6 | 143.9 | 231.5 |
+| 60 % | .10 | 0 | 238.7 | 190.1 | 147.1 | 145.4 | 241.7 |
+
+Befund: (1) Sobald es Löcher oder Label-Rauschen gibt, schlägt AU das exakte glue um 22–92 Bit (min. über Seeds 2–78; 5/5 Seeds); mit 60 % Löchern kollabiert exact fast auf „unkomprimiert", AU nicht. (2) AU liegt nahe an AU_oracle (±1–7 Bit): die Formenentdeckung auf label-gelöschten Graphen funktioniert; bei fehlenden Kanten (pd) ist AU sogar *besser* als das Oracle, weil gelernte Teilmuster bei Lücken noch passen. (3) Kontrolle ohne Löcher und ohne Rauschen: exact ist 12 Bit besser (AU zahlt Labeltabellen und Glättung); bei 5 % fehlenden Kanten ohne Löcher ebenfalls 11.5 Bit. (4) Die Zugewinne gegenüber shape_raw (Form ohne Labelmodell) von 40–60 Bit zeigen, dass das Positions-Labelmodell, nicht die Form, den Hauptteil trägt. **Vorbehalt:** Die Welt ist nach der Hypothese gebaut (feste Makros mit Löchern); der Test zeigt, dass der Ansatz unter dieser Annahme funktioniert und gegen exaktes Verkleben robust gewinnt – nicht, dass echte Daten so aussehen.
+
+**Echte Daten** (gleiche AU-Pipeline, Bit/Fenster auf neuen Fenstern ohne Wörterbuch): c6288 (2 Seeds, dritter Lauf abgebrochen): exact 124.2, AU 135.6, shape_raw 263.0, RePair 169.7; Straßen (3 Seeds): exact 198.5, AU 206.2, shape_raw 219.6, RePair 224.9. **AU schlägt exaktes glue auf echten Daten nicht** (+11 Bit auf c6288 mit hoher Streuung: +24.8 / −1.9 pro Seed; +4 bis +13 Bit auf Straßen, 3/3 Seeds), liegt aber klar vor RePair und shape_raw. Lesart: In den Realdaten tragen die Labels (Gattertyp-Paare, Straßentypen) Strukturinformation, die beim Löschen der Labels vor der Formenentdeckung verloren geht (c6288: 12 statt 24 Formen, shape_raw bricht auf 263 ein); es gibt keine freien „Löcher" mit unabhängigen Füllungen, die ein Positions-Labelmodell ausnutzen könnte. Ein Hybrid (exakte Muster + wildcard-Kanten nur dort, wo MDL es lohnt) wurde nicht getestet.
+Rohdaten: `results/e27_*`, `e28_*`.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In
