@@ -139,3 +139,5 @@ python e8.py nosym 0 && python e10.py sym 0
 Test A (macros with interface, src/iface.py, e24*.py): charging instances only for boundary vertices saves ~41 bits (26%) for glue and ~20 bits (10%) for grow on c6288 windows (3 seeds, re-costed dictionaries); on streets ~21-26 bits for both, i.e. a generic coding gain. See strategy.md, 4c.
 
 Baseline with interfaces (src/repair.py, e25*.py; gRePair-like digram replacement, own re-implementation): on c6288 glue with interface coding stays ~53 bits (31%) better than the baseline, which lands just under grow-by-one; on streets glue ~ grow and both ~27 bits better than the (overfitting) baseline. See strategy.md, 4d.
+
+Street numbers made robust (src/e26.py, agg26.py; 5 seeds, baseline with pruning and validation-tuned rule count): every baseline variant stays 25-31 bits (12-14%) behind glue on held-out windows in all seeds and cities; glue and grow are equal (grow better by 2.7 bits on average), so this is a pattern-family/selection effect, not a gluing advantage. See strategy.md, 4e.

@@ -325,6 +325,25 @@ Code: `src/repair.py` (Baseline), `src/e25.py` (Held-out-Test), `src/e25b.py` (i
 3. Offen: Original-gRePair und SUBDUE-mit-Interface wurden nicht gegengeprüft.
 Rohdaten: `results/e25*.json|log`.
 
+## 4e. Straßenzahlen belastbar (Baseline gestärkt, 5 Seeds) – 12. Oktober 2026
+
+Code: `src/e26.py` (Lauf), `src/agg26.py` (Auswertung), Pruning in `src/repair.py`. Aufbau: Barcelona-Trainingsfenster (50), Validierungsfenster (30), neue Fenster 4 Städte (je 100); 5 Seeds mit neuen Fensterziehungen; symmetrische Kanten; alle Methoden auf denselben Fenstern. Die Baseline wurde in drei Richtungen gestärkt: (a) Regelobergrenze 300 statt 80, (b) **Pruning** (Blattregeln mit negativem Nettogewinn werden entfernt, wiederholt), (c) **Regelzahl auf Validierungsfenstern gewählt** (Präfix der Regelliste, Kriterium: Validierungskosten + Wörterbuch/100) – (c) nutzt Fenster derselben Stadt zur Abstimmung und ist damit großzügig für die Baseline.
+
+| Methode (Mittel über 5 Seeds) | Regeln | Wörterbuch (Bit) | neue Fenster, Bit/Fenster (sd) | + Wörterbuch/100 |
+|---|---|---|---|---|
+| unkomprimiert | – | – | 343.6 | – |
+| glue (Interface) | 20 | 419 | 201.5 (5.6) | 205.7 |
+| grow (Interface) | 24 | 461 | 198.8 (5.7) | 203.4 |
+| RePair voll | 86 | 1791 | 227.1 (5.4) | 245.0 |
+| RePair + Pruning | 67 | 1345 | 229.9 (4.5) | 243.3 |
+| RePair, Regelzahl validiert | 56 | 1111 | 228.7 (6.4) | 239.8 |
+| RePair, Pruning + validiert | 45 | 883 | 232.3 (5.3) | 241.2 |
+
+Gepaarte Differenz zu glue (Bit/Fenster, Baseline minus glue): voll 25.6 (Spanne 21.4–30.6), Pruning 28.4, validiert 27.2 (24.1–33.4), beides 30.8; inklusive Wörterbuch/100: 34–39. **In allen 5 Seeds und allen 4 Städten (min 19.6 Bit) liegt jede Baseline-Variante hinter glue.** glue gegen grow: grow − glue = −2.7 Bit (4 von 5 Seeds grow etwas besser; Streuung 3–5 Bit), also gleichauf.
+
+**Lesart.** (1) Die Aussage aus 4d ist stabil: Auf Straßen sind unsere (beliebig großen, per MDL gewählten) Muster rund 12–14 % kompakter als digrammbasierte Grammatiken mit Schnittstelle, und das lässt sich nicht durch Pruning oder Regelzahlwahl wegtunen. (2) Das ist **kein** Verklebe-Vorteil: grow (eine Kante nach der anderen, kein Verkleben) ist genauso gut. Der Unterschied liegt in Musterfamilie und Auswahl (Muster mit bis zu 24 Kanten, global per MDL bewertet) gegenüber Digrammen mit Rang-Kosten, nicht in der Prägarbenstruktur. (3) Die Baseline bleibt eigene Nachbildung und nicht der Original-gRePair; Reihenfolge-/Knotenordnungs-Optimierungen und Zusatzkodierungen des Originals fehlen. (4) Folge für das Gesamtbild: Mit Interface-Kostenmodell sind c6288 (glue ≫ grow ≈ Baseline) und Straßen (glue ≈ grow ≫ Baseline) konsistent; der Prägarben-Zugewinn (Verkleben) ist weiterhin nur auf Schaltungen messbar.
+Rohdaten: `results/e26_*.json|log`.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In

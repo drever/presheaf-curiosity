@@ -108,3 +108,33 @@ def cost(comps, rules, R, syms):
     return s / len(comps)
 
 def dict_cost(rules, R): return sum(rule_bits(k, R, i) for i, k in enumerate(rules))
+
+# ---- Pruning (gRePair-artig): Blattregeln mit negativem Nettogewinn entfernen ----
+def _remap(rules, drop):
+    new = {}; c = 0
+    for j in range(len(rules)):
+        if j not in drop: new[j] = c; c += 1
+    def lab(l): return ('n', new[l[1]]) if l[0] == 'n' else l
+    return [((lab(k[0][0]), k[0][1], lab(k[0][2]), k[0][3]), k[1]) for j, k in enumerate(rules) if j not in drop]
+
+def prune(train, rules, R, syms, nlog):
+    rules = list(rules)
+    while True:
+        ND = len(rules)
+        refs = collections.Counter()
+        for k in rules:
+            for l in (k[0][0], k[0][2]):
+                if l[0] == 'n': refs[l[1]] += 1
+        use = collections.Counter()
+        for c in train:
+            for lab, ns in compress(c, rules, R, syms):
+                if lab[0] == 'n': use[lab[1]] += 1
+        drop = set()
+        for j, k in enumerate(rules):
+            if refs[j]: continue
+            rank = sum(k[1])
+            b = sum((2 * nlog + LOG(R)) if l[0] == 't' else (LOG(ND + 1) + 2 * nlog) for l in (k[0][0], k[0][2]))
+            a = LOG(ND + 1) + rank * nlog
+            if use[j] * (b - a) - rule_bits(k, R, ND) <= 0: drop.add(j)
+        if not drop: return rules
+        rules = _remap(rules, drop)

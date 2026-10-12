@@ -1,0 +1,6 @@
+2 glue {'k': 22, 'dict': 460.1, 'time': 59, 'barcelona': 219.4, 'madrid': 203.5, 'zaragoza': 158.3, 'sevilla': 223.3, 'mean': 201.1, 'amortised': 205.7}
+2 grow {'k': 29, 'dict': 561.4, 'time': 72, 'barcelona': 216.4, 'madrid': 202.2, 'zaragoza': 157.4, 'sevilla': 220.0, 'mean': 199.0, 'amortised': 204.6}
+2 rp_full {'k': 100, 'dict': 2110.9, 'time': 3, 'barcelona': 250.4, 'madrid': 236.3, 'zaragoza': 184.0, 'sevilla': 256.0, 'mean': 231.7, 'amortised': 252.8}
+2 rp_prune {'k': 76, 'dict': 1556.1, 'time': 24, 'barcelona': 251.4, 'madrid': 240.1, 'zaragoza': 184.4, 'sevilla': 259.5, 'mean': 233.9, 'amortised': 249.4}
+2 rp_val {'k': 60, 'dict': 1197.1, 'time': 0, 'barcelona': 253.6, 'madrid': 239.2, 'zaragoza': 186.0, 'sevilla': 259.5, 'mean': 234.6, 'amortised': 246.5}
+2 rp_prune_val {'k': 60, 'dict': 1197.1, 'time': 0, 'barcelona': 253.0, 'madrid': 239.9, 'zaragoza': 184.4, 'sevilla': 260.1, 'mean': 234.3, 'amortised': 246.3}
