@@ -1,0 +1,240 @@
+syn_0_0.0_0.0_0.0 exact {'dict': 626.2, 'k': 24, 'mean': 110.2, 'amort': 116.5}
+syn_0_0.0_0.0_0.0 AU {'dict': 1133.1, 'k': 13, 'mean': 119.8, 'amort': 131.2}
+syn_0_0.0_0.0_0.0 hybrid {'dict': 759.5, 'k': 11, 'mean': 108.0, 'amort': 115.6, 'k_exact': 10, 'k_shape': 1}
+syn_0_0.0_0.0_0.0 time 10
+syn_3_0.0_0.0_0.0 exact {'dict': 610.8, 'k': 24, 'mean': 110.0, 'amort': 116.1}
+syn_3_0.0_0.0_0.0 AU {'dict': 1112.0, 'k': 14, 'mean': 123.0, 'amort': 134.1}
+syn_3_0.0_0.0_0.0 hybrid {'dict': 903.2, 'k': 15, 'mean': 109.7, 'amort': 118.7, 'k_exact': 10, 'k_shape': 5}
+syn_3_0.0_0.0_0.0 time 11
+syn_0_0.05_0.0_0.0 exact {'dict': 870.1, 'k': 34, 'mean': 140.7, 'amort': 149.4}
+syn_0_0.05_0.0_0.0 AU {'dict': 1476.6, 'k': 13, 'mean': 128.3, 'amort': 143.1}
+syn_0_0.05_0.0_0.0 hybrid {'dict': 1665.6, 'k': 14, 'mean': 117.3, 'amort': 134.0, 'k_exact': 6, 'k_shape': 8}
+syn_0_0.05_0.0_0.0 time 12
+syn_3_0.05_0.0_0.0 exact {'dict': 764.9, 'k': 31, 'mean': 138.3, 'amort': 145.9}
+syn_3_0.05_0.0_0.0 AU {'dict': 1187.3, 'k': 11, 'mean': 132.5, 'amort': 144.4}
+syn_3_0.05_0.0_0.0 hybrid {'dict': 1422.8, 'k': 12, 'mean': 116.6, 'amort': 130.8, 'k_exact': 7, 'k_shape': 5}
+syn_3_0.05_0.0_0.0 time 10
+syn_0_0.1_0.0_0.0 exact {'dict': 753.1, 'k': 30, 'mean': 161.7, 'amort': 169.2}
+syn_0_0.1_0.0_0.0 AU {'dict': 1511.5, 'k': 13, 'mean': 128.0, 'amort': 143.1}
+syn_0_0.1_0.0_0.0 hybrid {'dict': 1715.5, 'k': 15, 'mean': 124.9, 'amort': 142.1, 'k_exact': 7, 'k_shape': 8}
+syn_0_0.1_0.0_0.0 time 12
+syn_3_0.1_0.0_0.0 exact {'dict': 755.0, 'k': 31, 'mean': 170.0, 'amort': 177.6}
+syn_3_0.1_0.0_0.0 AU {'dict': 1815.6, 'k': 14, 'mean': 143.8, 'amort': 162.0}
+syn_3_0.1_0.0_0.0 hybrid {'dict': 1986.2, 'k': 13, 'mean': 128.0, 'amort': 147.9, 'k_exact': 4, 'k_shape': 9}
+syn_3_0.1_0.0_0.0 time 13
+syn_0_0.0_0.05_0.0 exact {'dict': 713.3, 'k': 29, 'mean': 123.9, 'amort': 131.0}
+syn_0_0.0_0.05_0.0 AU {'dict': 2013.4, 'k': 15, 'mean': 137.0, 'amort': 157.1}
+syn_0_0.0_0.05_0.0 hybrid {'dict': 1305.3, 'k': 31, 'mean': 121.0, 'amort': 134.0, 'k_exact': 23, 'k_shape': 8}
+syn_0_0.0_0.05_0.0 time 12
+syn_3_0.0_0.05_0.0 exact {'dict': 704.1, 'k': 28, 'mean': 133.2, 'amort': 140.2}
+syn_3_0.0_0.05_0.0 AU {'dict': 1674.7, 'k': 13, 'mean': 143.2, 'amort': 160.0}
+syn_3_0.0_0.05_0.0 hybrid {'dict': 1337.3, 'k': 31, 'mean': 129.1, 'amort': 142.4, 'k_exact': 21, 'k_shape': 10}
+syn_3_0.0_0.05_0.0 time 11
+syn_0_0.0_0.0_0.3 exact {'dict': 926.3, 'k': 36, 'mean': 131.5, 'amort': 140.7}
+syn_0_0.0_0.0_0.3 AU {'dict': 1018.8, 'k': 11, 'mean': 121.5, 'amort': 131.7}
+syn_0_0.0_0.0_0.3 hybrid {'dict': 1513.0, 'k': 15, 'mean': 114.7, 'amort': 129.8, 'k_exact': 11, 'k_shape': 4}
+syn_0_0.0_0.0_0.3 time 11
+syn_3_0.0_0.0_0.3 exact {'dict': 965.7, 'k': 40, 'mean': 176.4, 'amort': 186.1}
+syn_3_0.0_0.0_0.3 AU {'dict': 1939.5, 'k': 14, 'mean': 136.7, 'amort': 156.1}
+syn_3_0.0_0.0_0.3 hybrid {'dict': 1798.1, 'k': 19, 'mean': 128.0, 'amort': 146.0, 'k_exact': 8, 'k_shape': 11}
+syn_3_0.0_0.0_0.3 time 15
+syn_0_0.05_0.0_0.3 exact {'dict': 854.1, 'k': 34, 'mean': 171.5, 'amort': 180.1}
+syn_0_0.05_0.0_0.3 AU {'dict': 1449.7, 'k': 12, 'mean': 132.8, 'amort': 147.3}
+syn_0_0.05_0.0_0.3 hybrid {'dict': 2041.0, 'k': 16, 'mean': 126.3, 'amort': 146.7, 'k_exact': 9, 'k_shape': 7}
+syn_0_0.05_0.0_0.3 time 11
+syn_3_0.05_0.0_0.3 exact {'dict': 928.0, 'k': 38, 'mean': 204.7, 'amort': 214.0}
+syn_3_0.05_0.0_0.3 AU {'dict': 1458.9, 'k': 13, 'mean': 136.1, 'amort': 150.7}
+syn_3_0.05_0.0_0.3 hybrid {'dict': 1747.9, 'k': 11, 'mean': 134.2, 'amort': 151.6, 'k_exact': 5, 'k_shape': 6}
+syn_3_0.05_0.0_0.3 time 14
+syn_0_0.1_0.0_0.3 exact {'dict': 764.2, 'k': 31, 'mean': 185.9, 'amort': 193.5}
+syn_0_0.1_0.0_0.3 AU {'dict': 1637.9, 'k': 12, 'mean': 140.2, 'amort': 156.6}
+syn_0_0.1_0.0_0.3 hybrid {'dict': 1989.2, 'k': 17, 'mean': 134.6, 'amort': 154.5, 'k_exact': 8, 'k_shape': 9}
+syn_0_0.1_0.0_0.3 time 11
+syn_3_0.1_0.0_0.3 exact {'dict': 868.7, 'k': 35, 'mean': 214.1, 'amort': 222.8}
+syn_3_0.1_0.0_0.3 AU {'dict': 2189.8, 'k': 13, 'mean': 150.9, 'amort': 172.8}
+syn_3_0.1_0.0_0.3 hybrid {'dict': 2289.6, 'k': 12, 'mean': 141.1, 'amort': 164.0, 'k_exact': 3, 'k_shape': 9}
+syn_3_0.1_0.0_0.3 time 13
+syn_0_0.0_0.05_0.3 exact {'dict': 936.2, 'k': 37, 'mean': 148.3, 'amort': 157.6}
+syn_0_0.0_0.05_0.3 AU {'dict': 1706.4, 'k': 10, 'mean': 145.8, 'amort': 162.8}
+syn_0_0.0_0.05_0.3 hybrid {'dict': 1699.8, 'k': 27, 'mean': 136.1, 'amort': 153.1, 'k_exact': 19, 'k_shape': 8}
+syn_0_0.0_0.05_0.3 time 11
+syn_0_0.0_0.0_0.6 exact {'dict': 963.2, 'k': 40, 'mean': 187.0, 'amort': 196.6}
+syn_0_0.0_0.0_0.6 AU {'dict': 1420.8, 'k': 11, 'mean': 129.0, 'amort': 143.2}
+syn_0_0.0_0.0_0.6 hybrid {'dict': 2055.4, 'k': 16, 'mean': 126.9, 'amort': 147.4, 'k_exact': 8, 'k_shape': 8}
+syn_0_0.0_0.0_0.6 time 13
+syn_3_0.0_0.05_0.3 exact {'dict': 917.7, 'k': 39, 'mean': 189.9, 'amort': 199.1}
+syn_3_0.0_0.05_0.3 AU {'dict': 2421.6, 'k': 16, 'mean': 145.6, 'amort': 169.8}
+syn_3_0.0_0.05_0.3 hybrid {'dict': 2375.4, 'k': 24, 'mean': 140.3, 'amort': 164.1, 'k_exact': 12, 'k_shape': 12}
+syn_3_0.0_0.05_0.3 time 18
+syn_0_0.05_0.0_0.6 exact {'dict': 889.0, 'k': 38, 'mean': 202.9, 'amort': 211.8}
+syn_0_0.05_0.0_0.6 AU {'dict': 1899.1, 'k': 12, 'mean': 145.9, 'amort': 164.9}
+syn_0_0.05_0.0_0.6 hybrid {'dict': 2111.5, 'k': 15, 'mean': 136.2, 'amort': 157.3, 'k_exact': 8, 'k_shape': 7}
+syn_0_0.05_0.0_0.6 time 14
+syn_3_0.0_0.0_0.6 exact {'dict': 984.8, 'k': 40, 'mean': 222.5, 'amort': 232.4}
+syn_3_0.0_0.0_0.6 AU {'dict': 1844.6, 'k': 16, 'mean': 145.9, 'amort': 164.3}
+syn_3_0.0_0.0_0.6 hybrid {'dict': 1705.5, 'k': 11, 'mean': 140.4, 'amort': 157.4, 'k_exact': 2, 'k_shape': 9}
+syn_3_0.0_0.0_0.6 time 17
+syn_0_0.1_0.0_0.6 exact {'dict': 842.4, 'k': 34, 'mean': 226.0, 'amort': 234.4}
+syn_0_0.1_0.0_0.6 AU {'dict': 2271.6, 'k': 14, 'mean': 147.8, 'amort': 170.5}
+syn_0_0.1_0.0_0.6 hybrid {'dict': 2321.4, 'k': 15, 'mean': 142.1, 'amort': 165.3, 'k_exact': 5, 'k_shape': 10}
+syn_0_0.1_0.0_0.6 time 14
+syn_3_0.05_0.0_0.6 exact {'dict': 876.1, 'k': 35, 'mean': 238.2, 'amort': 247.0}
+syn_3_0.05_0.0_0.6 AU {'dict': 1858.4, 'k': 14, 'mean': 153.1, 'amort': 171.7}
+syn_3_0.05_0.0_0.6 hybrid {'dict': 1781.2, 'k': 12, 'mean': 144.3, 'amort': 162.1, 'k_exact': 5, 'k_shape': 7}
+syn_3_0.05_0.0_0.6 time 14
+syn_0_0.0_0.05_0.6 exact {'dict': 875.8, 'k': 36, 'mean': 194.3, 'amort': 203.0}
+syn_0_0.0_0.05_0.6 AU {'dict': 1960.4, 'k': 13, 'mean': 147.3, 'amort': 166.9}
+syn_0_0.0_0.05_0.6 hybrid {'dict': 2108.5, 'k': 24, 'mean': 145.4, 'amort': 166.5, 'k_exact': 11, 'k_shape': 13}
+syn_0_0.0_0.05_0.6 time 13
+syn_3_0.1_0.0_0.6 exact {'dict': 714.4, 'k': 29, 'mean': 241.3, 'amort': 248.5}
+syn_3_0.1_0.0_0.6 AU {'dict': 1824.0, 'k': 13, 'mean': 142.5, 'amort': 160.8}
+syn_3_0.1_0.0_0.6 hybrid {'dict': 1736.6, 'k': 8, 'mean': 139.5, 'amort': 156.9, 'k_exact': 2, 'k_shape': 6}
+syn_3_0.1_0.0_0.6 time 11
+syn_1_0.0_0.0_0.0 exact {'dict': 608.8, 'k': 24, 'mean': 111.6, 'amort': 117.6}
+syn_1_0.0_0.0_0.0 AU {'dict': 1002.4, 'k': 12, 'mean': 130.6, 'amort': 140.6}
+syn_1_0.0_0.0_0.0 hybrid {'dict': 879.1, 'k': 10, 'mean': 111.2, 'amort': 120.0, 'k_exact': 7, 'k_shape': 3}
+syn_1_0.0_0.0_0.0 time 9
+syn_1_0.05_0.0_0.0 exact {'dict': 658.3, 'k': 27, 'mean': 135.4, 'amort': 141.9}
+syn_1_0.05_0.0_0.0 AU {'dict': 1334.1, 'k': 10, 'mean': 124.1, 'amort': 137.4}
+syn_1_0.05_0.0_0.0 hybrid {'dict': 1077.0, 'k': 12, 'mean': 116.3, 'amort': 127.1, 'k_exact': 6, 'k_shape': 6}
+syn_1_0.05_0.0_0.0 time 9
+syn_3_0.0_0.05_0.6 exact {'dict': 995.6, 'k': 40, 'mean': 224.3, 'amort': 234.3}
+syn_3_0.0_0.05_0.6 AU {'dict': 2489.8, 'k': 17, 'mean': 157.2, 'amort': 182.1}
+syn_3_0.0_0.05_0.6 hybrid {'dict': 2569.2, 'k': 21, 'mean': 149.4, 'amort': 175.1, 'k_exact': 6, 'k_shape': 15}
+syn_3_0.0_0.05_0.6 time 18
+syn_1_0.1_0.0_0.0 exact {'dict': 767.3, 'k': 31, 'mean': 156.1, 'amort': 163.8}
+syn_1_0.1_0.0_0.0 AU {'dict': 1822.9, 'k': 11, 'mean': 130.6, 'amort': 148.9}
+syn_1_0.1_0.0_0.0 hybrid {'dict': 1592.8, 'k': 13, 'mean': 122.2, 'amort': 138.2, 'k_exact': 6, 'k_shape': 7}
+syn_1_0.1_0.0_0.0 time 11
+syn_4_0.0_0.0_0.0 exact {'dict': 632.7, 'k': 24, 'mean': 114.0, 'amort': 120.3}
+syn_4_0.0_0.0_0.0 AU {'dict': 957.8, 'k': 14, 'mean': 123.3, 'amort': 132.9}
+syn_4_0.0_0.0_0.0 hybrid {'dict': 841.6, 'k': 9, 'mean': 114.6, 'amort': 123.0, 'k_exact': 4, 'k_shape': 5}
+syn_4_0.0_0.0_0.0 time 11
+syn_1_0.0_0.05_0.0 exact {'dict': 678.6, 'k': 27, 'mean': 123.7, 'amort': 130.5}
+syn_1_0.0_0.05_0.0 AU {'dict': 1770.5, 'k': 12, 'mean': 141.3, 'amort': 159.0}
+syn_1_0.0_0.05_0.0 hybrid {'dict': 1328.7, 'k': 24, 'mean': 123.4, 'amort': 136.7, 'k_exact': 17, 'k_shape': 7}
+syn_1_0.0_0.05_0.0 time 10
+syn_4_0.05_0.0_0.0 exact {'dict': 684.0, 'k': 27, 'mean': 141.8, 'amort': 148.7}
+syn_4_0.05_0.0_0.0 AU {'dict': 1359.7, 'k': 12, 'mean': 123.4, 'amort': 137.0}
+syn_4_0.05_0.0_0.0 hybrid {'dict': 1322.3, 'k': 11, 'mean': 118.1, 'amort': 131.3, 'k_exact': 6, 'k_shape': 5}
+syn_4_0.05_0.0_0.0 time 11
+syn_1_0.0_0.0_0.3 exact {'dict': 843.2, 'k': 34, 'mean': 141.5, 'amort': 149.9}
+syn_1_0.0_0.0_0.3 AU {'dict': 1105.5, 'k': 15, 'mean': 129.0, 'amort': 140.1}
+syn_1_0.0_0.0_0.3 hybrid {'dict': 1516.0, 'k': 14, 'mean': 118.6, 'amort': 133.7, 'k_exact': 8, 'k_shape': 6}
+syn_1_0.0_0.0_0.3 time 17
+syn_4_0.1_0.0_0.0 exact {'dict': 852.7, 'k': 35, 'mean': 155.8, 'amort': 164.3}
+syn_4_0.1_0.0_0.0 AU {'dict': 1594.0, 'k': 14, 'mean': 131.3, 'amort': 147.2}
+syn_4_0.1_0.0_0.0 hybrid {'dict': 1646.9, 'k': 14, 'mean': 120.3, 'amort': 136.7, 'k_exact': 6, 'k_shape': 8}
+syn_4_0.1_0.0_0.0 time 16
+syn_1_0.05_0.0_0.3 exact {'dict': 907.9, 'k': 37, 'mean': 169.4, 'amort': 178.5}
+syn_1_0.05_0.0_0.3 AU {'dict': 1679.4, 'k': 15, 'mean': 137.4, 'amort': 154.2}
+syn_1_0.05_0.0_0.3 hybrid {'dict': 2093.6, 'k': 19, 'mean': 125.1, 'amort': 146.0, 'k_exact': 11, 'k_shape': 8}
+syn_1_0.05_0.0_0.3 time 17
+syn_4_0.0_0.05_0.0 exact {'dict': 639.0, 'k': 26, 'mean': 132.7, 'amort': 139.1}
+syn_4_0.0_0.05_0.0 AU {'dict': 1578.8, 'k': 14, 'mean': 144.1, 'amort': 159.9}
+syn_4_0.0_0.05_0.0 hybrid {'dict': 1233.3, 'k': 20, 'mean': 133.9, 'amort': 146.2, 'k_exact': 14, 'k_shape': 6}
+syn_4_0.0_0.05_0.0 time 13
+syn_4_0.0_0.0_0.3 exact {'dict': 948.3, 'k': 40, 'mean': 187.0, 'amort': 196.5}
+syn_4_0.0_0.0_0.3 AU {'dict': 1779.6, 'k': 13, 'mean': 137.4, 'amort': 155.2}
+syn_4_0.0_0.0_0.3 hybrid {'dict': 2206.4, 'k': 17, 'mean': 128.6, 'amort': 150.7, 'k_exact': 6, 'k_shape': 11}
+syn_4_0.0_0.0_0.3 time 15
+syn_1_0.1_0.0_0.3 exact {'dict': 852.5, 'k': 35, 'mean': 199.9, 'amort': 208.4}
+syn_1_0.1_0.0_0.3 AU {'dict': 1776.0, 'k': 15, 'mean': 144.2, 'amort': 162.0}
+syn_1_0.1_0.0_0.3 hybrid {'dict': 1902.9, 'k': 15, 'mean': 133.4, 'amort': 152.4, 'k_exact': 8, 'k_shape': 7}
+syn_1_0.1_0.0_0.3 time 17
+syn_4_0.05_0.0_0.3 exact {'dict': 968.3, 'k': 40, 'mean': 212.0, 'amort': 221.7}
+syn_4_0.05_0.0_0.3 AU {'dict': 1595.2, 'k': 13, 'mean': 136.1, 'amort': 152.1}
+syn_4_0.05_0.0_0.3 hybrid {'dict': 1956.9, 'k': 14, 'mean': 133.2, 'amort': 152.8, 'k_exact': 7, 'k_shape': 7}
+syn_4_0.05_0.0_0.3 time 15
+syn_1_0.0_0.05_0.3 exact {'dict': 927.5, 'k': 37, 'mean': 153.6, 'amort': 162.9}
+syn_1_0.0_0.05_0.3 AU {'dict': 2072.2, 'k': 15, 'mean': 151.4, 'amort': 172.1}
+syn_1_0.0_0.05_0.3 hybrid {'dict': 1893.6, 'k': 29, 'mean': 136.3, 'amort': 155.3, 'k_exact': 18, 'k_shape': 11}
+syn_1_0.0_0.05_0.3 time 17
+syn_4_0.1_0.0_0.3 exact {'dict': 741.8, 'k': 32, 'mean': 220.1, 'amort': 227.5}
+syn_4_0.1_0.0_0.3 AU {'dict': 2143.1, 'k': 12, 'mean': 140.6, 'amort': 162.0}
+syn_4_0.1_0.0_0.3 hybrid {'dict': 1904.6, 'k': 11, 'mean': 138.2, 'amort': 157.3, 'k_exact': 3, 'k_shape': 8}
+syn_4_0.1_0.0_0.3 time 12
+syn_1_0.0_0.0_0.6 exact {'dict': 917.7, 'k': 40, 'mean': 218.1, 'amort': 227.2}
+syn_1_0.0_0.0_0.6 AU {'dict': 1723.2, 'k': 13, 'mean': 139.7, 'amort': 156.9}
+syn_1_0.0_0.0_0.6 hybrid {'dict': 1978.8, 'k': 17, 'mean': 131.2, 'amort': 151.0, 'k_exact': 7, 'k_shape': 10}
+syn_1_0.0_0.0_0.6 time 17
+syn_4_0.0_0.05_0.3 exact {'dict': 783.7, 'k': 33, 'mean': 197.2, 'amort': 205.1}
+syn_4_0.0_0.05_0.3 AU {'dict': 2254.6, 'k': 12, 'mean': 163.6, 'amort': 186.2}
+syn_4_0.0_0.05_0.3 hybrid {'dict': 2421.9, 'k': 27, 'mean': 158.8, 'amort': 183.0, 'k_exact': 16, 'k_shape': 11}
+syn_4_0.0_0.05_0.3 time 11
+syn_1_0.05_0.0_0.6 exact {'dict': 931.9, 'k': 37, 'mean': 229.3, 'amort': 238.6}
+syn_1_0.05_0.0_0.6 AU {'dict': 2033.9, 'k': 12, 'mean': 149.8, 'amort': 170.1}
+syn_1_0.05_0.0_0.6 hybrid {'dict': 2202.7, 'k': 13, 'mean': 140.1, 'amort': 162.1, 'k_exact': 4, 'k_shape': 9}
+syn_1_0.05_0.0_0.6 time 13
+syn_4_0.0_0.0_0.6 exact {'dict': 922.6, 'k': 39, 'mean': 221.4, 'amort': 230.6}
+syn_4_0.0_0.0_0.6 AU {'dict': 1554.6, 'k': 11, 'mean': 138.4, 'amort': 154.0}
+syn_4_0.0_0.0_0.6 hybrid {'dict': 1581.2, 'k': 13, 'mean': 130.4, 'amort': 146.2, 'k_exact': 5, 'k_shape': 8}
+syn_4_0.0_0.0_0.6 time 13
+syn_1_0.1_0.0_0.6 exact {'dict': 818.7, 'k': 37, 'mean': 241.0, 'amort': 249.2}
+syn_1_0.1_0.0_0.6 AU {'dict': 2339.2, 'k': 13, 'mean': 148.8, 'amort': 172.2}
+syn_1_0.1_0.0_0.6 hybrid {'dict': 2383.0, 'k': 14, 'mean': 140.4, 'amort': 164.2, 'k_exact': 4, 'k_shape': 10}
+syn_1_0.1_0.0_0.6 time 14
+syn_4_0.05_0.0_0.6 exact {'dict': 928.4, 'k': 40, 'mean': 229.1, 'amort': 238.3}
+syn_4_0.05_0.0_0.6 AU {'dict': 2025.7, 'k': 12, 'mean': 145.6, 'amort': 165.9}
+syn_4_0.05_0.0_0.6 hybrid {'dict': 1900.8, 'k': 8, 'mean': 137.7, 'amort': 156.7, 'k_exact': 2, 'k_shape': 6}
+syn_4_0.05_0.0_0.6 time 13
+syn_4_0.1_0.0_0.6 exact {'dict': 727.1, 'k': 33, 'mean': 242.8, 'amort': 250.1}
+syn_4_0.1_0.0_0.6 AU {'dict': 1941.3, 'k': 11, 'mean': 146.6, 'amort': 166.0}
+syn_4_0.1_0.0_0.6 hybrid {'dict': 1948.7, 'k': 10, 'mean': 141.1, 'amort': 160.6, 'k_exact': 2, 'k_shape': 8}
+syn_4_0.1_0.0_0.6 time 11
+syn_1_0.0_0.05_0.6 exact {'dict': 935.0, 'k': 40, 'mean': 217.5, 'amort': 226.9}
+syn_1_0.0_0.05_0.6 AU {'dict': 2138.5, 'k': 18, 'mean': 155.1, 'amort': 176.5}
+syn_1_0.0_0.05_0.6 hybrid {'dict': 2255.4, 'k': 24, 'mean': 150.7, 'amort': 173.3, 'k_exact': 11, 'k_shape': 13}
+syn_1_0.0_0.05_0.6 time 19
+syn_4_0.0_0.05_0.6 exact {'dict': 810.8, 'k': 36, 'mean': 224.6, 'amort': 232.8}
+syn_4_0.0_0.05_0.6 AU {'dict': 2606.1, 'k': 11, 'mean': 160.9, 'amort': 187.0}
+syn_4_0.0_0.05_0.6 hybrid {'dict': 2639.2, 'k': 26, 'mean': 155.6, 'amort': 182.0, 'k_exact': 15, 'k_shape': 11}
+syn_4_0.0_0.05_0.6 time 12
+syn_2_0.0_0.0_0.0 exact {'dict': 636.0, 'k': 24, 'mean': 108.3, 'amort': 114.6}
+syn_2_0.0_0.0_0.0 AU {'dict': 649.4, 'k': 12, 'mean': 117.1, 'amort': 123.6}
+syn_2_0.0_0.0_0.0 hybrid {'dict': 608.3, 'k': 8, 'mean': 105.2, 'amort': 111.3, 'k_exact': 6, 'k_shape': 2}
+syn_2_0.0_0.0_0.0 time 9
+syn_2_0.05_0.0_0.0 exact {'dict': 635.2, 'k': 25, 'mean': 141.2, 'amort': 147.5}
+syn_2_0.05_0.0_0.0 AU {'dict': 1310.3, 'k': 14, 'mean': 125.9, 'amort': 139.0}
+syn_2_0.05_0.0_0.0 hybrid {'dict': 1593.7, 'k': 13, 'mean': 114.8, 'amort': 130.7, 'k_exact': 4, 'k_shape': 9}
+syn_2_0.05_0.0_0.0 time 11
+syn_2_0.1_0.0_0.0 exact {'dict': 733.4, 'k': 30, 'mean': 163.2, 'amort': 170.6}
+syn_2_0.1_0.0_0.0 AU {'dict': 1280.3, 'k': 12, 'mean': 131.3, 'amort': 144.1}
+syn_2_0.1_0.0_0.0 hybrid {'dict': 1574.5, 'k': 11, 'mean': 123.6, 'amort': 139.4, 'k_exact': 6, 'k_shape': 5}
+syn_2_0.1_0.0_0.0 time 10
+syn_2_0.0_0.05_0.0 exact {'dict': 745.7, 'k': 29, 'mean': 129.4, 'amort': 136.8}
+syn_2_0.0_0.05_0.0 AU {'dict': 1301.7, 'k': 12, 'mean': 134.6, 'amort': 147.6}
+syn_2_0.0_0.05_0.0 hybrid {'dict': 1198.8, 'k': 28, 'mean': 128.1, 'amort': 140.1, 'k_exact': 21, 'k_shape': 7}
+syn_2_0.0_0.05_0.0 time 10
+syn_2_0.0_0.0_0.3 exact {'dict': 979.6, 'k': 40, 'mean': 170.7, 'amort': 180.5}
+syn_2_0.0_0.0_0.3 AU {'dict': 1274.6, 'k': 13, 'mean': 130.1, 'amort': 142.8}
+syn_2_0.0_0.0_0.3 hybrid {'dict': 1836.5, 'k': 16, 'mean': 121.9, 'amort': 140.2, 'k_exact': 9, 'k_shape': 7}
+syn_2_0.0_0.0_0.3 time 14
+syn_2_0.05_0.0_0.3 exact {'dict': 992.4, 'k': 40, 'mean': 188.8, 'amort': 198.7}
+syn_2_0.05_0.0_0.3 AU {'dict': 2446.6, 'k': 19, 'mean': 142.3, 'amort': 166.7}
+syn_2_0.05_0.0_0.3 hybrid {'dict': 2452.7, 'k': 20, 'mean': 132.4, 'amort': 156.9, 'k_exact': 7, 'k_shape': 13}
+syn_2_0.05_0.0_0.3 time 20
+syn_2_0.1_0.0_0.3 exact {'dict': 893.9, 'k': 36, 'mean': 211.6, 'amort': 220.5}
+syn_2_0.1_0.0_0.3 AU {'dict': 2035.9, 'k': 14, 'mean': 143.2, 'amort': 163.5}
+syn_2_0.1_0.0_0.3 hybrid {'dict': 2310.0, 'k': 20, 'mean': 134.4, 'amort': 157.5, 'k_exact': 9, 'k_shape': 11}
+syn_2_0.1_0.0_0.3 time 14
+syn_2_0.0_0.05_0.3 exact {'dict': 983.0, 'k': 40, 'mean': 175.9, 'amort': 185.7}
+syn_2_0.0_0.05_0.3 AU {'dict': 2200.6, 'k': 15, 'mean': 149.4, 'amort': 171.4}
+syn_2_0.0_0.05_0.3 hybrid {'dict': 2502.7, 'k': 37, 'mean': 141.9, 'amort': 166.9, 'k_exact': 22, 'k_shape': 15}
+syn_2_0.0_0.05_0.3 time 15
+syn_2_0.0_0.0_0.6 exact {'dict': 867.0, 'k': 37, 'mean': 222.7, 'amort': 231.4}
+syn_2_0.0_0.0_0.6 AU {'dict': 1682.7, 'k': 13, 'mean': 136.3, 'amort': 153.2}
+syn_2_0.0_0.0_0.6 hybrid {'dict': 2175.5, 'k': 16, 'mean': 131.0, 'amort': 152.8, 'k_exact': 8, 'k_shape': 8}
+syn_2_0.0_0.0_0.6 time 16
+syn_2_0.05_0.0_0.6 exact {'dict': 728.2, 'k': 30, 'mean': 226.1, 'amort': 233.4}
+syn_2_0.05_0.0_0.6 AU {'dict': 2107.7, 'k': 13, 'mean': 158.6, 'amort': 179.6}
+syn_2_0.05_0.0_0.6 hybrid {'dict': 2578.9, 'k': 17, 'mean': 152.6, 'amort': 178.4, 'k_exact': 7, 'k_shape': 10}
+syn_2_0.05_0.0_0.6 time 16
+syn_2_0.1_0.0_0.6 exact {'dict': 668.8, 'k': 29, 'mean': 242.5, 'amort': 249.2}
+syn_2_0.1_0.0_0.6 AU {'dict': 2000.4, 'k': 13, 'mean': 149.7, 'amort': 169.7}
+syn_2_0.1_0.0_0.6 hybrid {'dict': 1944.7, 'k': 15, 'mean': 141.2, 'amort': 160.6, 'k_exact': 5, 'k_shape': 10}
+syn_2_0.1_0.0_0.6 time 20
+syn_2_0.0_0.05_0.6 exact {'dict': 879.9, 'k': 38, 'mean': 215.2, 'amort': 224.0}
+syn_2_0.0_0.05_0.6 AU {'dict': 2380.8, 'k': 12, 'mean': 155.1, 'amort': 178.9}
+syn_2_0.0_0.05_0.6 hybrid {'dict': 2498.5, 'k': 24, 'mean': 152.8, 'amort': 177.8, 'k_exact': 13, 'k_shape': 11}
+syn_2_0.0_0.05_0.6 time 20

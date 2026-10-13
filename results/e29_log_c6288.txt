@@ -1,0 +1,8 @@
+c6288_0 exact {'dict': 567.1, 'k': 25, 'mean': 112.9, 'amort': 118.6}
+c6288_0 AU {'dict': 1434.5, 'k': 13, 'mean': 150.0, 'amort': 164.4}
+c6288_0 hybrid {'dict': 1310.5, 'k': 21, 'mean': 109.4, 'amort': 122.5, 'k_exact': 13, 'k_shape': 8}
+c6288_0 time 37
+c6288_1 exact {'dict': 534.0, 'k': 25, 'mean': 121.8, 'amort': 127.1}
+c6288_1 AU {'dict': 1380.3, 'k': 13, 'mean': 119.7, 'amort': 133.5}
+c6288_1 hybrid {'dict': 1324.1, 'k': 26, 'mean': 110.0, 'amort': 123.2, 'k_exact': 16, 'k_shape': 10}
+c6288_1 time 57

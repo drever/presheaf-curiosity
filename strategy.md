@@ -370,6 +370,36 @@ Befund: (1) Sobald es Löcher oder Label-Rauschen gibt, schlägt AU das exakte g
 **Echte Daten** (gleiche AU-Pipeline, Bit/Fenster auf neuen Fenstern ohne Wörterbuch): c6288 (2 Seeds, dritter Lauf abgebrochen): exact 124.2, AU 135.6, shape_raw 263.0, RePair 169.7; Straßen (3 Seeds): exact 198.5, AU 206.2, shape_raw 219.6, RePair 224.9. **AU schlägt exaktes glue auf echten Daten nicht** (+11 Bit auf c6288 mit hoher Streuung: +24.8 / −1.9 pro Seed; +4 bis +13 Bit auf Straßen, 3/3 Seeds), liegt aber klar vor RePair und shape_raw. Lesart: In den Realdaten tragen die Labels (Gattertyp-Paare, Straßentypen) Strukturinformation, die beim Löschen der Labels vor der Formenentdeckung verloren geht (c6288: 12 statt 24 Formen, shape_raw bricht auf 263 ein); es gibt keine freien „Löcher" mit unabhängigen Füllungen, die ein Positions-Labelmodell ausnutzen könnte. Ein Hybrid (exakte Muster + wildcard-Kanten nur dort, wo MDL es lohnt) wurde nicht getestet.
 Rohdaten: `results/e27_*`, `e28_*`.
 
+## 4g. Hybrid: exakte Muster + Anti-Unifikations-Formmuster in einem Wörterbuch – 13. Oktober 2026
+
+Code: `src/hybrid.py`, `src/e29.py`, `src/run29.sh`, `src/agg29.py` (Ausgabe `results/e29_agg.txt`). **Idee.** Ein Wörterbuch aus (a) exakt beschrifteten Mustern (Labels fest, Kosten 0 Bit) und (b) Formmustern aus label-gelöschten Fenstern mit Labelverteilung je Kante (4f). Die Überdeckung ist kostenbewusst: in jedem Schritt wird die Instanz mit dem größten Bitgewinn gewählt (Rohkantenkosten minus Instanzkosten inkl. Labelbits). Verteilungen werden in zwei Runden aus der Hybrid-Überdeckung neu geschätzt; unbenutzte Muster werden entfernt. Der Hybrid darf also je Fenster selbst entscheiden, wo exakte Labels und wo Löcher billiger sind.
+
+**Synthetische Welt (wie 4f, 5 Seeds, 12 Konfigurationen), Bit/Fenster auf neuen Fenstern ohne Wörterbuch:**
+
+| Löcher | pf | pd | exakt | AU | Hybrid | Hybrid vs. bestes von exakt/AU (Mittel; kleinster Seed) |
+|---|---|---|---|---|---|---|
+| 0 % | 0 | 0 | 110.8 | 122.8 | 109.7 | 1.1 (−0.6) |
+| 0 % | 0 | .05 | 128.6 | 140.0 | 127.1 | 1.5 (−1.2) |
+| 0 % | .05 | 0 | 139.5 | 126.8 | 116.6 | 10.2 (5.3) |
+| 0 % | .10 | 0 | 161.4 | 133.0 | 123.8 | 9.2 (3.1) |
+| 30 % | 0 | 0 | 161.4 | 130.9 | 122.4 | 8.6 (6.8) |
+| 30 % | 0 | .05 | 173.0 | 151.2 | 142.7 | 8.5 (4.9) |
+| 30 % | .05 | 0 | 189.3 | 137.0 | 130.2 | 6.7 (2.0) |
+| 30 % | .10 | 0 | 206.3 | 143.8 | 136.3 | 7.5 (2.4) |
+| 60 % | 0 | 0 | 214.3 | 137.9 | 132.0 | 5.9 (2.1) |
+| 60 % | 0 | .05 | 215.2 | 155.1 | 150.8 | 4.3 (1.9) |
+| 60 % | .05 | 0 | 225.1 | 150.6 | 142.2 | 8.4 (5.9) |
+| 60 % | .10 | 0 | 238.7 | 147.1 | 140.8 | 6.3 (3.0) |
+
+Der Hybrid ist in der Kontrolle ohne Löcher und ohne Rauschen so gut wie exakt (109.7 gegenüber 110.8; die 12 Bit Verlust von AU sind weg) und in allen Konfigurationen mit Löchern oder Label-Rauschen besser als jede der beiden Einzelmethoden (4–10 Bit im Mittel; nur in 2 von 60 Seed-Konfigurationen minimal schlechter, −0.6 und −1.2 Bit).
+
+**Echte Daten (neue Fenster, Bit/Fenster ohne Wörterbuch):** c6288 (2 Seeds, dritter Lauf abgebrochen): exakt 117.3, AU 134.9, **Hybrid 109.7** (−7.6 gegenüber exakt, in beiden Seeds besser: 112.9→109.4, 121.8→110.0; 13–16 exakte + 8–10 Formmuster). Straßen (3 Seeds): exakt 198.5, AU 206.2, **Hybrid 194.2** (−4.3 gegenüber exakt; Seeds: 200.4→194.0, 194.0→194.9 (+0.9), 201.1→193.6; 19–22 exakte + 7–10 Formmuster).
+
+**Kosten des Wörterbuchs.** Die Labeltabellen machen den Hybrid-Speicher groß (c6288: pro 100 Fenster amortisiert gleich auf mit exakt, 122.9 gegenüber 122.9; Straßen: 211.5 gegenüber 203.0, also schlechter bei 100 Fenstern, Break-even etwa bei 400 Fenstern). Die Tabellenkosten (Anzahl Labels × (log R + log N)) sind eine grobe Obergrenze; eine bessere Kodierung (z. B. gemeinsame Labelhäufigkeiten über Muster) würde das verbessern. Das Ergebnis „held-out besser, Wörterbuch teurer" gilt unabhängig davon.
+
+**Lesart.** (1) Der Hybrid beseitigt den Mangel von AU auf Realdaten und behält den Gewinn bei Löchern/Rauschen: er ist auf allen vier Datenquellen mindestens so gut wie die beste Einzelmethode und auf c6288 und (2 von 3 Seeds) Straßen besser als exaktes Verkleben. (2) Der Realdatengewinn ist klein (3–6 %) und kostet Wörterbuchspeicher; ob er über 100 Fenster hinaus trägt, hängt vom Datenvolumen ab. (3) Ob er „Prägarben-spezifisch" ist: Das Positions-Labelmodell ist generisch (Formen × Labelverteilung, vgl. 1d); neu ist nur die Kopplung mit exaktem Verkleben in einem MDL-Wörterbuch. Kein Vergleich mit dem Original-gRePair oder Miner mit Wildcards.
+Rohdaten: `results/e29_*`.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In

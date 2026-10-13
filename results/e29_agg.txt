@@ -1,0 +1,23 @@
+Loecher pf pd n | held-out bits/window (amortised)  | hybrid-best(exact,AU) min over seeds
+ 0.0   0.0   0.0 5 | exact: 110.8( 117.0) AU: 122.8( 132.5) hybrid: 109.7( 117.7) | vs best-of   1.1 min  -0.6  k_ex  7.4 k_sh  3.2
+ 0.0   0.0  0.05 5 | exact: 128.6( 135.5) AU: 140.0( 156.7) hybrid: 127.1( 139.9) | vs best-of   1.5 min  -1.2  k_ex 19.2 k_sh  7.6
+ 0.0  0.05   0.0 5 | exact: 139.5( 146.7) AU: 126.8( 140.2) hybrid: 116.6( 130.8) | vs best-of  10.2 min   5.3  k_ex  5.8 k_sh  6.6
+ 0.0   0.1   0.0 5 | exact: 161.4( 169.1) AU: 133.0( 149.1) hybrid: 123.8( 140.8) | vs best-of   9.2 min   3.1  k_ex  5.8 k_sh  7.4
+ 0.3   0.0   0.0 5 | exact: 161.4( 170.8) AU: 130.9( 145.2) hybrid: 122.4( 140.1) | vs best-of   8.6 min   6.8  k_ex  8.4 k_sh  7.8
+ 0.3   0.0  0.05 5 | exact: 173.0( 182.1) AU: 151.2( 172.5) hybrid: 142.7( 164.5) | vs best-of   8.5 min   4.9  k_ex 17.4 k_sh 11.4
+ 0.3  0.05   0.0 5 | exact: 189.3( 198.6) AU: 137.0( 154.2) hybrid: 130.2( 150.8) | vs best-of   6.7 min   2.0  k_ex  7.8 k_sh  8.2
+ 0.3   0.1   0.0 5 | exact: 206.3( 214.5) AU: 143.8( 163.4) hybrid: 136.3( 157.1) | vs best-of   7.5 min   2.4  k_ex  6.2 k_sh  8.8
+ 0.6   0.0   0.0 5 | exact: 214.3( 223.6) AU: 137.9( 154.3) hybrid: 132.0( 151.0) | vs best-of   5.9 min   2.1  k_ex  6.0 k_sh  8.6
+ 0.6   0.0  0.05 5 | exact: 215.2( 224.2) AU: 155.1( 178.3) hybrid: 150.8( 174.9) | vs best-of   4.3 min   1.9  k_ex 11.2 k_sh 12.6
+ 0.6  0.05   0.0 5 | exact: 225.1( 233.8) AU: 150.6( 170.5) hybrid: 142.2( 163.3) | vs best-of   8.4 min   5.9  k_ex  5.2 k_sh  7.8
+ 0.6   0.1   0.0 5 | exact: 238.7( 246.3) AU: 147.1( 167.9) hybrid: 140.8( 161.5) | vs best-of   6.3 min   3.0  k_ex  3.6 k_sh  8.8
+c6288 2
+  exact   held  117.3 amort  122.9 per-seed [112.9, 121.8]
+  AU      held  134.9 amort  148.9 per-seed [150.0, 119.7]
+  hybrid  held  109.7 amort  122.9 per-seed [109.4, 110.0]
+  k_exact/k_shape [(13, 8), (16, 10)]
+streets 3
+  exact   held  198.5 amort  203.0 per-seed [200.4, 194.0, 201.1]
+  AU      held  206.2 amort  221.7 per-seed [204.7, 207.4, 206.6]
+  hybrid  held  194.2 amort  211.5 per-seed [194.0, 194.9, 193.6]
+  k_exact/k_shape [(19, 10), (22, 8), (22, 7)]

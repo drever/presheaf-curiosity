@@ -1,0 +1,12 @@
+streets_0 exact {'dict': 422.0, 'k': 21, 'mean': 200.4, 'amort': 204.7}
+streets_0 AU {'dict': 1913.0, 'k': 10, 'mean': 204.7, 'amort': 223.9}
+streets_0 hybrid {'dict': 2108.7, 'k': 29, 'mean': 194.0, 'amort': 215.1, 'k_exact': 19, 'k_shape': 10}
+streets_0 time 257
+streets_1 exact {'dict': 446.0, 'k': 22, 'mean': 194.0, 'amort': 198.5}
+streets_1 AU {'dict': 1504.0, 'k': 8, 'mean': 207.4, 'amort': 222.5}
+streets_1 hybrid {'dict': 1773.8, 'k': 30, 'mean': 194.9, 'amort': 212.7, 'k_exact': 22, 'k_shape': 8}
+streets_1 time 65
+streets_2 exact {'dict': 460.1, 'k': 22, 'mean': 201.1, 'amort': 205.7}
+streets_2 AU {'dict': 1214.5, 'k': 7, 'mean': 206.6, 'amort': 218.7}
+streets_2 hybrid {'dict': 1308.9, 'k': 29, 'mean': 193.6, 'amort': 206.7, 'k_exact': 22, 'k_shape': 7}
+streets_2 time 64
