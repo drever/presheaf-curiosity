@@ -20,6 +20,14 @@ Ein Makro **mit Löchern** hat zusätzlich *Parameter*: Stellen, an denen bei je
 2. **Nichtterminal-Kanten**: ein Platzhalter (Hyperkante vom Rang k), der später durch ein Teilgraph-Muster ersetzt wird.
 3. **Unterspezifizierte Labels/Teile**: Anti-Unifikation – das Muster ist die gemeinsame Verallgemeinerung mehrerer Vorkommen, die Unterschiede sind die Löcher.
 
+### 1a. Klarstellung (14. Oktober 2026): Makro ohne Loch = Makro mit trivialer Füllung
+
+**[Deutung, nachgerechnet]** Es braucht keine zwei Begriffe. Ein Makro mit Loch ist ein Kontext C mit einer Schnittstelle I → C; eine Füllung ist ein Objekt X mit I → X, eingesetzt wird per Pushout C ∪_I X. Das *leere* Objekt ∅ ist nur dann eine zulässige Füllung, wenn I = ∅ ist (sonst gibt es keine Abbildung I → ∅). Das richtige „initiale Objekt" lebt in der Kategorie der Füllungen, also der Kategorie unter I (Coslice I/𝒞): dort ist das initiale Objekt die Identität I → I, und ihr Einsetzen liefert C unverändert, also das Makro ohne Loch. Zwei äquivalente Lesarten: (a) Makro ohne Loch = Makro mit leerer Schnittstelle (I = ∅, dort ist ∅ die einzige Füllung); (b) Makro ohne Loch = Makro mit Loch, in das die triviale Füllung id_I gesteckt wird. In der Exponentialsprache: ein Loch der Sorte A ist ein Pfeil A → B; ein Makro ohne Loch ist der konstante Pfeil 1 → B; ein Loch der Sorte 0 ergibt B^0 = 1, also genau einen Punkt.
+
+**Warum wir sie in der Implementierung trotzdem trennen.** Rein kostenseitig ist die Trennung eine Abkürzung: Die triviale Füllung hat in einem Code nur dann Kosten, wenn sie selten ist; sind fast alle Instanzen ohne Füllung, kostet sie ≈ 0 Bit, und die einheitliche Darstellung ist so billig wie die getrennte. Beim Lernen entstehen Löcher dort, wo sich Vorkommen unterscheiden (Anti-Unifikation), feste Teile dort, wo sie gleich bleiben.
+
+**Begriffsfehler in meinen bisherigen Tests (hier korrigiert).** „Interface" und „Loch" sind verschiedene Dinge. In Test A (strategy.md 4c) bezeichnet Interface die Randknoten eines Musters zum *Rest des Fensters*; nichts davon wird später gefüllt. In Test B/Hybrid (4f/4g) sind die „Löcher" Kanten mit variablem *Label*, die Füllung ist ein Label aus einer Verteilung. Ein Loch, dessen Füllung ein *Teilgraph* ist (der Fall der Cospan-/Exponentiallesart), wurde erst in Test C (strategy.md 4h) getestet.
+
 ## 2. Grammatikbasierte Graphkompression (Hyperkanten-Ersetzung)
 
 - **[belegt]** Kompression via *Straight-Line Hyperedge-Replacement (SL-HR)-Grammatiken* (gRePair, Maneth et al.): Digramme (Paare benachbarter Kanten) werden iterativ durch eine Nichtterminal-Hyperkante ersetzt, deren Regel das Digramm erzeugt. Eine Nichtterminal-Kante hat einen *Rang* = Zahl der angehängten (externen) Knoten. Das ist genau ein Makro mit k Löchern im Sinn von (1)+(2): die externen Knoten sind die Schnittstelle zum Rest.
@@ -62,7 +70,7 @@ Ein Makro **mit Löchern** hat zusätzlich *Parameter*: Stellen, an denen bei je
 2. Mögliches Alleinstellungsmerkmal: ein *einheitlicher* Rahmen (Prägarben: Kolimes für Verkleben, × und Exponential für Parametrisieren und Einsetzen) statt getrennter Heuristiken. Das ist Theorie-Hypothese; ich habe **keine** Quelle gefunden, die Graphkompression in dieser Sprache formuliert.
 3. Bezug zu den bisherigen Ergebnissen: c6288-Gate-Ebene (Verkleben schlägt Wachsen um 23–25 %) und Zellebene sind Fälle, wo Instanzen sich in *Anschlüssen* unterscheiden, nicht in Form – genau dort sollte ein Interface-Makro sparen (Zellen mit k Ports, Instanzkosten k statt n_Knoten Zeiger).
 
-## 7. Vorschlag für den ersten Test (noch nicht gestartet, Bestätigung abwarten)
+## 7. Vorschlag für Tests (A: strategy.md 4c; B: 4f/4g; C: 4h – durchgeführt)
 
 - **Test A (Interface-Kosten):** gleicher `glue`-Lerner, aber Muster mit Interface: Instanzkosten nur externe Knoten (Rest wird implizit „frisch" vergeben, Verbindung nur über Ports). Frage: Wie viele Bits spart das auf c6288 (Gate- und Zellebene) und Straßen? Das testet, ob der Gewinn aus Interface-Typisierung kommt. Billig, nutzt vorhandenen Code.
 - **Test B (Anti-Unifikation):** Muster = lgg zweier Fenster (Produkt zweier Fenster, dann Kern bilden; Hom-Semantik beachten); Löcher = gelöschte/unterschiedliche Knotenlabels. Frage: Gewinn bei verrauschten Wiederholungen (e18-Rauschsweep).

@@ -1,0 +1,10 @@
+  round 0 holes 6 alive 34 train total 17127 baseline 19989
+  round 1 holes 6 alive 18 train total 16387 baseline 17127
+  round 2 holes 6 alive 18 train total 16387
+  round 0 holes 6 alive 34 train total 17127 baseline 19984
+  round 1 holes 6 alive 18 train total 16387 baseline 17127
+  round 2 holes 6 alive 18 train total 16387
+syn_0_0.15 dict 57 check [157.8, 157.8] time 69
+  iface holes 6 alive 18 dict 2476 vs 1539 glue 157.8 holes 116.9
+  rel holes 6 alive 18 dict 2476 vs 1539 glue 157.7 holes 116.9
+

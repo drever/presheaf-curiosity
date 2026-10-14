@@ -1,0 +1,15 @@
+syn, 6 Fuellmuster 5
+  iface glue  151.3 holes  116.7 gain  34.6 (min  24.3) | dict glue   1634 holes   2297 | gain incl. dict/100  28.0 (min  20.4) | n_holes [6, 6, 6, 6, 6]
+  rel   glue  151.2 holes  116.7 gain  34.5 (min  24.2) | dict glue   1634 holes   2297 | gain incl. dict/100  27.9 (min  20.2) | n_holes [6, 6, 6, 6, 6]
+syn Kontrolle, 1 Fuellmuster, 15% leer 3
+  iface glue  134.8 holes  107.5 gain  27.3 (min   0.0) | dict glue    831 holes    979 | gain incl. dict/100  25.8 (min   0.0) | n_holes [3, 3, 0]
+  rel   glue  134.7 holes  107.5 gain  27.3 (min   0.0) | dict glue    831 holes    979 | gain incl. dict/100  25.8 (min   0.0) | n_holes [3, 3, 0]
+syn Null-Kontrolle: alles fest 3
+  iface glue  148.0 holes  136.5 gain  11.5 (min   0.0) | dict glue    581 holes    605 | gain incl. dict/100  11.3 (min   0.0) | n_holes [1, 0, 0]
+  rel   glue  148.0 holes  136.4 gain  11.5 (min   0.0) | dict glue    581 holes    605 | gain incl. dict/100  11.3 (min   0.0) | n_holes [1, 0, 0]
+c6288 3
+  iface glue  120.6 holes  117.4 gain   3.2 (min   0.0) | dict glue    616 holes    657 | gain incl. dict/100   2.7 (min   0.0) | n_holes [1, 0, 0]
+  rel   glue  119.5 holes  116.4 gain   3.1 (min   0.0) | dict glue    616 holes    657 | gain incl. dict/100   2.7 (min   0.0) | n_holes [1, 0, 0]
+streets 3
+  iface glue  198.5 holes  198.5 gain   0.0 (min   0.0) | dict glue    443 holes    443 | gain incl. dict/100   0.0 (min   0.0) | n_holes [0, 0, 0]
+  rel   glue  197.7 holes  197.7 gain   0.0 (min   0.0) | dict glue    443 holes    443 | gain incl. dict/100   0.0 (min   0.0) | n_holes [0, 0, 0]

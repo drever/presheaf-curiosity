@@ -1,0 +1,45 @@
+  round 0 holes 6 alive 34 train total 17127 baseline 19989
+  round 1 holes 6 alive 18 train total 16387 baseline 17127
+  round 2 holes 6 alive 18 train total 16387
+  round 0 holes 6 alive 34 train total 17127 baseline 19984
+  round 1 holes 6 alive 18 train total 16387 baseline 17127
+  round 2 holes 6 alive 18 train total 16387
+syn_0_0.15_g6 dict 57 check [157.8, 157.8] time 70
+  iface holes 6 alive 18 dict 2476 vs 1539 glue 157.8 holes 116.9
+  rel holes 6 alive 18 dict 2476 vs 1539 glue 157.7 holes 116.9
+  round 0 holes 6 alive 30 train total 16730 baseline 20014
+  round 1 holes 6 alive 18 train total 16130 baseline 16730
+  round 2 holes 6 alive 18 train total 16130
+  round 0 holes 6 alive 30 train total 16730 baseline 20003
+  round 1 holes 6 alive 18 train total 16130 baseline 16730
+  round 2 holes 6 alive 18 train total 16130
+syn_1_0.15_g6 dict 53 check [153.5, 153.5] time 65
+  iface holes 6 alive 18 dict 2291 vs 1467 glue 153.5 holes 112.4
+  rel holes 6 alive 18 dict 2291 vs 1467 glue 153.4 holes 112.4
+  round 0 holes 6 alive 28 train total 16099 baseline 18241
+  round 1 holes 6 alive 18 train total 15759 baseline 16099
+  round 2 holes 6 alive 18 train total 15759
+  round 0 holes 6 alive 28 train total 16098 baseline 18231
+  round 1 holes 6 alive 18 train total 15759 baseline 16098
+  round 2 holes 6 alive 18 train total 15759
+syn_2_0.15_g6 dict 66 check [145.5, 145.5] time 83
+  iface holes 6 alive 18 dict 2189 vs 1795 glue 145.5 holes 121.2
+  rel holes 6 alive 18 dict 2189 vs 1795 glue 145.3 holes 121.2
+  round 0 holes 6 alive 28 train total 16339 baseline 18324
+  round 1 holes 6 alive 21 train total 15958 baseline 16339
+  round 2 holes 6 alive 21 train total 15958
+  round 0 holes 6 alive 28 train total 16339 baseline 18312
+  round 1 holes 6 alive 21 train total 15958 baseline 16339
+  round 2 holes 6 alive 21 train total 15958
+syn_3_0.15_g6 dict 64 check [151.9, 151.9] time 85
+  iface holes 6 alive 21 dict 2232 vs 1733 glue 151.9 holes 119.2
+  rel holes 6 alive 21 dict 2232 vs 1733 glue 151.8 holes 119.2
+  round 0 holes 6 alive 30 train total 16411 baseline 19103
+  round 1 holes 6 alive 18 train total 15837 baseline 16411
+  round 2 holes 6 alive 18 train total 15837
+  round 0 holes 6 alive 30 train total 16411 baseline 19094
+  round 1 holes 6 alive 18 train total 15837 baseline 16411
+  round 2 holes 6 alive 18 train total 15837
+syn_4_0.15_g6 dict 60 check [147.6, 147.6] time 66
+  iface holes 6 alive 18 dict 2296 vs 1638 glue 147.6 holes 113.7
+  rel holes 6 alive 18 dict 2296 vs 1638 glue 147.6 holes 113.7

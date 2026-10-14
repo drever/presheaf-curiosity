@@ -1,0 +1,42 @@
+  round 0 holes 0 alive 21 train total 10933 baseline 10933
+  round 2 holes 0 alive 21 train total 10933
+  round 0 holes 0 alive 21 train total 10889 baseline 10889
+  round 2 holes 0 alive 21 train total 10889
+streets_0 dict 21 check [210.9, 210.9] time 28
+  iface holes 0 alive 21 dict 422 vs 422 glue 200.4 holes 200.4
+  rel holes 0 alive 21 dict 422 vs 422 glue 199.7 holes 199.7
+  round 0 holes 0 alive 22 train total 9424 baseline 9424
+  round 2 holes 0 alive 22 train total 9424
+  round 0 holes 0 alive 22 train total 9360 baseline 9360
+  round 2 holes 0 alive 22 train total 9360
+streets_1 dict 22 check [207.1, 207.1] time 24
+  iface holes 0 alive 22 dict 446 vs 446 glue 194.0 holes 194.0
+  rel holes 0 alive 22 dict 446 vs 446 glue 193.2 holes 193.2
+  round 0 holes 0 alive 21 train total 10933 baseline 10933
+  round 2 holes 0 alive 21 train total 10933
+  round 0 holes 0 alive 21 train total 10889 baseline 10889
+  round 2 holes 0 alive 21 train total 10889
+streets_0 dict 21 check [210.9, 210.9] time 28
+  iface holes 0 alive 21 dict 422 vs 422 glue 200.4 holes 200.4
+  rel holes 0 alive 21 dict 422 vs 422 glue 199.7 holes 199.7
+  round 0 holes 0 alive 22 train total 9424 baseline 9424
+  round 2 holes 0 alive 22 train total 9424
+  round 0 holes 0 alive 22 train total 9360 baseline 9360
+  round 2 holes 0 alive 22 train total 9360
+streets_1 dict 22 check [207.1, 207.1] time 25
+  iface holes 0 alive 22 dict 446 vs 446 glue 194.0 holes 194.0
+  rel holes 0 alive 22 dict 446 vs 446 glue 193.2 holes 193.2
+  round 0 holes 0 alive 22 train total 10410 baseline 10410
+  round 2 holes 0 alive 22 train total 10410
+  round 0 holes 0 alive 22 train total 10368 baseline 10368
+  round 2 holes 0 alive 22 train total 10368
+streets_2 dict 22 check [219.4, 219.4] time 33
+  iface holes 0 alive 22 dict 460 vs 460 glue 201.1 holes 201.1
+  rel holes 0 alive 22 dict 460 vs 460 glue 200.3 holes 200.3
+  round 0 holes 0 alive 22 train total 10410 baseline 10410
+  round 2 holes 0 alive 22 train total 10410
+  round 0 holes 0 alive 22 train total 10368 baseline 10368
+  round 2 holes 0 alive 22 train total 10368
+streets_2 dict 22 check [219.4, 219.4] time 32
+  iface holes 0 alive 22 dict 460 vs 460 glue 201.1 holes 201.1
+  rel holes 0 alive 22 dict 460 vs 460 glue 200.3 holes 200.3

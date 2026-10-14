@@ -1,0 +1,23 @@
+  round 0 holes 1 alive 28 train total 4792 baseline 5075
+  round 1 holes 1 alive 26 train total 4733 baseline 4792
+  round 2 holes 1 alive 26 train total 4733
+  round 0 holes 1 alive 28 train total 4763 baseline 5035
+  round 1 holes 1 alive 26 train total 4707 baseline 4763
+  round 2 holes 1 alive 26 train total 4707
+c6288_0 dict 28 check [116.1, 116.1] time 92
+  iface holes 1 alive 26 dict 712 vs 588 glue 116.1 holes 106.6
+  rel holes 1 alive 26 dict 712 vs 588 glue 115.0 holes 105.7
+  round 0 holes 0 alive 29 train total 5116 baseline 5116
+  round 2 holes 0 alive 29 train total 5116
+  round 0 holes 0 alive 29 train total 5069 baseline 5069
+  round 2 holes 0 alive 29 train total 5069
+c6288_1 dict 29 check [117.2, 117.2] time 33
+  iface holes 0 alive 29 dict 658 vs 658 glue 117.2 holes 117.2
+  rel holes 0 alive 29 dict 658 vs 658 glue 116.1 holes 116.1
+  round 0 holes 0 alive 28 train total 4959 baseline 4959
+  round 2 holes 0 alive 28 train total 4959
+  round 0 holes 0 alive 28 train total 4909 baseline 4909
+  round 2 holes 0 alive 28 train total 4909
+c6288_2 dict 28 check [128.5, 128.5] time 735
+  iface holes 0 alive 28 dict 602 vs 602 glue 128.5 holes 128.5
+  rel holes 0 alive 28 dict 602 vs 602 glue 127.4 holes 127.4
