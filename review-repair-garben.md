@@ -6,13 +6,14 @@ Stand: 15. Oktober 2026. Etiketten wie in `review-makros.md`: **[belegt]** (in e
 
 ## 1. Welche Effekte untersuchen wir?
 
-| Effekt | Präger-Operation | Was wir testen | Stand der Evidenz |
+| Effekt | Operation | Was wir testen | Stand der Evidenz |
 |---|---|---|---|
 | **E1 Verkleben** | Kolimes/Pushout (Interface = Cospan) | Muster aus Mustern; Instanzen zahlen nur Randknoten | c6288: glue ≫ grow (23–25 %, mit Interface 31 % vor gRePair-artiger Baseline); Straßen: glue ≈ grow, beide ≈ 12–14 % vor der Baseline (strategy.md 1e, 4c–4e) |
-| **E2 Produkt / Exponential** | Limes (Box-Produkt), interne Hom/Currying (Makro mit Loch) | Produktabschluss; Anti-Unifikation; Loch mit Teilgraph-Füllung | Produkt: nur synthetisch (e17), auf echten Daten ≈ 0. Loch mit Label-Füllung: synthetisch ≥ 22–92 Bit, echt nichts. Loch mit Teilgraph-Füllung: synthetisch 28–35 Bit/Fenster, echt kaum Löcher (4f–4h) |
-| **E3 Rekursion / Verschachtelung („higher order")** | Initialalgebra / Fixpunkt; geschachtelte Nichtterminale | bisher nur indirekt (hierarchisches Wörterbuch) | **nicht direkt getestet** |
+| **E2a Produkt** | Limes (Box-Produkt, abgeschlossen monoidal) | Produktabschluss des Wörterbuchs | nur synthetisch (e17), auf echten Daten ≈ 0 (1c, 1e, 1f); theoretisches Argument: Baumweiten-Separation (3.2) |
+| **E2b Exponentialobjekt B^A** (= höherstufig: Makro mit Loch, Currying, Einsetzen = Evaluation) | interne Hom | Label-Loch (Anti-Unifikation), Loch mit Teilgraph-Füllung (Tiefe 1), **Loch in Loch (Tiefe 2)** | Label-Loch: synthetisch 22–92 Bit, echt nichts (4f/4g). Teilgraph-Füllung Tiefe 1: synthetisch 28–35 Bit/Fenster, echt kaum Löcher (4h). **Tiefe 2: strategy.md 4j** |
+| **E3 Rekursion = Fixpunkt** | Initialalgebra / W-Typ (X ≅ F(X)) | bisher nichts | **nicht getestet.** Mehr als E2b: das Exponentialobjekt gibt höherstufige, aber terminierende Makros (wie SL-Grammatiken mit Parametern); Selbstbezug braucht einen Fixpunkt |
 
-Du hast zwei Ziele benannt: (a) Verkleben als Stärkung der Garbenperspektive (E1), (b) einen Higher-Order-Effekt, der rekursive Strukturen ausnutzt (E3, teils E2). RePair (SL-HR-Grammatiken) sucht Rekursion nur als *Verschachtelung* (Nichtterminale, die Nichtterminale benutzen, kein echter Selbstbezug).
+Du hast zwei Ziele benannt: (a) Verkleben als Stärkung der Garbenperspektive (E1), (b) einen Higher-Order-Effekt. Klarstellung vom 15.10.: Mit „rekursiv" ist hier das **Exponentialobjekt** gemeint (E2b: Makros als Elemente von B^A, Makros in Makros durch Currying). Echte Rekursion über einen Fixpunkt (E3) ist mehr als das Exponentialobjekt und ein eigener, noch nicht getesteter Effekt. RePair (SL-HR-Grammatiken) sucht Rekursion nur als *Verschachtelung* (Nichtterminale, die Nichtterminale benutzen, kein echter Selbstbezug).
 
 ---
 
@@ -57,8 +58,8 @@ In Toposen kommutieren Kolimites mit Produkten (Universalität von Kolimites) **
 ### 3.4 Argument C: Substitution als Evaluation — gemeinsame Semantik für Makros mit Loch
 HR-Ersetzung und SLCF-Tree-Grammatiken (TreeRePair-Muster mit Parametern **[belegt]**) sind Spezialfälle von „Makro mit Loch = Pfeil A → B, Einsetzen = Evaluation" (Review 5). Die Cospan-Kategorie (Fong–Spivak) liefert die HR-Algebra; Presheaf-Topoi fügen Limiten und interne Homs hinzu. **[Deutung]**, die Identifikation „SL-HR = Programme über Cospan-Signatur" folgt Bauderon–Courcelle **[ungeprüft]**.
 
-### 3.5 Argument D: Rekursion als Fixpunkt und Größenextrapolation (Higher-Order-Hypothese, offen)
-Rekursive Makros μX. F(X) (z. B. Ripple-Carry-Kette: Zelle, die sich selbst als Füllung eines Lochs enthält) sind in Toposen mit Natürliche-Zahlen-Objekt Initialalgebren polynomialer Funktoren (W-Typen) **[Standard, nicht neu geprüft]**. SL-Grammatiken haben keinen Selbstbezug: eine Kette der Länge n braucht entweder n Regeln oder Verdopplung (O(log n)), jeweils für ein festes n. Ein rekursives Makro mit Parameter hat Kosten O(log n) für die *Anwendung*, aber das Makro selbst ist größenunabhängig. **Testbare Hypothese [Deutung]:** Ein rekursives Makro *extrapoliert* auf Größen, die im Training nicht vorkamen (z. B. Training 4-/8-bit-Addierer, Test 16-bit); eine Grammatik für einen festen Graphen kann das nicht. Das wäre ein echter Higher-Order-Effekt, der nicht von „RePair kann das auch (mit mehr Regeln)" aufgefressen wird. **Nicht getestet.**
+### 3.5 Argument D: Fixpunkt (E3) und Größenextrapolation (offen)
+Rekursive Makros μX. F(X) (z. B. Ripple-Carry-Kette: Zelle, die sich selbst als Füllung eines Lochs enthält) sind in Toposen mit Natürliche-Zahlen-Objekt Initialalgebren polynomialer Funktoren (W-Typen) **[Standard, nicht neu geprüft]**. SL-Grammatiken haben keinen Selbstbezug: eine Kette der Länge n braucht entweder n Regeln oder Verdopplung (O(log n)), jeweils für ein festes n. Ein rekursives Makro mit Parameter hat Kosten O(log n) für die *Anwendung*, aber das Makro selbst ist größenunabhängig. **Testbare Hypothese [Deutung]:** Ein rekursives Makro *extrapoliert* auf Größen, die im Training nicht vorkamen (z. B. Training 4-/8-bit-Addierer, Test 16-bit); eine Grammatik für einen festen Graphen kann das nicht. Das wäre ein Effekt des Fixpunkts (E3), nicht des Exponentialobjekts allein, und er wird nicht von „RePair kann das auch (mit mehr Regeln)" aufgefressen. **Nicht getestet.**
 
 ### 3.6 Argument E: Garbenbedingung als Dekodierbarkeit (schwach)
 Matching-Familien lokaler Abschnitte, die auf Überlappungen übereinstimmen, verkleben eindeutig (Garbenbedingung). In unserer Kodierung ist das genau die Konsistenz „Instanzen identifizieren dieselben Randknoten". **[Deutung]** Das erklärt Dekodierbarkeit, gibt aber keine Kompressionsvorteile; reine Formalisierung.
@@ -78,7 +79,7 @@ Einbettungen eines Musters P in G sind Elemente von Hom(P, G) (Yoneda); Homomorp
 ## 5. Vorschlag (theorieseitig, geordnet nach Aufwand)
 1. **Satz 3.2 sauber ausarbeiten** (Beweis schreiben; Größenmaß festlegen; obere Schranke O(n log n) für unbeschränkten Rang prüfen; Literatur: Courcelle/Engelfriet, HR und Baumweite). Das ist das klarste theoretische Argument.
 2. **Distributivität 3.3 an einem Beispiel durchrechnen** (Wörterbuch mit Normalform, Beweis, dass erst-kleben-dann-multiplizieren und umgekehrt dieselben Bitkosten ergeben).
-3. **Größenextrapolation (3.5) als Experiment**: Training auf kleinen Arithmetik-Schaltungen, Test auf größeren; dazu ein *rekursives* Makro (Loch, das sich selbst enthält) implementieren. Das wäre der erste direkte E3-Test.
+3. **Tiefe-2-Test (E2b)**: Loch, dessen Füllung selbst ein Loch hat (Hom(A, B^C)); Ergebnis in strategy.md 4j. Danach erst **Größenextrapolation (3.5, E3)**: Training auf kleinen Arithmetik-Schaltungen, Test auf größeren, mit einem Makro, das sich selbst enthält.
 4. Datensatzseitig: Gitter/Tori/Hyperwürfel (erzeugbar) und Arithmetik-Schaltungen verschiedener Breite (EPFL, vorhanden); Versionsgraphen (Tic-Tac-Toe lokal erzeugen) nur zur Einordnung gegenüber RePair.
 
 ## Quellen
