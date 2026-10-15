@@ -11,7 +11,7 @@ Stand: 15. Oktober 2026. Etiketten wie in `review-makros.md`: **[belegt]** (in e
 | **E1 Verkleben** | Kolimes/Pushout (Interface = Cospan) | Muster aus Mustern; Instanzen zahlen nur Randknoten | c6288: glue ≫ grow (23–25 %, mit Interface 31 % vor gRePair-artiger Baseline); Straßen: glue ≈ grow, beide ≈ 12–14 % vor der Baseline (strategy.md 1e, 4c–4e) |
 | **E2a Produkt** | Limes (Box-Produkt, abgeschlossen monoidal) | Produktabschluss des Wörterbuchs | nur synthetisch (e17), auf echten Daten ≈ 0 (1c, 1e, 1f); theoretisches Argument: Baumweiten-Separation (3.2) |
 | **E2b Exponentialobjekt B^A** (= höherstufig: Makro mit Loch, Currying, Einsetzen = Evaluation) | interne Hom | Label-Loch (Anti-Unifikation), Loch mit Teilgraph-Füllung (Tiefe 1), **Loch in Loch (Tiefe 2)** | Label-Loch: synthetisch 22–92 Bit, echt nichts (4f/4g). Teilgraph-Füllung Tiefe 1: synthetisch 28–35 Bit/Fenster, echt kaum Löcher (4h). **Tiefe 2: strategy.md 4j** |
-| **E3 Rekursion = Fixpunkt** | Initialalgebra / W-Typ (X ≅ F(X)) | bisher nichts | **nicht getestet.** Mehr als E2b: das Exponentialobjekt gibt höherstufige, aber terminierende Makros (wie SL-Grammatiken mit Parametern); Selbstbezug braucht einen Fixpunkt |
+| **E3 Rekursion = Fixpunkt** | Initialalgebra / W-Typ (X ≅ F(X)) | 4k (Gitterregel auf c6288-Zellquotient) | **erster Test in 4k, siehe unten.** Mehr als E2b: das Exponentialobjekt gibt höherstufige, aber terminierende Makros (wie SL-Grammatiken mit Parametern); Selbstbezug braucht einen Fixpunkt |
 
 Du hast zwei Ziele benannt: (a) Verkleben als Stärkung der Garbenperspektive (E1), (b) einen Higher-Order-Effekt. Klarstellung vom 15.10.: Mit „rekursiv" ist hier das **Exponentialobjekt** gemeint (E2b: Makros als Elemente von B^A, Makros in Makros durch Currying). Echte Rekursion über einen Fixpunkt (E3) ist mehr als das Exponentialobjekt und ein eigener, noch nicht getesteter Effekt. RePair (SL-HR-Grammatiken) sucht Rekursion nur als *Verschachtelung* (Nichtterminale, die Nichtterminale benutzen, kein echter Selbstbezug).
 
@@ -73,7 +73,7 @@ Einbettungen eines Musters P in G sind Elemente von Hom(P, G) (Yoneda); Homomorp
 
 - E1 (Verkleben) steckt in HR/gRePair bereits (Cospan, Nichtterminal mit Rang). Unser Vorteil gegenüber der gRePair-artigen Baseline auf c6288 liegt in der Musterfamilie (größere Bausteine, globale MDL-Auswahl), nicht in der Prägarbenstruktur; auf Straßen ist `grow` ohne Verkleben genauso gut.
 - E2: Produkt-/Loch-Gewinne nur in konstruierten Welten. Der Treewidth-Satz (3.2) benennt die Datenfamilie, auf der das tragen könnte; wir haben dort noch nicht gemessen.
-- E3 (Rekursion): nicht getestet.
+- E3 (Rekursion): erster Test in strategy.md 4k (Gitterregel extrapoliert exakt von 3x3–5x5 auf 13x13, Kosten ~65 Bit gegen 2400–3700 bei Kleben; Kern perfektes Gitter, Regelklasse vorgegeben).
 - RePair ist auf Sternen/wenigen Labels/Versionsgraphen sehr stark; unsere Muster gewinnen dort nichts bewiesen.
 
 ## 5. Vorschlag (theorieseitig, geordnet nach Aufwand)

@@ -1,0 +1,4 @@
+E3 (Gitterregel auf c6288-Zellquotient). Quellen: results/e32_t3|t4|t5.json, results/e32b.json
+Regel (aus 3x3 / 4x4 / 5x5 Block, identisch): Erzeuger {65,68,69} (Buendel aus 3 parallelen Kanten) und {70}, kommutierend; 57.8 Bit
+Bloecke m x m (Bit): raw | glue(t=3/4/5) | repair(t=3/4/5) | rekursiv
+m=13 (169 Zellen, 612 Kanten): 13002 | 3687/3059/2383 | 6237/3523/3387 | 62-65 (0 Ausnahmen)
