@@ -1,0 +1,7 @@
+  round 0 holes 3 alive 40 train total 16780 baseline 16829
+  round 1 holes 3 alive 40 train total 16770 baseline 16780
+  round 2 holes 3 alive 40 train total 16770
+  round 0 holes 1 alive 15 train total 811 baseline 817
+  round 1 holes 1 alive 15 train total 811 baseline 811
+  round 2 holes 1 alive 15 train total 811
+d2_3_n60 {'k_dict': 40, 'glue': 271.2, 'dict_glue': 1088.2, 'flat': 266.7, 'dict_flat': 1513.5, 'n_holes': 3, 'flat_round': 1, 'd2': 266.6, 'dict_d2': 1529.7, 'train_flat': 16769.7, 'train_d2': 16784.4, 'info': {'n_mids': 1, 'n_leaves': 1, 'n_explained': 2, 'n_flat_lib': 94}, 'd2_chosen': False, 'time': 168}

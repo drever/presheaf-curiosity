@@ -425,6 +425,30 @@ Rohdaten: `results/e30_*`.
 
 Siehe `review-repair-garben.md`. Kurz: (1) Die RePair-Community behauptet ihren Vorteil auf RDF-Graphen mit wenigen Prädikaten, Versionsgraphen und XML-Bäumen (Muster mit Parametern), nicht auf gitter-/produktartigen Strukturen; gRePair-Vorteil meist gegenüber k²-Bäumen. (2) Stärkstes theoretisches Argument: eine straight-line-HR-Grammatik, deren rechte Seiten höchstens s Knoten haben, erzeugt nur Graphen mit Baumweite ≤ s − 1 (Beweisskizze); das n×n-Gitter (Baumweite n) braucht daher Grammatikgröße ≥ n + 1, ein Wörterbuch mit Box-Produkt kommt mit O(log n) Einträgen aus. (3) Unser Produktabschluss ist das Box-Produkt (abgeschlossen monoidal), nicht das kategorielle Produkt des Graphentopos. (4) Klarstellung 15.10.: Effekte E1 Verkleben, E2a Produkt, E2b Exponentialobjekt (Makros mit Loch, höherstufig), E3 Fixpunkt/Rekursion (mehr als E2b, nicht getestet). Tiefe-2-Test (Loch in Loch) siehe 4j.
 
+## 4j. Tiefe-2-Test (E2b): Loch in Loch, Hom(A, B^C) – 15. Oktober 2026
+
+**Frage.** Ist das Exponentialobjekt wirklich *geschlossen*: Kann die Füllung eines Lochs selbst ein Makro mit Loch sein, und zahlt sich das gegenüber flachen zusammengesetzten Füllungen aus?
+
+**Aufbau** (`src/holes3.py`, `src/e31.py`, `src/agg31.py`, `results/e31_*`). Synthetische Welt: 3 Rahmen × 2 Löcher; Füllung eines Rahmenlochs = eines von M=4 Mittelstücken (3 Kanten, mit innerem Knotenpaar = Unterloch); Füllung des Unterlochs = eines von L=8 Blättern (2–4 Kanten). Leer-Wahrscheinlichkeit 0,15 / 0,2. Das Mittelstück mit Blatt hat bis zu 7 Kanten (maxF=8). Der flache Lerner muss also bis zu 32 Kombinationen einzeln als Füllung lernen, das verschachtelte Modell nur 4+8.
+Pipeline: (1) Tiefe-1-Modell (H2.refine, maxF=8, flache Füllungen); (2) die gefundenen Füllungen als Trainingsfenster mit Markern an a,b; darauf nochmal Wörterbuch + Löcher lernen (H2.refine) = Mittelstück-Rahmen mit Unterloch + Blattbibliothek; (3) Mittelstück × Blatt wird expandiert (auch *ungesehene* Kombinationen), Optionskosten −log2(p_Mitte·p_Blatt); Bibliotheksbits = Mitten + Blätter + Unterlöcher statt aller Kombinationen. Testkosten = Bits pro Fenster, 100 Testfenster. Auswahlregel: Tiefe 2 nur, wenn die Trainingskosten (inkl. Wörterbuch) sinken.
+
+**Ergebnis** (4 Seeds je Größe; jede Seed hat eigene zufällige Rahmen/Gadgets):
+
+| Trainingsfenster | Test glue | flach (Tiefe 1) | Tiefe 2 | Tiefe 2 gewählt |
+|---|---|---|---|---|
+| n=60 | 274,6 | 268,7 | 264,9 (nur 2 von 4 Seeds zerlegbar) | 1 von 4 |
+| n=150 | 272,5 | 251,4 | 232,3 | 4 von 4 |
+
+- n=150: Tiefe 2 schlägt flach um 19,1 Bit/Fenster (kleinster Wert 6,4) und glue um 40,2. Das Wörterbuch ist bei Tiefe 2 kleiner als bei flach (3474–3979 vs 3607–4506 Bit).
+- Netto (Testkosten + Wörterbuch/100): n=150 glue 283,2 / flach 291,7 / Tiefe 2 **269,9**; n=60 glue 279,4 / flach 282,6 / Tiefe 2 280,8. Die flachen Löcher *verlieren* netto gegen glue (großes Wörterbuch mit 170–240 Füllungen), erst die verschachtelte Darstellung gewinnt (13 Bit vs glue). Das hängt an der willkürlichen Gewichtung /100.
+- Kontrolle (Tiefe-1-Welt, Unterloch immer leer, n=60, 3 Seeds): kein Loch gefunden, flach = glue, Tiefe 2 nicht angewendet. Das ist „kein Schaden", aber auch keine Probe der Auswahlregel mit Löchern; die liefert nur Seed 3 bei n=60 (Tiefe 2 nicht gewählt, Differenz 0,1).
+
+**Lesart und Grenzen.**
+- Was der Test zeigt: Verschachtelte Löcher werden gefunden und zahlen sich aus, **wenn** Struktur wirklich Mittelstück × Blatt ist und genug Daten da sind (Datenersparnis = Kombinatorik 4·8 statt 4+8, plus Generalisierung auf ungesehene Kombinationen). Das ist die konkrete Form von „Hom(A, B^C)" im Kompressionsproblem und das Argument für Abgeschlossenheit.
+- Was er nicht zeigt: Die Welt ist synthetisch und genau auf diese Struktur zugeschnitten. Auf echten Daten (c6288, Straßen) fanden wir schon Tiefe 1 kaum (4h), also ist Tiefe 2 dort noch weniger zu erwarten. Kein RePair-Vergleich: SL-Grammatiken mit Parametern erreichen vermutlich ähnliche Effekte; offen.
+- Schwächen: Das Unterloch wird nur für ein Paar je Mittelstück berücksichtigt; bei n=60 findet die Zerlegung nur in 2 von 4 Seeds (Mittelstücke zu selten); 4 Seeds sind wenig; die Bibliotheksbits sind grob geschätzt.
+- Offen bleibt E3 (Fixpunkt/Größenextrapolation) ungetestet und ist mehr als E2b.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In

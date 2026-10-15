@@ -1,0 +1,16 @@
+Tiefe-2-Welt n=60 4
+  glue  277.9 flat  270.7 d2  263.2 | dict glue  1036 flat  2160 d2  2182 | holes 4 chosen True {'n_mids': 2, 'n_leaves': 4, 'n_explained': 5, 'n_flat_lib': 105}
+  glue  263.4 flat  261.4 d2   -    | dict glue  1067 flat  1552 d2   -   | holes 4 chosen None 
+  glue  262.3 flat  257.1 d2   -    | dict glue  1079 flat  2237 d2   -   | holes 4 chosen None 
+  glue  271.2 flat  266.7 d2  266.6 | dict glue  1088 flat  1514 d2  1530 | holes 3 chosen False {'n_mids': 1, 'n_leaves': 1, 'n_explained': 2, 'n_flat_lib': 94}
+  mean test: glue 274.6 flat 268.7 d2 264.9; d2-vs-flat 3.8 (min 0.1); d2-vs-glue 9.6
+Tiefe-2-Welt n=150 4
+  glue  284.8 flat  259.9 d2  235.0 | dict glue  1057 flat  4506 d2  3979 | holes 5 chosen True {'n_mids': 6, 'n_leaves': 8, 'n_explained': 19, 'n_flat_lib': 172}
+  glue  263.5 flat  247.8 d2  228.3 | dict glue  1078 flat  3607 d2  3474 | holes 6 chosen True {'n_mids': 6, 'n_leaves': 10, 'n_explained': 16, 'n_flat_lib': 190}
+  glue  270.8 flat  252.8 d2  246.4 | dict glue  1069 flat  3896 d2  3808 | holes 7 chosen True {'n_mids': 4, 'n_leaves': 8, 'n_explained': 12, 'n_flat_lib': 188}
+  glue  271.0 flat  245.2 d2  219.4 | dict glue  1070 flat  4109 d2  3770 | holes 6 chosen True {'n_mids': 6, 'n_leaves': 14, 'n_explained': 22, 'n_flat_lib': 241}
+  mean test: glue 272.5 flat 251.4 d2 232.3; d2-vs-flat 19.1 (min 6.4); d2-vs-glue 40.2
+Kontrolle Tiefe-1-Welt n=60 3
+  glue  158.7 flat  158.7 d2   -    | dict glue   993 flat   993 d2   -   | holes 0 chosen None 
+  glue  155.3 flat  155.3 d2   -    | dict glue  1043 flat  1043 d2   -   | holes 0 chosen None 
+  glue  161.7 flat  161.7 d2   -    | dict glue  1033 flat  1033 d2   -   | holes 0 chosen None 
