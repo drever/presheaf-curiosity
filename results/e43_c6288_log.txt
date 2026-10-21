@@ -1,0 +1,10 @@
+  refine round 0 score 101
+  refine round 1 score 67
+  refine round 2 score 66
+  refine round 3 score 66
+  majority start 2963 {'bundle_bits': 1895, 'site_bits': 666, 'exception_bits': 401, 'extra': 10, 'miss': 2, 'unplaced': 0, 'runs': 27}
+  start 2963 {'bundle_bits': 1895, 'site_bits': 666, 'exception_bits': 401, 'extra': 10, 'miss': 2, 'unplaced': 0, 'runs': 27}
+  round 0 2689
+  round 1 2666
+  round 2 2642
+c6288 {'start_mdl': 4737.124723479632, 'mdl': 2642.2582571959215, 'breakdown': {'bundle_bits': 1353, 'site_bits': 620, 'exception_bits': 669, 'extra': 20, 'miss': 0, 'unplaced': 0, 'runs': 25}, 'time': 99, 'bundles_used': 48, 'edges': 1179}

@@ -535,6 +535,23 @@ roh 27866 | Kleben 9188 (+ Wörterbuch 950) | RePair 9215 (+ 1423) | Gitterkern 
 4. Zellinneres, Wörterbuch (Zelle 20 Kanten + 13 Randmuster) und Bus-Reste sind nicht eingerechnet. RePair ist weiter meine Nachbildung.
 5. Die Struktur (zwei Linienfamilien Bus, Parallelogramm, Diagonalstreifen) legt nahe, dass der Multiplizierer ein *induktiv definiertes* Objekt ist, dessen Quotient von zwei Parametern abhängt; für einen Beleg der Extrapolation bräuchte man weitere reale Größen (zum Beispiel c6288 neben kleineren Array-Multiplizierern), die hier fehlen. Die eigenen Multiplizierer aus 4n liefern das für eine regelmäßigere Familie.
 
+## 4p. Einbettung direkt nach Beschreibungslänge (exaktes zweiseitiges Modell) – 22. Oktober 2026
+
+**Modell** (`src/mdlembed.py`, `e43.py`, `results/e43_*`). Beschreibungslänge = (1) **Bündeltabelle**: je benutztes Bündel 2·log T + 2·log 20 Bit je Label (T = Zahl der Zelltypen) + 2 Bit + Verschiebung 2·log 7; (2) **Knotenplätze**: Kernregion als Parallelogramm (Shear −1…1; Lücken zählen als Ausnahme) + gierige Läufe für alle übrigen Zellen (je Lauf Typ, Start, Richtung aus 12, Länge); (3) **Ausnahmen**: *zweiseitig exakt*, also fehlende vorhergesagte Kanten (Bündel mit Verschiebung d sagt für jedes Paar passender Typen auf Plätzen p, p+d eine Kante voraus) **plus** nicht vorhergesagte tatsächliche Kanten, je 2·log N + Labelbits, plus unplatzierte Knoten. Ein Bündel darf auch „verworfen" werden (alle seine Kanten sind dann Ausnahmen). Optimierung: Start aus der Konsistenz-Einbettung (4o) *und* aus der iterierten Mehrheitsverschiebung je Bündel (besserer Start), danach Koordinatenabstieg über die Verschiebung jedes Nicht-Kernbündels (|d| ≤ 3, oder verworfen), Zielfunktion = diese Gesamtlänge.
+
+**Ergebnis (Bit, ganzer Quotient ohne Bus und ohne Zell-/Musterwörterbuch):**
+
+| Objekt | roh | Kleben | RePair | Einbettung vorher (Schätzung 4n/4o) | **MDL-Einbettung** | davon Bündel / Plätze / Ausnahmen |
+|---|---|---|---|---|---|---|
+| c6288 | 27866 | 9188 | 9215 | 2148 | **2642** | 1353 / 620 / 669 (20 Kanten, 25 Läufe, 48 von 63 Bündeln benutzt) |
+| mul16 | 17594 | 6854 | 5868 | 1408 | **1460** | 1023 / 342 / 95 (3 Kanten, 14 Läufe, 44 Bündel) |
+| mul24 | 43121 | 16337 | 14436 | 1450 | **1494** | 1023 / 370 / 102 |
+| mul32 | 81219 | 30551 | 27627 | 1481 | **1519** | 1023 / 389 / 107 |
+
+(Kleben und RePair auf Fenstern des jeweiligen Quotienten gelernt; Wörterbücher bei c6288 950 bzw. 1423, bei den Multiplizierern 949 bzw. 1360 nicht enthalten.)
+
+**Lesart.** (1) Mit dem exakten Modell bleibt der Befund bestehen, aber die c6288-Zahl steigt gegenüber der Schätzung um 23 % (2642 statt 2148): Die Mehrheitsverschiebungen allein waren kein konsistenter Dekoder (66 Ausnahmekanten bezogen auf eine feste Tabelle, nicht 14). Bei den Multiplizierern stimmt die Schätzung auf 3–4 % (gleiche Struktur, nur 3 Ausnahmekanten). (2) c6288: rund 3,5-mal kürzer als Kleben und RePair, 1,9-mal kürzer als „Gitterkern + RePair-Rand" (≈ 4950). Multiplizierer: Einbettung wächst von k=16 auf 32 um 59 Bit (3,9 %), Kleben um Faktor 4,5, RePair um Faktor 4,7. (3) Der Koordinatenabstieg vom Konsistenzstart allein ergab 4511 Bit, vom Mehrheitsstart 2963, danach 2642: die Zielfunktion ist wegen der abhängigen Platzierung stark holprig; ein globaler Optimierer (MDL-getriebene Platzierung, Neustarts) könnte noch Bits sparen, das Ergebnis ist eine obere Schranke. (4) Grenzen: Bündellabelkosten (≈ 16 Bit je Label) und Laufkosten sind modelliert, aber nicht gegen einen echten Kodierer verifiziert; Bus, Zellinneres und Wörterbuch nicht enthalten; alles in-sample (Validierung: siehe offene Punkte, Abschnitt 6); RePair ist meine Nachbildung ohne Pruning; Kleben/RePair haben bei ihren Kantenlabels nicht denselben Kodierungsvorteil durch Bündelung (ein Bündel teilt sich Verschiebung und Portpaare), sodass der Vergleich zugunsten des Gittermodells verzerrt sein kann.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In

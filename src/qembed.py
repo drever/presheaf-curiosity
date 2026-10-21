@@ -69,7 +69,7 @@ def embed(Q, ptype, N):
     for a, b, bb in QB:
         if a in coord and b in coord: byb[bb][(coord[b][0] - coord[a][0], coord[b][1] - coord[a][1])] += 1
     exc = sum(sum(c.values()) - max(c.values()) for c in byb.values()) + sum(1 for a, b, bb in QB if a not in coord or b not in coord)
-    return {'disp': disp, 'QB': QB, 'core': core, 'core_coord': {x: coord[x] for x in core if x in coord}, 'coord': coord, 'occ': occ, 'bundles': len(groups), 'exceptions': exc, 'collisions': coll, 'unplaced': N - len(coord), 'edges': len(QB), 'cell': cell}
+    return {'bid': bid, 'disp': disp, 'QB': QB, 'core': core, 'core_coord': {x: coord[x] for x in core if x in coord}, 'coord': coord, 'occ': occ, 'bundles': len(groups), 'exceptions': exc, 'collisions': coll, 'unplaced': N - len(coord), 'edges': len(QB), 'cell': cell}
 def rectangles(coord, ptype):
     """Greedy-Zerlegung in typkonstante Rechtecke, bestes Shear s in {-1,0,1}."""
     best = None

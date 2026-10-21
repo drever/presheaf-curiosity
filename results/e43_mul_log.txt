@@ -1,0 +1,21 @@
+  refine round 0 score 2
+  refine round 1 score 2
+  majority start 1480 {'bundle_bits': 1138, 'site_bits': 342, 'exception_bits': 0, 'extra': 0, 'miss': 0, 'unplaced': 0, 'runs': 14}
+  start 1480 {'bundle_bits': 1138, 'site_bits': 342, 'exception_bits': 0, 'extra': 0, 'miss': 0, 'unplaced': 0, 'runs': 14}
+  round 0 1460
+  round 1 1460
+mul16 {'start_mdl': 1497.399863266802, 'mdl': 1460.3796536650298, 'breakdown': {'bundle_bits': 1023, 'site_bits': 342, 'exception_bits': 95, 'extra': 3, 'miss': 0, 'unplaced': 0, 'runs': 14}, 'time': 28, 'bundles_used': 44, 'edges': 794}
+  refine round 0 score 2
+  refine round 1 score 2
+  majority start 1507 {'bundle_bits': 1138, 'site_bits': 370, 'exception_bits': 0, 'extra': 0, 'miss': 0, 'unplaced': 0, 'runs': 14}
+  start 1507 {'bundle_bits': 1138, 'site_bits': 370, 'exception_bits': 0, 'extra': 0, 'miss': 0, 'unplaced': 0, 'runs': 14}
+  round 0 1494
+  round 1 1494
+mul24 {'start_mdl': 1529.183410805601, 'mdl': 1494.3673975790664, 'breakdown': {'bundle_bits': 1023, 'site_bits': 370, 'exception_bits': 102, 'extra': 3, 'miss': 0, 'unplaced': 0, 'runs': 14}, 'time': 61, 'bundles_used': 44, 'edges': 1770}
+  refine round 0 score 2
+  refine round 1 score 2
+  majority start 1527 {'bundle_bits': 1138, 'site_bits': 389, 'exception_bits': 0, 'extra': 0, 'miss': 0, 'unplaced': 0, 'runs': 14}
+  start 1527 {'bundle_bits': 1138, 'site_bits': 389, 'exception_bits': 0, 'extra': 0, 'miss': 0, 'unplaced': 0, 'runs': 14}
+  round 0 1519
+  round 1 1519
+mul32 {'start_mdl': 1551.9238110482952, 'mdl': 1518.69420668919, 'breakdown': {'bundle_bits': 1023, 'site_bits': 389, 'exception_bits': 107, 'extra': 3, 'miss': 0, 'unplaced': 0, 'runs': 14}, 'time': 105, 'bundles_used': 44, 'edges': 3130}
