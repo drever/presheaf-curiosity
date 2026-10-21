@@ -69,7 +69,7 @@ def embed(Q, ptype, N):
     for a, b, bb in QB:
         if a in coord and b in coord: byb[bb][(coord[b][0] - coord[a][0], coord[b][1] - coord[a][1])] += 1
     exc = sum(sum(c.values()) - max(c.values()) for c in byb.values()) + sum(1 for a, b, bb in QB if a not in coord or b not in coord)
-    return {'coord': coord, 'occ': occ, 'bundles': len(groups), 'exceptions': exc, 'collisions': coll, 'unplaced': N - len(coord), 'edges': len(QB), 'cell': cell}
+    return {'disp': disp, 'QB': QB, 'core': core, 'core_coord': {x: coord[x] for x in core if x in coord}, 'coord': coord, 'occ': occ, 'bundles': len(groups), 'exceptions': exc, 'collisions': coll, 'unplaced': N - len(coord), 'edges': len(QB), 'cell': cell}
 def rectangles(coord, ptype):
     """Greedy-Zerlegung in typkonstante Rechtecke, bestes Shear s in {-1,0,1}."""
     best = None
@@ -85,3 +85,40 @@ def rectangles(coord, ptype):
             n += 1
         if best is None or n < best[0]: best = (n, s)
     return best
+
+def place(QB, core_coord, disp, N):
+    """Platzierung per BFS mit fester Verschiebungstabelle; Bewertung = inkonsistente Kanten + Kollisionen + unplatzierte Knoten."""
+    adj = defaultdict(list)
+    for a, b, bb in QB: adj[a].append((b, bb, 1)); adj[b].append((a, bb, -1))
+    coord = dict(core_coord); occ = set(coord.values()); q = deque(sorted(coord)); coll = 0
+    while q:
+        x = q.popleft(); cx = coord[x]
+        for y, bb, s in sorted(adj[x]):
+            if y in coord or bb not in disp: continue
+            d = disp[bb]; p = (cx[0] + s * d[0], cx[1] + s * d[1])
+            if p in occ: coll += 1; continue
+            coord[y] = p; occ.add(p); q.append(y)
+    bad = sum(1 for a, b, bb in QB if a in coord and b in coord and (coord[b][0] - coord[a][0], coord[b][1] - coord[a][1]) != disp.get(bb))
+    unpl = N - len(coord); skipped = sum(1 for a, b, bb in QB if a not in coord or b not in coord)
+    return coord, bad + coll + skipped, {'bad': bad, 'coll': coll, 'unplaced': unpl, 'skipped_edges': skipped}
+def refine(E, N, rounds=4, rad=3):
+    disp = dict(E['disp']); QB = E['QB']; cc = E['core_coord']; core_bundles = set()
+    coordc = {x: p for x, p in cc.items()}
+    for a, b, bb in QB:
+        if a in E['core'] and b in E['core']: core_bundles.add(bb)
+    coord, sc, info = place(QB, cc, disp, N); cands = [(du, dv) for du in range(-rad, rad + 1) for dv in range(-rad, rad + 1) if (du, dv) != (0, 0)]
+    allb = sorted({bb for _, _, bb in QB} - core_bundles)
+    for rd in range(rounds):
+        improved = False
+        for bb in allb:
+            cur = disp.get(bb); best = (sc, cur)
+            for dd in cands:
+                disp[bb] = dd; c2, s2, i2 = place(QB, cc, disp, N)
+                if s2 < best[0]: best = (s2, dd)
+            if best[1] is None: disp.pop(bb, None)
+            else: disp[bb] = best[1]
+            if best[0] < sc: sc = best[0]; improved = True
+        print('  refine round', rd, 'score', sc, flush=True)
+        if not improved: break
+    coord, sc, info = place(QB, cc, disp, N)
+    return coord, disp, sc, info

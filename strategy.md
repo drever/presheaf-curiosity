@@ -514,6 +514,27 @@ Das Einbettungsmodell besteht aus Bündeltabelle (47 × ≈ 23 Bit, grob geschä
 
 **Lesart.** (1) Für diese Familie ist die gesamte Quotientenstruktur (Kern, Ränder) ein typisiertes Z²-Gitter mit konstant vielen Regeln; die Beschreibungslänge wächst nur logarithmisch, während Kleben und RePair linear bis quadratisch in der Zellzahl wachsen. (2) Der Rand ist damit keine zweite Rekursion von anderer Art: Er ist 1D-Streifen im selben Gitter (anders als bei c6288 in 4l, wo die greedy-Einbettung scheiterte; dort sind die Ränder gemischter, und die c6288-Zellen enthalten die Busanbindung anders). (3) Grenzen: eigener, sehr regelmäßiger Generator; ein Lauf; die Bündeltabellenkosten sind eine grobe Schätzung und die Rechteckzerlegung ist gierig; Zellinnenstruktur und Wörterbuch ausgeklammert; Bus nur teilweise erklärt; RePair ist meine Nachbildung ohne Pruning, und gegen Sterne (Bus) hat RePair/SL-HR-Grammatiken vermutlich einen Vorteil, der hier nicht gemessen wurde. (4) Ob dasselbe auf c6288 mit der verbesserten Einbettung (Bündel statt einzelner Labels, Wertung nach konsistenten Kanten) gelingt, ist nicht getestet; dort wäre der Test, ob die 63 Bündel des Quotienten, der Rand und der Bus in wenige Rechtecke und Linienfamilien zerfallen.
 
+## 4o. E3 auf c6288: Quotient als typisiertes Z²-Gitter (echte Daten) – 22. Oktober 2026
+
+**Frage.** Gilt der Befund aus 4n (ganzer Quotient = typisiertes Z²-Gitter mit konstant vielen Regeln) auch auf c6288, dessen Ränder in 4l mit der einfachen Einbettung scheiterten? (`src/e42.py`, `qembed.py` mit `refine`; Quotient aus 1f: 361 Knoten, 1179 Kanten, Zelle = 20-Kanten-Muster 18, 195 Instanzen, PI-Kanten ausgenommen.)
+
+**Änderungen gegenüber 4l.** (1) Labels, die immer auf denselben Knotenpaaren liegen, werden zu **Bündeln** vereint (63 Bündel statt 86 Labels); (2) die Verschiebung jedes unbekannten Bündels wird nach Konsistenz und freien Zielplätzen gewählt; (3) anschließend lokale Suche über die 59 Nicht-Kernbündel (Verschiebungen mit |du|,|dv| ≤ 3), Bewertung = inkonsistente Kanten + Kollisionen + Auslassungen.
+
+**Ergebnis.**
+- Greedy allein: 41 Knoten nicht platziert, 88 Kollisionen, 115 inkonsistente Kanten. **Nach der Suche: alle 361 Knoten platziert, 0 Kollisionen**, relativ zur gewählten Verschiebungstabelle 66 inkonsistente Kanten, relativ zur **Mehrheitsverschiebung je Bündel nur 14** (10 Bündel haben mehr als einen Wert, jeweils 1–2 Ausreißer unter 13–15 Kanten).
+- Typkarte: Kern 195 Zellen (Parallelogramm) + 166 Nicht-Kernzellen. In Läufe (konstanter Typ entlang einer Richtung mit Schritten |Δ| ≤ 2, gierig längste zuerst) zerlegt: **31 Läufe**; 13 davon mit Länge ≥ 6 (acht Läufe der Länge 14, einer 12, 8, 7, 6), 18 kurz (Länge 1–2). Achsenparallele Rechtecke im geschrägten System brauchen 52, weil der rechte Rand ein Diagonalstreifen mit Periode 2 (jede zweite Zeile besetzt) ist.
+- Bus: 28 von 32 Eingängen hängen an ganzen Linien von Kernzellen, in **zwei Familien mit je 14 Linien, Abstand 1** (Richtungen (1,0) und (1,−1)); 390 von 512 Buskanten (restliche 4 Eingänge und Randziele nicht erklärt). Identisch zum Befund bei den eigenen Multiplizierern.
+
+**Kosten** (Bit, ganzer Quotient ohne Bus, ohne Zell-/Musterwörterbuch):
+roh 27866 | Kleben 9188 (+ Wörterbuch 950) | RePair 9215 (+ 1423) | Gitterkern + RePair-Rand ≈ 4950 (4l) | **Einbettungsmodell ≈ 2150** (63 Bündel × ≈ 24, 32 Teile (Kern + 31 Läufe) × ≈ 26, 14 Ausnahmen × 25, Kernregel 55).
+
+**Lesart und Grenzen.**
+1. Auf echten Daten gelingt es **teilweise**: Der gesamte Quotient ist, bis auf 14 Kanten, ein Z²-Gitter mit Bündelverschiebungen. Der Befund aus 4l („Rand nicht einbettbar") lag an der schwachen Einbettung, nicht an der Struktur. 31 Läufe sind viele; ob es bei einer größeren Instanz derselben Familie konstant viele blieben, ist auf c6288 nicht prüfbar (nur Größe 16).
+2. Der Vergleich ist **in-sample**: Verschiebungstabelle, Läufe und Ausnahmen sind an genau diesen Graphen angepasst; Kleben/RePair wurden auf Fenstern desselben Graphen gelernt und auf dem ganzen Graphen bewertet. Die Kosten der Bündeltabelle (≈ 1500 Bit, Großteil) und der Läufe sind **grobe Schätzungen**; ein Unterschätzen um Faktor 1,5 ließe den Abstand zu Kleben/RePair (Faktor ≈ 4) bestehen, ein genauer Kodierer wurde aber nicht gebaut.
+3. Die Einbettung wurde nach Konsistenz gesucht, nicht nach Beschreibungslänge; eine MDL-getriebene Suche könnte weitere Ausnahmen sparen oder kosten.
+4. Zellinneres, Wörterbuch (Zelle 20 Kanten + 13 Randmuster) und Bus-Reste sind nicht eingerechnet. RePair ist weiter meine Nachbildung.
+5. Die Struktur (zwei Linienfamilien Bus, Parallelogramm, Diagonalstreifen) legt nahe, dass der Multiplizierer ein *induktiv definiertes* Objekt ist, dessen Quotient von zwei Parametern abhängt; für einen Beleg der Extrapolation bräuchte man weitere reale Größen (zum Beispiel c6288 neben kleineren Array-Multiplizierern), die hier fehlen. Die eigenen Multiplizierer aus 4n liefern das für eine regelmäßigere Familie.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In
