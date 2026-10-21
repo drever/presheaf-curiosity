@@ -1,0 +1,21 @@
+{
+ "note": "Log des ersten Laufs (nur learn_h aus 40 Fenstern von mul8, vor Verklebungsrunden) wurde ueberschrieben; Zahlen aus der Konsolenausgabe uebernommen. Verklebungsrunden (cells3.merge_round) wurden bei k=8 nach Runde 0 > 4 min je Runde und deshalb abgebrochen.",
+ "k8": {
+  "nodes": 552,
+  "edges": 1064,
+  "instances": 141,
+  "raw": 34
+ },
+ "k16": {
+  "nodes": 2384,
+  "edges": 4688,
+  "instances": 601,
+  "raw": 76
+ },
+ "k24": {
+  "nodes": 5496,
+  "edges": 10872,
+  "instances": 1381,
+  "raw": 118
+ }
+}
