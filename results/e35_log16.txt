@@ -1,0 +1,8 @@
+  merge round 0 edges 13 instances 170 gain 2294
+  merge round 1 edges 15 instances 170 gain 2248
+  merge round 2 edges 10 instances 87 gain 1089
+  merge round 3 edges 18 instances 57 gain 390
+merges 4 8.1 s
+16 {'nodes': 2384, 'edges': 4688, 'instances': 400, 'raw': 74, 'by_pattern': {'25': [18, 182], '20': [7, 44], '0': [2, 30], '24': [10, 29], '7': [10, 27], '16': [1, 16], '21': [7, 15], '11': [8, 14]}, 'time': 2.2}
+24 {'nodes': 5496, 'edges': 10872, 'instances': 856, 'raw': 82, 'by_pattern': {'25': [18, 462], '20': [7, 132], '0': [2, 46], '24': [10, 45], '7': [10, 43], '16': [1, 24], '21': [7, 23], '11': [8, 22]}, 'time': 12.4}
+32 {'nodes': 9888, 'edges': 19616, 'instances': 1476, 'raw': 142, 'by_pattern': {'25': [18, 870], '20': [7, 236], '0': [2, 62], '24': [10, 61], '7': [10, 59], '12': [3, 34], '16': [1, 32], '21': [7, 31]}, 'time': 58.1}

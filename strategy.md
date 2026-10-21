@@ -477,6 +477,24 @@ Drei Fragen aus 4k („Ränder als eigene Rekursion", „echter Größentest"). 
 
 **Lesart.** Der Kerngewinn aus 4k bleibt, der Rand ist Stückwerk und für eine zweite Rekursion zu unregelmäßig; Größenextrapolation über echte Größenunterschiede ist nicht gezeigt. Der nächste Schritt ginge über die Zellbildung: den Merge-Schritt beschleunigen (Kandidaten begrenzen) oder die Zelle des Generators direkt als gegeben nehmen und nur die Regel über k testen.
 
+## 4m. E3 Größentest mit beschleunigter Zellbildung (eigene Multiplizierer, k = 16 → 24, 32) – 21. Oktober 2026
+
+**Beschleunigung** (`src/merge.py`). Ursache der Hänger in 4l war nicht das Einbetten, sondern `canon_u` (pynauty) auf Vereinigungen von Stücken, die Eingangsbus-Knoten (Fan-out 16–32) teilen: riesige Automorphismengruppen. Änderungen: (1) Hubs (Knoten, die mehr als 8 Stücke teilen) werden nicht verklebt; (2) Kandidaten werden über einen schnellen WL-Schlüssel (4 Runden, Kantenlabels) gezählt statt über pynauty; (3) der Gewinn einer Verklebung wird arithmetisch berechnet (2 Instanzen → 1, Knotenersparnis, Wörterbuch-Eintrag) statt durch Gesamtüberdeckung je Kandidat; (4) nach jeder gewählten Runde wird frisch mit `cover_u` überdeckt, damit inkonsistente Kachelungen der Stücke nicht festgeschrieben werden (ein reines Paar-Wiederholen auf Stückebene fand nur 71 statt 182 Zellen). Ergebnis: eine Verklebungsrunde braucht etwa 2–3 Sekunden (vorher > 4 Minuten), vier Runden insgesamt ≈ 8 s auf k=16.
+
+**Pipeline (`src/e35.py`, `e36.py`, `latt.py`, `genmul.py`; eigener Generator mit NAND-Volladdierern, nicht c6288).** Basismuster (maxe 12, aus 40 Fenstern eines 8×8-Multiplizierers; das Wörterbuch aus Fenstern von k=16 wurde nicht abgewartet, es lief über 12 Minuten) → vier Verklebungsrunden auf k=16 → **eine 18-Kanten-Zelle**, 182 Instanzen bei k=16, 462 bei k=24, 870 bei k=32 (interne Gitterzellen (k−2)² = 196 / 484 / 900, also 93–97 %). Quotient (PI-Knoten ausgenommen), Kern = Instanzen der Zelle. Gitterregel aus einem 4×4-Block des k=16-Kerns (16 Zellen, 45 Kanten, nur Kanten und Labels): drei Erzeuger ({0,1}-Bündel, {3}, {2}), Verschiebungen (1,0), (0,1), (1,1) (dreieckiges Gitter), identisch mit den Erzeugern aus dem ganzen k=16-Kern; 55 Bit.
+
+**Ergebnis (Bit, Kern ohne Rand, Kleben/RePair auf demselben 4×4-Block gelernt):**
+
+| k | Zellen | Kanten | roh | Kleben | RePair | Gitterregel | Ausnahmen |
+|---|---|---|---|---|---|---|---|
+| 16 | 182 | 635 | 11009 | 3855 | 3637 | **65** | 0 |
+| 24 | 462 | 1699 | 34023 | 12042 | 10748 | **66** | 0 |
+| 32 | 870 | 3275 | 71564 | 25468 | 22207 | **67** | 0 |
+
+Die aus 16 Zellen gelernte Regel erzeugt die Kerne von zwei **größeren, anderen Schaltungen** (k=24, 32) ohne Ausnahme; Kleben und RePair wachsen mit der Zellzahl (Faktor ≈ 6,6 bzw. 6,1 von k=16 auf 32), die Regel um 0,4 Bit je Größenschritt.
+
+**Lesart und Grenzen.** (1) Das ist der gewünschte Größentest: kleiner Block → größere Schaltungen, mit gelernter Zelle (nur die Regelklasse „Z²-Gitter aus Bündeln" ist vorgegeben). (2) Nur der Kern ist erklärt. Der Rand ist groß: Quotient-Kanten außerhalb des Kerns 1058 / 2250 / 3730 bei k=16 / 24 / 32 (≥ so viele wie im Kern). Er enthält Randzellen und die rund 4–7 % der inneren Zellen, die nicht als 18-Kanten-Zelle überdeckt wurden (ein 7-Kanten-Muster kommt 44 / 132 / 236-mal vor, wächst also mit k², vermutlich eine zweite Zellvariante). Ein Gesamtgewinn über die ganze Schaltung ist deshalb nicht belegt und für diese Familie vermutlich deutlich kleiner als bei c6288 (4k/4l). (3) Eigener Generator, ein einziger Lauf (PYTHONHASHSEED=1), Wörterbuch aus 8×8-Fenstern; der Generator ist regelmäßiger als echte Netzlisten. (4) Zell-Wörterbuch und Zellüberdeckung sind bei allen Methoden ausgeklammert. (5) RePair ist weiterhin meine Nachbildung.
+
 ## 5. Offener Faden: Simplizes (für später)
 
 Warum: Bei Graphen kann man Stücke nur an Knoten verkleben (Knoten sind die einzigen echten Teilobjekte einer Kante). In
