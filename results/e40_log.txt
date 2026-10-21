@@ -1,0 +1,6 @@
+16 {'nodes': 300, 'quotient_edges': 794, 'bundles': 47, 'exceptions': 2, 'collisions': 0, 'unplaced': 0, 'rectangles': 18, 'shear': 1, 'types': 10, 'time': 0}
+24 {'nodes': 644, 'quotient_edges': 1770, 'bundles': 47, 'exceptions': 2, 'collisions': 0, 'unplaced': 0, 'rectangles': 18, 'shear': 1, 'types': 10, 'time': 1}
+32 {'nodes': 1116, 'quotient_edges': 3130, 'bundles': 47, 'exceptions': 2, 'collisions': 0, 'unplaced': 0, 'rectangles': 18, 'shear': 1, 'types': 10, 'time': 3}
+16 {'exceptions': 2, 'rectangles': 18, 'raw': 17594, 'glue': 6854, 'repair': 5868, 'embedding_model': 1408}
+24 {'exceptions': 2, 'rectangles': 18, 'raw': 43121, 'glue': 16337, 'repair': 14436, 'embedding_model': 1450}
+32 {'exceptions': 2, 'rectangles': 18, 'raw': 81219, 'glue': 30551, 'repair': 27627, 'embedding_model': 1481}
