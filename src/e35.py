@@ -1,6 +1,6 @@
 import sys, os, json, time, random, pickle
 from collections import Counter
-import netlist; netlist.HB = '/tmp/claude-0/genbench/'
+import netlist; import paths; netlist.HB = paths.GEN
 import und
 from und import *
 from und3 import learn_h

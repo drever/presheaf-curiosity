@@ -1,0 +1,2 @@
+A edges 2074 B edges 1758 cut 968
+0 none {'k': 0, 'time': 0, 'A_new': 363.5, 'B_heldout': 413.5}

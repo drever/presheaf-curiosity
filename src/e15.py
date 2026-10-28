@@ -23,7 +23,7 @@ def main(name, seed, N, K, which):
         if nm in ('hier_flat', 'hier_hier', 'grow_flat', 'grow_hier'):
             mode, obj = nm.split('_'); ev(nm, learn_h(train, R, K, maxn, False, mode=mode, topc=30, maxe=10, objective=obj), time.time() - t0)
         elif nm == 'gspan':
-            C, nf = gspan_mol(train, None, max(2, int(.10 * n)), 8, f'/tmp/e15_{name}_{seed}.gsp'); ev(nm, greedy_select(train, C, R, maxn, K, 30), time.time() - t0, sort=True)
+            C, nf = gspan_mol(train, None, max(2, int(.10 * n)), 8, f'{__import__("tempfile").gettempdir()}/e15_{name}_{seed}.gsp'); ev(nm, greedy_select(train, C, R, maxn, K, 30), time.time() - t0, sort=True)
         elif nm == 'subdue':
             pats, _ = run_subdue(train, 40, 500, 10, 4); tm = time.time() - t0; Dd = []; seen = set()
             for p in pats:

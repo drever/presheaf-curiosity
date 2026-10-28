@@ -1,7 +1,7 @@
 """Zweite Zellvariante / Rand: 7-Kanten-Muster aus 4m war der Eingangsbus-Stern (Fan-out eines PI). Hier: PI-Kanten (Bus) entfernen, Zelle neu lernen (erwartet AND+FA = 20 Kanten), Rest analysieren."""
 import sys, os, json, time, random, pickle
 from collections import Counter, defaultdict
-import netlist; netlist.HB = '/tmp/claude-0/genbench/'
+import netlist; import paths; netlist.HB = paths.GEN
 import und
 from und import *
 from und3 import learn_h

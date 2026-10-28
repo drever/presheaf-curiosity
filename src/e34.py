@@ -1,7 +1,7 @@
 """E3 Teil 2b: Groessenfamilie eigener Array-Multiplizierer (k=8 Training; k=16, 24 Test). Pipeline wie bei c6288: Fenster -> Muster -> Verklebungsrunden -> Zellen -> Quotient -> Gitterregel."""
 import sys, os, json, time, random, pickle
 from collections import Counter
-import netlist; netlist.HB = '/tmp/claude-0/genbench/'; netlist.HB += ''
+import netlist; import paths; netlist.HB = paths.GEN
 import und
 from und import *
 from und3 import learn_h

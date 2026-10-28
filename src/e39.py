@@ -1,7 +1,7 @@
 """Rand als typisiertes Gitter: Einbettung aller Quotientenknoten (PI-Kanten entfernt) in Z^2 mit je Kantenbuendel festem Verschiebungsvektor."""
 import sys, pickle
 from collections import Counter, defaultdict, deque
-import netlist; netlist.HB = '/tmp/claude-0/genbench/'
+import netlist; import paths; netlist.HB = paths.GEN
 import und; from und import *
 from e38 import comp_np
 from netlist import Labeler

@@ -3,7 +3,7 @@ import mdlembed as ME
 import qembed as QE
 which = sys.argv[1]; out = {}
 if which == 'c6288':
-    import netlist; netlist.HB = '/tmp/dl/hdl-benchmarks/iscas85/bench/'
+    import netlist; import paths; netlist.HB = paths.ISCAS
     import json as js, und; from und import *
     from cells import whole_comp
     from quotient import build_quotient

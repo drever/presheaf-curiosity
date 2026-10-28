@@ -1,7 +1,7 @@
 """Quotient eines Multiplizierers (ohne Bus) als typisiertes Z^2-Gitter einbetten; Kosten der Einbettungsbeschreibung (Rechtecke + Buendeltabelle + Ausnahmen)."""
 import pickle
 from collections import Counter, defaultdict, deque
-import netlist; netlist.HB = '/tmp/claude-0/genbench/'
+import netlist; import paths; netlist.HB = paths.GEN
 import und; from und import *
 from e38 import comp_np
 from netlist import Labeler

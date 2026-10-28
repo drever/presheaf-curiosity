@@ -1,5 +1,5 @@
 import sys, json, time, random, io, contextlib, collections, os
-sys.path.insert(0, os.environ.get('SUBDUE_SRC', '/home/claude/holderlb/subdue/src'))
+sys.path.insert(0, os.environ.get('SUBDUE_SRC', 'third_party/subdue/src'))
 import Parameters, Graph, Subdue as SM
 import und
 from und import *

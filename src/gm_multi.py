@@ -26,7 +26,7 @@ ev('none',[])
 for tc in (30,100):
     t=time.time(); ev(f'hier{tc}',learn_u(train,R,20,maxn,True,mode='hier',topc=tc,maxe=10),time.time()-t)
 t=time.time(); ev('grow30',learn_u(train,R,20,maxn,True,mode='grow',topc=30,maxe=10),time.time()-t)
-t=time.time(); C,nf=gspan_mol(train,None,max(2,int(.10*n)),8,f'/tmp/gm_{name}_{seed}_{n}.gsp'); ev('gspan_mdl30',greedy_select(train,C,R,maxn,20,30),time.time()-t)
+t=time.time(); C,nf=gspan_mol(train,None,max(2,int(.10*n)),8,f'{__import__("tempfile").gettempdir()}/gm_{name}_{seed}_{n}.gsp'); ev('gspan_mdl30',greedy_select(train,C,R,maxn,20,30),time.time()-t)
 t=time.time(); pats,_=run_subdue(train,20,500,10,4); tm=time.time()-t; D=uniq(pats)[:20]
 trn=[total_u(train,D[:m],R,maxn) for m in range(len(D)+1)]; ns=min(range(len(trn)),key=lambda m:trn[m]); ev('subdue20_mdl',D[:ns],tm)
 t=time.time(); g=GraphMDL().fit(to_nx(train)[0],timeout=tout); tm=time.time()-t

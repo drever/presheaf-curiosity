@@ -55,7 +55,7 @@ def main(depth, n, seed, K=40):
     def handler(sig, frm): raise TimeoutError()
     signal.signal(signal.SIGALRM, handler)
     try:
-        signal.alarm(240); t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.2 * n)), 12, f'/tmp/e12_{depth}_{n}_{seed}.gsp'); signal.alarm(0)
+        signal.alarm(240); t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.2 * n)), 12, f'{__import__("tempfile").gettempdir()}/e12_{depth}_{n}_{seed}.gsp'); signal.alarm(0)
         ev('gspan_mdl30', greedy_select(train, C, R, maxn, K, 30), time.time() - t0)
     except TimeoutError: out['m']['gspan_mdl30'] = {'timeout': True}; print('gspan timeout', flush=True)
     t0 = time.time(); pats, _ = run_subdue(train, 30, 500, 18, 4); tm = time.time() - t0; Dd = []; seen = set()

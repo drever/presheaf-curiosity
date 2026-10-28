@@ -4,3 +4,4 @@ rdkit
 pandas
 networkx
 scikit-mine
+pytest  # tests only

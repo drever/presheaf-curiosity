@@ -1,7 +1,7 @@
 """E3 Groessentest: Zelle (18 Kanten) auf eigenem Multiplizierer k=16 gelernt (schnelle Zellbildung), Quotient, Gitterregel aus 4x4-Block, Anwendung auf k=16, 24, 32."""
 import sys, os, json, time, random, pickle
 from collections import Counter, defaultdict, deque
-import netlist; netlist.HB = '/tmp/claude-0/genbench/'
+import netlist; import paths; netlist.HB = paths.GEN
 import und
 from und import *
 from und3 import learn_h, dict_bits_h

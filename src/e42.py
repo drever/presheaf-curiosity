@@ -6,7 +6,7 @@ from cells import whole_comp
 from quotient import build_quotient
 import qembed as QE
 from core import LOG
-import netlist; netlist.HB = '/tmp/dl/hdl-benchmarks/iscas85/bench/'
+import netlist; import paths; netlist.HB = paths.ISCAS
 und.SYMS = set(); comp, nodes, L = whole_comp()
 D = [tuple(tuple(e) for e in p) for p in json.load(open('cells_D2.json'))['D']]
 pis = {n for n in range(comp.n) if not comp.inn[n]}

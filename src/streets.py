@@ -1,7 +1,8 @@
 import json, math, random
 from collections import Counter, defaultdict
 from core import Comp
-BASE = '/tmp/dl/spain-cities-geojson/cities/'
+import paths
+BASE = paths.STREETS
 CLS = {'motorway': 0, 'trunk': 0, 'primary': 0, 'motorway_link': 0, 'trunk_link': 0, 'primary_link': 0,
        'secondary': 1, 'secondary_link': 1, 'tertiary': 1, 'tertiary_link': 1,
        'residential': 2, 'unclassified': 2, 'living_street': 2,

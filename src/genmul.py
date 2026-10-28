@@ -32,5 +32,6 @@ def gen(k, path):
     for o in outs: L.append(f'OUTPUT({o})')
     open(path, 'w').write('\n'.join(L) + '\n')
 if __name__ == '__main__':
-    import sys
-    for k in (4, 6, 8, 12, 16, 24): gen(k, f'/tmp/claude-0/genbench/mul{k}.bench')
+    import sys, paths
+    os.makedirs(paths.GEN, exist_ok=True)
+    for k in (4, 6, 8, 12, 16, 24, 32): gen(k, os.path.join(paths.GEN, f'mul{k}.bench'))

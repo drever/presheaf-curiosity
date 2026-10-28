@@ -42,7 +42,7 @@ def main(k, seed, maxv, N=300):
     relid = {t: i for i, t in enumerate(keys)}; R = len(keys); und.SYMS = {i for t, i in relid.items() if t[1] == t[2]}
     rng = random.Random(seed); train = sample_comps(tr, int(.7 * N), k, rng, relid); test = sample_comps(te, N - int(.7 * N), k, rng, relid)
     maxn = k + 1
-    C, nf = gspan_mol(train, None, max(2, int(.10 * len(train))), maxv, f'/tmp/ma_{k}_{seed}.gsp')
+    C, nf = gspan_mol(train, None, max(2, int(.10 * len(train))), maxv, f'{__import__("tempfile").gettempdir()}/ma_{k}_{seed}.gsp')
     t0 = time.time(); D = greedy_adaptive(train, C, R, maxn, 20, 30); tm = time.time() - t0
     out = {'k': k, 'seed': seed, 'ncand': len(C), 'ad': {'k': len(D), 'max_edges': max([len(p) for p in D] or [0]),
            'test': total_u(test, D, R, maxn, False) / len(test), 'dict': total_u([], D, R, maxn), 'time': tm}}

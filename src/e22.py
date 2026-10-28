@@ -24,7 +24,7 @@ def main(seed, n=40, tmax=500, maxv=17):
     for minfrac in (0.2,):
         nm = f'gspan_minsup{minfrac}_maxv{maxv}'
         try:
-            signal.alarm(tmax); t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(minfrac * n)), maxv, f'/tmp/e22_{seed}_{minfrac}.gsp')
+            signal.alarm(tmax); t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(minfrac * n)), maxv, f'{__import__("tempfile").gettempdir()}/e22_{seed}_{minfrac}.gsp')
             D = greedy_select(train, C, R, maxn, 40, 30); signal.alarm(0); ev(nm, D, {'ncand': len(C), 'time': time.time() - t0})
         except TimeoutError: res[nm] = {'timeout': True}; print(seed, nm, 'timeout', flush=True)
     try:

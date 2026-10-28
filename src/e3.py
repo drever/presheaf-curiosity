@@ -26,7 +26,7 @@ def main(world, seed, tout):
     for n in NS:
         train = allc[:n]; res = {}
         def ev(nm, D, tm): res[nm] = {'k': len(D), 'test': total_u(test, D, R, maxn, False) / len(test), 'time': tm}
-        t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.10 * n)), 8, f'/tmp/e3_{world}_{seed}_{n}.gsp'); ev('gspan_mdl30', greedy_select(train, C, R, maxn, 20, 30), time.time() - t0)
+        t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.10 * n)), 8, f'{__import__("tempfile").gettempdir()}/e3_{world}_{seed}_{n}.gsp'); ev('gspan_mdl30', greedy_select(train, C, R, maxn, 20, 30), time.time() - t0)
         t0 = time.time(); pats, _ = run_subdue(train, 20, 500, 10, 4); tm = time.time() - t0; D = uniq(pats)[:20]
         trn = [total_u(train, D[:m], R, maxn) for m in range(len(D) + 1)]; ns = min(range(len(trn)), key=lambda m: trn[m]); ev('subdue20_mdl', D[:ns], tm)
         if n >= 10:

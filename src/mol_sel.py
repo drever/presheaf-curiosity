@@ -21,7 +21,7 @@ def main(k, seed, maxv, N=300):
     relid = {t: i for i, t in enumerate(keys)}; R = len(keys); und.SYMS = {i for t, i in relid.items() if t[1] == t[2]}
     rng = random.Random(seed); train = sample_comps(tr, int(.7 * N), k, rng, relid); test = sample_comps(te, N - int(.7 * N), k, rng, relid)
     maxn = k + 1
-    t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(float(__import__("os").environ.get("MINSUP","0.10")) * len(train))), maxv, f'/tmp/ms_{k}_{seed}.gsp'); tg = time.time() - t0
+    t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(float(__import__("os").environ.get("MINSUP","0.10")) * len(train))), maxv, f'{__import__("tempfile").gettempdir()}/ms_{k}_{seed}.gsp'); tg = time.time() - t0
     out = {'k': k, 'seed': seed, 'ncand': len(C), 'nfound': nf, 'm': {}}
     for topc in (6, 30):
         t0 = time.time(); D = greedy_select(train, C, R, maxn, 20, topc)

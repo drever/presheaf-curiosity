@@ -79,7 +79,7 @@ def main(seed, tout, with_opp):
                     if kk not in s: s.add(kk); Dd.append(p)
                 return Dd
             def ev(nm, Dd, tm): res[nm] = {'k': len(Dd), 'test': total_u(test, Dd, R, maxn, False) / len(test), 'time': tm}
-            t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.10 * n)), 8, f'/tmp/e4_{seed}_{n}.gsp'); ev('gspan_mdl30', greedy_select(train, C, R, maxn, 20, 30), time.time() - t0)
+            t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.10 * n)), 8, f'{__import__("tempfile").gettempdir()}/e4_{seed}_{n}.gsp'); ev('gspan_mdl30', greedy_select(train, C, R, maxn, 20, 30), time.time() - t0)
             t0 = time.time(); pats, _ = run_subdue(train, 20, 500, 10, 4); tm = time.time() - t0; Dd = uniq(pats)[:20]
             trn = [total_u(train, Dd[:m], R, maxn) for m in range(len(Dd) + 1)]; ns = min(range(len(trn)), key=lambda m: trn[m]); ev('subdue20_mdl', Dd[:ns], tm)
             t0 = time.time(); g = GraphMDL().fit(to_nx(train)[0], timeout=tout); tm = time.time() - t0

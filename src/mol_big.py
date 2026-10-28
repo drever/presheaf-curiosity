@@ -64,7 +64,7 @@ def main(k, seed, maxv, N=300):
         t0 = time.time(); Ds[mode] = learn_u(train, R, 20, maxn, True, mode=mode, maxe=max(10, k)); ev(mode, Ds[mode], time.time() - t0)
         print('  ', mode, round(time.time() - t0, 1), 's', flush=True)
     kk = max(len(Ds['hier']), 1)
-    t0 = time.time(); G, nf = gspan_mol(train, kk, max(2, int(float(__import__("os").environ.get("MINSUP","0.10")) * len(train))), maxv, f'/tmp/mb_{k}_{seed}.gsp'); ev('gspan', G, time.time() - t0, {'n_found': nf})
+    t0 = time.time(); G, nf = gspan_mol(train, kk, max(2, int(float(__import__("os").environ.get("MINSUP","0.10")) * len(train))), maxv, f'{__import__("tempfile").gettempdir()}/mb_{k}_{seed}.gsp'); ev('gspan', G, time.time() - t0, {'n_found': nf})
     print('   gspan', round(time.time() - t0, 1), 's,', nf, 'Muster', flush=True)
     cnts = collections.Counter(e[2] for c in train for e in c.E)
     ev('relationen', [((0, r, 1),) for r, _ in cnts.most_common(kk)], 0.0)

@@ -25,7 +25,7 @@ def main(k, seed, maxv, which, N=300, K=40):
         if nm in ('hier_flat', 'hier_hier', 'grow_flat', 'grow_hier'):
             mode, obj = nm.split('_'); ev(nm, learn_h(train, R, K, maxn, True, mode=mode, topc=30, maxe=max(10, k), objective=obj), time.time() - t0)
         elif nm == 'gspan':
-            C, nf = gspan_mol(train, None, max(2, int(.10 * n)), maxv, f'/tmp/e16_{k}_{seed}.gsp'); ev(nm, greedy_select(train, C, R, maxn, K, 30), time.time() - t0, sort=True)
+            C, nf = gspan_mol(train, None, max(2, int(.10 * n)), maxv, f'{__import__("tempfile").gettempdir()}/e16_{k}_{seed}.gsp'); ev(nm, greedy_select(train, C, R, maxn, K, 30), time.time() - t0, sort=True)
         elif nm == 'subdue':
             pats, _ = run_subdue(train, 40, 500, max(10, k), 4); tm = time.time() - t0; Dd = []; seen = set()
             for p in pats:

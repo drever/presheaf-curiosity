@@ -1,8 +1,9 @@
 import re, random
 from collections import defaultdict, deque, Counter
 from core import Comp
-HB = '/tmp/dl/hdl-benchmarks/iscas85/bench/'
-EB = '/tmp/dl/benchmarks/arithmetic/'
+import paths
+HB = paths.ISCAS
+EB = paths.EPFL
 
 def load_bench(name):
     typ = {}; ins = defaultdict(list)

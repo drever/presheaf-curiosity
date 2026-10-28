@@ -45,7 +45,7 @@ def main(name, seed, maxv, k=5, N=300):
             if mode == 'grow' and topc != 30: continue
             t0 = time.time(); D = learn_u(train, R, 20, maxn, True, mode=mode, topc=topc, maxe=10); ev(f'{mode}{topc}', D, time.time() - t0)
     t0 = time.time(); D = learn_u(train, R, 40, maxn, True, mode='hier', topc=30, maxe=10); ev('hier30_K40', D, time.time() - t0)
-    t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.10 * ntr)), maxv, f'/tmp/kg_{name}_{seed}.gsp'); tg = time.time() - t0
+    t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.10 * ntr)), maxv, f'{__import__("tempfile").gettempdir()}/kg_{name}_{seed}.gsp'); tg = time.time() - t0
     out['ncand'] = len(C); out['nfound'] = nf
     t0 = time.time(); D = greedy_select(train, C, R, maxn, 20, 30); ev('gspan_mdl30', D, tg + time.time() - t0)
     t0 = time.time(); pats, info = run_subdue(train, 40, 500, 10, 4); tm = time.time() - t0

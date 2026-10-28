@@ -4,3 +4,4 @@ venv/
 *.gsp
 src/kgdata/
 src/mol/
+data/

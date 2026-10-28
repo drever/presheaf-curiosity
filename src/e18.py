@@ -21,7 +21,7 @@ def main(n, seed, nnoise, tmax=400, maxv=24):
     def handler(sig, frm): raise TimeoutError()
     signal.signal(signal.SIGALRM, handler)
     try:
-        signal.alarm(tmax); t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.2 * n)), maxv, f'/tmp/e18_{n}_{seed}_{nnoise}.gsp')
+        signal.alarm(tmax); t0 = time.time(); C, nf = gspan_mol(train, None, max(2, int(.2 * n)), maxv, f'{__import__("tempfile").gettempdir()}/e18_{n}_{seed}_{nnoise}.gsp')
         D = greedy_select(train, C, R, maxn, 40, 30); signal.alarm(0); ev('gspan', D, time.time() - t0, {'ncand': len(C)})
     except TimeoutError: out['m']['gspan'] = {'timeout': True}; print('gspan timeout', flush=True)
     json.dump(out, open(f'e18_{n}_{seed}_{nnoise}.json', 'w'))
