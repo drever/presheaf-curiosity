@@ -47,7 +47,9 @@ def learn_h(train, R, K, maxn, und_flag, mode='hier', topc=30, maxe=10, objectiv
             for grp in cand:
                 es = frozenset().union(*[g[0] for g in grp])
                 if len(es) > maxe: continue
-                pat = normalize(es); k = canon_u(pat, und_flag)
+                pat = normalize(es)
+                try: k = canon_u(pat, und_flag)
+                except ValueError: continue
                 if k in keys: continue
                 cnt.setdefault(k, [0, pat])[0] += 1
         cands = sorted(cnt.values(), key=lambda x: -x[0] * len(x[1]))[:topc]

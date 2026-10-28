@@ -10,7 +10,7 @@ from core import Comp, LOG
 import repair as RP
 import merge as M
 from latt import learn_rule, lattice_fit, rule_bits, raw_bits, gen_disps, _coords
-und.SYMS = set(); R0 = 64; NN = 31; maxn = NN + 1
+und.SYMS = set(); und.TWIN_MAX = 6; R0 = 64; NN = 31; maxn = NN + 1
 seed = int(sys.argv[1]); rng = random.Random(900 + seed); L = Labeler()
 E = load_bench('c6288'); adj = defaultdict(set)
 for u, v, _ in E: adj[u].add(v); adj[v].add(u)

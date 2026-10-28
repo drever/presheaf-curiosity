@@ -10,7 +10,7 @@ from iface import total_iface
 import repair as RP
 NN = 31; maxn = NN + 1; R = 64
 seed = int(sys.argv[1]); n = int(sys.argv[2]) if len(sys.argv) > 2 else 40
-und.SYMS = set(); rng = random.Random(900 + seed); L = Labeler()
+und.SYMS = set(); und.TWIN_MAX = 6; rng = random.Random(900 + seed); L = Labeler()
 E = load_bench('c6288'); adj = defaultdict(set)
 for u, v, _ in E: adj[u].add(v); adj[v].add(u)
 nodes = sorted(adj); start = rng.choice(nodes); seen = [start]; S = {start}; q = deque([start])
@@ -26,7 +26,7 @@ res = {'edges_A': len(EA), 'edges_B': len(EB)}
 def ev(name, D=None, rules=None, tm=0):
     r = {'k': len(D if D is not None else rules), 'time': round(tm)}
     for t, c in tests.items():
-        r[t] = (total_iface(c, D, R, maxn, False) if D is not None else RP.cost(c, rules, R, set())) / len(c)
+        r[t] = total_iface(c, D, R, maxn, False) / len(c) if D is not None else RP.cost(c, rules, R, set())   # RP.cost is already per window
     res[name] = r; print(seed, name, {a: round(b, 1) for a, b in r.items()}, flush=True)
 ev('none', D=[])
 t0 = time.time(); ev('glue', D=learn_h(train, R, 40, maxn, False, mode='hier', topc=30, maxe=12, objective='hier'), tm=time.time() - t0)

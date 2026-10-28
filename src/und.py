@@ -2,7 +2,12 @@ import itertools, collections, pynauty
 from core import LOG, normalize, order_pattern, dict_bits
 SYMS = set()
 
+TWIN_MAX = None    # opt-in: pynauty can hang on many identical twin edges at one node (e.g. a 12-leaf star); set e.g. 6 to skip such candidates in learn_h
+
+
 def canon_u(edges, und):
+    tw = collections.Counter((a, r, 0) for a, r, b in edges); tw.update((b, r, 1) for a, r, b in edges)
+    if TWIN_MAX and tw and max(tw.values()) > TWIN_MAX: raise ValueError('twin-heavy pattern')
     vs = sorted({x for e in edges for x in (e[0], e[2])}); nv = len(vs); ix = {v: i for i, v in enumerate(vs)}
     N = nv + len(edges); adj = collections.defaultdict(list); color = [0] * nv
     for j, (a, r, b) in enumerate(edges):
