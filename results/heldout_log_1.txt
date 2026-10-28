@@ -1,2 +1,5 @@
 A edges 2113 B edges 1778 cut 909
 1 none {'k': 0, 'time': 0, 'A_new': 369.9, 'B_heldout': 414.1}
+1 glue {'k': 15, 'time': 304, 'A_new': 95.7, 'B_heldout': 168.9}
+1 grow {'k': 12, 'time': 8, 'A_new': 119.3, 'B_heldout': 167.7}
+1 repair_reimpl {'k': 46, 'time': 0, 'A_new': 97.9, 'B_heldout': 239.1}
