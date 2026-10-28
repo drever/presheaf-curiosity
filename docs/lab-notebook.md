@@ -505,6 +505,19 @@ Planned test:
 * Molecules and knowledge graphs with products/parametrisation, once the synthetic tests carry.
 * **Validation on unseen data (important, missing so far).** Almost all results (in particular 4k-4o: lattice rules, embedding, comparison with gluing/RePair) are evaluated in-sample on a single circuit, or on windows of the same circuit, or on self-generated families; parameters, runs and displacement tables are fitted to exactly these graphs. Proposals: (a) **split** the data: training and test on separate sub-graphs (e.g. rows/columns of the lattice, disjoint circuit parts, different cities), not on overlapping windows; (b) create a **frozen validation set** that is not looked at during development (e.g. further ISCAS circuits such as c1355/c499 only as a negative test, further array multipliers and adders of other widths from independent sources, EPFL arithmetic, further cities); (c) look for **entirely fresh data sets** and keep them untouched (netlists from open-source chips, independently generated multipliers/adders, tic-tac-toe state graph, lattices from the review); (d) for size extrapolation, real families of different sizes (not only c6288 and own generators). Until then all numbers count as development results, not validation results.
 
-## 7. Held-out test (28 October 2026): implemented, not finished
+## 7. Held-out test (28 October 2026)
 
-`src/heldout.py` and `src/heldout_lattice.py` split c6288 into two disjoint halves by seeded BFS (A: 2074 edges, B: 1758, 968 cut edges). Dictionaries (glue, grow, our RePair re-implementation) and the lattice rule are learned on A only and evaluated on new windows of A and on windows of B. After more than an hour of CPU time on two cores neither run had produced results beyond the empty-dictionary baseline (A 363.5, B 413.5 bits/window, seed 0). No held-out conclusion can be drawn; all results in this notebook remain development results.
+Protocol (`src/heldout.py`, results `results/heldout_{0,1}.json`): c6288 is split by seeded BFS into two disjoint halves (seed 0: A 2074 / B 1758 edges, 968 cut edges dropped; seed 1: 2113 / 1778 / 909). Dictionaries are learned on 40 windows of A only and evaluated on 100 fresh windows of A and 100 windows of B (bits/window, lower is better; no dictionary cost). Candidate patterns with a node carrying more than 6 identical twin edges (bus fan-out stars) are skipped because `pynauty` hangs on them (`und.TWIN_MAX = 6`).
+
+| seed | method | A (new windows) | B (held out) |
+|---|---|---|---|
+| 0 | empty | 363.5 | 413.5 |
+| 0 | gluing | 87.2 | 189.3 |
+| 0 | growing | 107.9 | 179.6 |
+| 0 | RePair re-impl. | 95.7 | 279.4 |
+| 1 | empty | 369.9 | 414.1 |
+| 1 | gluing | 95.7 | 168.9 |
+| 1 | growing | 119.3 | 167.7 |
+| 1 | RePair re-impl. | 97.9 | 239.1 |
+
+Reading: all learned dictionaries transfer to the unseen half (about 55% below empty), but much less than within A (about 77% below). The in-sample gluing advantage over growing (about 20 bits on A) **disappears on B** (growing is 1-10 bits better, two seeds). Our RePair re-implementation generalises worst (+40-100 bits behind on B). Two seeds, one circuit, one split type: this is weak evidence, but it shows that the in-sample advantage of gluing on c6288 should not be read as generalisation. The lattice-rule held-out test (`src/heldout_lattice.py`) was still running when this was written.

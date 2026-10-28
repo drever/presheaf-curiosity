@@ -39,7 +39,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 10 | The whole cell quotient is a typed Z² patch with constant-size description | c6288 ~2.64 kbit vs 9.2 kbit; own multipliers 1.46/1.49/1.52 kbit vs 6.9-30.6 kbit | in-sample; bus and dictionaries excluded; bundle-table and run costs modelled, not verified with a real coder (4n-4p) |
 | 11 | Treewidth separation: SL-HR grammars with bounded right-hand sides cannot generate large grids compactly, a product-closed dictionary can | proof sketch (review) | argument, not a measured result; irrelevant for stars/few labels (review-repair-presheaves.md 3.2) |
 | 12 | Curiosity: learning-progress-driven data selection helps | – | **not tested** |
-| 13 | Held-out generalisation | protocol implemented, runs unfinished | **not shown** (see "Held-out test") |
+| 13 | Held-out generalisation (c6288 halves) | gluing 87/96 vs growing 108/119 on A; on unseen B gluing 189/169 vs growing 180/168; RePair re-impl. 279/239 | dictionaries transfer partly; gluing advantage does **not** carry to B (2 seeds); lattice test pending (see "Held-out test") |
 
 ## Honest caveats
 
@@ -93,7 +93,20 @@ Runs can take minutes to hours; pynauty-based steps are the slow ones. Some resu
 
 ## Held-out test
 
-A first held-out protocol is implemented but **has not produced results yet**: `src/heldout.py` splits the c6288 netlist into two disjoint halves by a seeded BFS (A: 2074 edges, B: 1758, 968 cut edges), learns on windows of A and evaluates on fresh windows of A and on windows of B; `src/heldout_lattice.py` learns cell formation and the lattice rule on A and applies them to B. The learning step on the half-circuit did not finish within an hour of CPU time on the two-core machine used here, so the only number so far is the empty-dictionary baseline (A: 363.5 bits/window, B: 413.5). Until these runs finish, **every result in the table above remains in-sample**. Contributions of finished runs are welcome as `results/heldout_*.json`.
+Protocol (`src/heldout.py`): c6288 is split by seeded BFS into two disjoint halves (seed 0: A 2074 / B 1758 edges, 968 cut edges dropped; seed 1: 2113 / 1778 / 909). Dictionaries are learned on 40 windows of A only and evaluated on 100 fresh windows of A and 100 windows of B (bits/window, lower is better; no dictionary cost). Candidate patterns with a node carrying more than 6 identical twin edges (bus fan-out stars) are skipped because `pynauty` hangs on them (`und.TWIN_MAX = 6`).
+
+| seed | method | A (new windows) | B (held out) |
+|---|---|---|---|
+| 0 | empty | 363.5 | 413.5 |
+| 0 | gluing | 87.2 | 189.3 |
+| 0 | growing | 107.9 | 179.6 |
+| 0 | RePair re-impl. | 95.7 | 279.4 |
+| 1 | empty | 369.9 | 414.1 |
+| 1 | gluing | 95.7 | 168.9 |
+| 1 | growing | 119.3 | 167.7 |
+| 1 | RePair re-impl. | 97.9 | 239.1 |
+
+Reading: all learned dictionaries transfer to the unseen half (about 55% below empty), but much less than within A (about 77% below). The in-sample gluing advantage over growing (about 20 bits on A) **disappears on B** (growing is 1-10 bits better, two seeds). Our RePair re-implementation generalises worst (+40-100 bits behind on B). Two seeds, one circuit, one split type: this is weak evidence, but it shows that the in-sample advantage of gluing on c6288 should not be read as generalisation. The lattice-rule held-out test (`src/heldout_lattice.py`) was still running when this was written.
 
 ## License
 
