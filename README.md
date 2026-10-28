@@ -39,7 +39,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 10 | The whole cell quotient is a typed Z² patch with constant-size description | c6288 ~2.64 kbit vs 9.2 kbit; own multipliers 1.46/1.49/1.52 kbit vs 6.9-30.6 kbit | in-sample; bus and dictionaries excluded; bundle-table and run costs modelled, not verified with a real coder (4n-4p) |
 | 11 | Treewidth separation: SL-HR grammars with bounded right-hand sides cannot generate large grids compactly, a product-closed dictionary can | proof sketch (review) | argument, not a measured result; irrelevant for stars/few labels (review-repair-presheaves.md 3.2) |
 | 12 | Curiosity: learning-progress-driven data selection helps | – | **not tested** |
-| 13 | Held-out generalisation | see "Held-out test" | see below |
+| 13 | Held-out generalisation | protocol implemented, runs unfinished | **not shown** (see "Held-out test") |
 
 ## Honest caveats
 
@@ -93,7 +93,7 @@ Runs can take minutes to hours; pynauty-based steps are the slow ones. Some resu
 
 ## Held-out test
 
-HELDOUT_PLACEHOLDER
+A first held-out protocol is implemented but **has not produced results yet**: `src/heldout.py` splits the c6288 netlist into two disjoint halves by a seeded BFS (A: 2074 edges, B: 1758, 968 cut edges), learns on windows of A and evaluates on fresh windows of A and on windows of B; `src/heldout_lattice.py` learns cell formation and the lattice rule on A and applies them to B. The learning step on the half-circuit did not finish within an hour of CPU time on the two-core machine used here, so the only number so far is the empty-dictionary baseline (A: 363.5 bits/window, B: 413.5). Until these runs finish, **every result in the table above remains in-sample**. Contributions of finished runs are welcome as `results/heldout_*.json`.
 
 ## License
 
