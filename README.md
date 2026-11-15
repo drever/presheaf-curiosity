@@ -110,6 +110,10 @@ Protocol (`src/heldout.py`): c6288 is split by seeded BFS into two disjoint halv
 
 Original reading (**withdrawn**, see the correction above): the dictionaries transfer to B less well than within A, and the gluing advantage over growing seen on A is absent on B. Because A and B differ in composition and B is fragmented, this says nothing reliable about generalisation in either direction.
 
+## AI assistance
+
+Code, experiments and documentation were written in collaboration with Claude (Anthropic) in interactive sessions; commits carry `Co-Authored-By` trailers. No experiment calls a language model: all results are produced by the scripts in `src/` and can be rerun without any model access.
+
 ## License
 
 MIT, see `LICENSE`.
