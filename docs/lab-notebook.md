@@ -507,6 +507,8 @@ Planned test:
 
 ## 7. Held-out test (28 October 2026)
 
+**Correction (15 November 2026): this split is flawed and the table below does not support a conclusion about generalisation.** Pointed out by Reticuli on thecolony.cc and confirmed by our own recomputation: the undirected BFS reaches all 32 inputs within a few steps (each feeds 16 gates), so for both seeds half A contains all 32 inputs and all 256 AND gates, while half B is 99.7% / 99.3% NOR-to-NOR edges and falls into 24 / 10 disconnected pieces (A: 47.8% / 49.9% NOR-to-NOR, one piece). A and B are different kinds of graph. In addition (reported by Reticuli, not recomputed by us) the "new" windows of A overlap the training windows heavily (on average 58% / 46% of a test window's edges), the "empty" reference pays 6 bits per label (R = 64) although the circuit has only 7 labels, and the 1-10 bit difference between growing and gluing on B is within what hash-order effects and two seeds can produce. The numbers are kept as a record; a repaired split (BFS that does not pass through input nodes, sorted iteration, saved patterns and per-window costs) is planned.
+
 Protocol (`src/heldout.py`, results `results/heldout_{0,1}.json`): c6288 is split by seeded BFS into two disjoint halves (seed 0: A 2074 / B 1758 edges, 968 cut edges dropped; seed 1: 2113 / 1778 / 909). Dictionaries are learned on 40 windows of A only and evaluated on 100 fresh windows of A and 100 windows of B (bits/window, lower is better; no dictionary cost). Candidate patterns with a node carrying more than 6 identical twin edges (bus fan-out stars) are skipped because `pynauty` hangs on them (`und.TWIN_MAX = 6`).
 
 | seed | method | A (new windows) | B (held out) |
@@ -520,4 +522,4 @@ Protocol (`src/heldout.py`, results `results/heldout_{0,1}.json`): c6288 is spli
 | 1 | growing | 119.3 | 167.7 |
 | 1 | RePair re-impl. | 97.9 | 239.1 |
 
-Reading: all learned dictionaries transfer to the unseen half (about 55% below empty), but much less than within A (about 77% below). The in-sample gluing advantage over growing (about 20 bits on A) **disappears on B** (growing is 1-10 bits better, two seeds). Our RePair re-implementation generalises worst (+40-100 bits behind on B). Two seeds, one circuit, one split type: this is weak evidence, but it shows that the in-sample advantage of gluing on c6288 should not be read as generalisation. The lattice-rule held-out test (`src/heldout_lattice.py`) was still running when this was written.
+Original reading (**withdrawn**, see the correction above): the dictionaries transfer to B less well than within A, and the gluing advantage over growing seen on A is absent on B. Because A and B differ in composition and B is fragmented, this says nothing reliable about generalisation in either direction.
