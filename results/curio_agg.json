@@ -1,0 +1,221 @@
+{
+ "clean": {
+  "random_minus_gain": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    1.41,
+    -3.08,
+    -13.44,
+    0.66,
+    0.11
+   ],
+   "mean": -2.87,
+   "positive": 3,
+   "n": 5
+  },
+  "surprise_minus_gain": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    -2.24,
+    -9.47,
+    -16.7,
+    2.88,
+    -9.13
+   ],
+   "mean": -6.93,
+   "positive": 1,
+   "n": 5
+  },
+  "random_minus_surprise": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    3.64,
+    6.39,
+    3.26,
+    -2.22,
+    9.24
+   ],
+   "mean": 4.06,
+   "positive": 4,
+   "n": 5
+  },
+  "random_minus_gain_rounds1to4": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    0.63,
+    -19.31,
+    -40.4,
+    -7.01,
+    -16.21
+   ],
+   "mean": -16.46,
+   "positive": 1,
+   "n": 5
+  },
+  "random_minus_gain_rounds5to12": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    1.79,
+    5.03,
+    0.03,
+    4.49,
+    8.27
+   ],
+   "mean": 3.92,
+   "positive": 5,
+   "n": 5
+  }
+ },
+ "noise": {
+  "random_minus_gain": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    -5.49,
+    -1.75,
+    -57.77,
+    -15.08,
+    -14.83
+   ],
+   "mean": -18.98,
+   "positive": 0,
+   "n": 5
+  },
+  "surprise_minus_gain": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    6.66,
+    23.34,
+    -1.94,
+    36.59,
+    41.7
+   ],
+   "mean": 21.27,
+   "positive": 4,
+   "n": 5
+  },
+  "random_minus_surprise": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    -12.15,
+    -25.09,
+    -55.83,
+    -51.68,
+    -56.53
+   ],
+   "mean": -40.26,
+   "positive": 0,
+   "n": 5
+  },
+  "random_minus_gain_rounds1to4": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    -9.9,
+    16.33,
+    -68.42,
+    -17.29,
+    -6.93
+   ],
+   "mean": -17.24,
+   "positive": 1,
+   "n": 5
+  },
+  "random_minus_gain_rounds5to12": {
+   "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "diff_per_seed": [
+    -3.28,
+    -10.79,
+    -52.44,
+    -13.98,
+    -18.77
+   ],
+   "mean": -19.85,
+   "positive": 0,
+   "n": 5
+  }
+ },
+ "noise_chosen": {
+  "random": [
+   24,
+   20,
+   13,
+   15,
+   16
+  ],
+  "gain": [
+   36,
+   34,
+   36,
+   31,
+   33
+  ],
+  "surprise": [
+   52,
+   45,
+   46,
+   49,
+   47
+  ]
+ },
+ "H1_gain_beats_random_clean": false,
+ "H2_gain_beats_surprise_noise": true
+}

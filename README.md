@@ -2,7 +2,7 @@
 
 A lab notebook with code: **does a presheaf-flavoured view of graph data give any measurable advantage for MDL-based structure learning?**
 
-The starting idea (from a conversation about "artificial curiosity" à la Schmidhuber): every presheaf is a colimit of representables (density), so a learner that sees its data as a presheaf could discover reusable sub-colimits ("macros"), pay for them once, and use the description-length gain as a learning-progress signal. This repository explores the *compression* half of that idea in small, honest experiments. The curiosity half (active data selection driven by the compression signal) is **not implemented or tested**.
+The starting idea (from a conversation about "artificial curiosity" à la Schmidhuber): every presheaf is a colimit of representables (density), so a learner that sees its data as a presheaf could discover reusable sub-colimits ("macros"), pay for them once, and use the description-length gain as a learning-progress signal. This repository explores the *compression* half of that idea in small, honest experiments. The curiosity half (active data selection driven by the compression signal) has had one pre-registered test, with a negative result (claim 12).
 
 ## What this is, and what it is not
 
@@ -38,7 +38,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 9 | A learned recursive lattice rule extrapolates | c6288 cell quotient: 3x3-5x5 block regenerates up to 13x13 with 0 exceptions, ~65 bits vs 2.4-3.7 kbit gluing; own multipliers k=16/24/32: ~66 bits vs 3.9-25 kbit | in-sample / own regular generator; rule class prescribed (4k, 4m) |
 | 10 | The whole cell quotient is a typed Z² patch with constant-size description | c6288 ~2.64 kbit vs 9.2 kbit; own multipliers 1.46/1.49/1.52 kbit vs 6.9-30.6 kbit | in-sample; bus and dictionaries excluded; bundle-table and run costs modelled, not verified with a real coder (4n-4p) |
 | 11 | Treewidth separation: SL-HR grammars with bounded right-hand sides cannot generate large grids compactly, a product-closed dictionary can | proof sketch (review) | argument, not a measured result; irrelevant for stars/few labels (review-repair-presheaves.md 3.2) |
-| 12 | Curiosity: learning-progress-driven data selection helps | – | **not tested**; protocol pre-registered in `docs/prereg-curiosity.md` |
+| 12 | Curiosity: learning-progress-driven data selection helps | pre-registered test on c6288 (`docs/prereg-curiosity.md`). Gate passed: in-sample gain of a pattern predicts its held-out gain (Spearman 0.95). Experiment: ordering data by one-step predicted gain is **not better than random** (115.8 random, 118.6 gain, 111.7 surprise; bits/window averaged over the budget, 5 seeds); with noise-like windows mixed in it beats surprise-ordering (152.8 vs 174.0) but is worse than random (133.8) in all seeds | **H1 refuted; H2 holds by its stated criterion, which was too weak**; one circuit, one estimator (13) |
 | 13 | Held-out generalisation (c6288, repaired split) | dictionaries do about as well on the held-out half as on the unseen part of the training half (gluing 100/103 vs 101/119) | measured, 2 seeds, one circuit; first attempt withdrawn (see "Held-out test") |
 | 14 | The gluing description of c6288 can be written as an actual file and read back, and its size matches the computed length | `src/coder.py`: file 2-4% longer than the model length, all round trips verified; whole c6288 with node numbers preserved 50-53 kbit, up to renaming of inner nodes 36-41 kbit; almost independent of node numbering and edge order | measured, one circuit; holes, products, lattice and embedding models are still computed lengths only (11) |
 | 15 | Reference against a published grammar compressor (ITR, successor of gRePair; the original gRePair code is not public), actual files on the same task | c6288: ours 50-53 kbit, ITR 70 kbit (gate-name order) or 133-135 kbit (anonymous). DBpedia persondata extract: ours 889, ITR 1,173 kbit. DBpedia geo_coordinates extract: ours 1,324, ITR 1,075 kbit. With a second seed our cover did not finish within 40 minutes on either RDF file; ITR takes under a second | **mixed, and no claim of beating ITR**: smaller where the graph has repeated cells with internal structure, larger on stars around a hub, not robust and not scalable; ITR's output also supports queries (10-12) |
@@ -94,6 +94,7 @@ python diag_order.py gates 0 ; python diag_grow.py gates 0   # notebook section 
 python itr_whole.py /path/to/cgraph-cli ; python whole_graph.py full 0   # notebook section 10 (needs ITR, see there)
 python coder_run.py full 0              # notebook section 11: write c6288 with our coder and read it back
 python rdf_run.py FILE.nt 0             # notebook section 12: the coder on an RDF graph
+python curio_gate.py 0 ; python curio.py 0 clean gain ; python curio_agg.py   # notebook section 13: curiosity experiment
 ```
 
 Runs can take minutes to hours; pynauty-based steps are the slow ones. Some results depend on hash order (`PYTHONHASHSEED`); expect small deviations.

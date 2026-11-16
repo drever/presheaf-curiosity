@@ -65,3 +65,7 @@ One circuit; windows of one size; our own cost function for learner and evaluati
   7. **Budget rounds.** One round = add 5 windows, relearn on all windows seen, evaluate. AUC = mean of held-out bits per window after rounds 1 to 12.
 
 * **16 November 2026, third amendment, after the gate and before any arm was run.** Gate result (`results/curio_gate_{0,1,2}.json`): pooled median Spearman 0.95 over 66 rounds (per seed 0.96, 0.87, 0.93; lowest single round 0.52; no round below 0.3). The gate is passed and the experiment is run. Two further clarifications: (a) in the predicted gain, "largest reduction" is taken as max(0, best candidate), i.e. adding nothing is allowed, both for T plus w and for T alone; otherwise a window could score merely because all its candidates are unprofitable to different degrees. (b) The learner relearns from scratch after every batch, so "the pattern(s) added" in a round is not well defined; instead the change in held-out bits per round and the full dictionary of every round are logged.
+
+## Outcome (16 November 2026)
+
+H1 refuted; H2 holds by the stated criterion, but the gain arm is worse than random in the pool with unlearnable windows, which the criterion did not ask about. Details and numbers: lab notebook, section 13. Deviation: the oracle arm was not finished when the result was written up.

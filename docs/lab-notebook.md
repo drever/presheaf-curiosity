@@ -638,3 +638,30 @@ Seed 0; all four files decode correctly. Run time: ITR under one second per file
 2. **Why we lose on geo_coordinates.** The graph is 12,500 small stars that all meet in one node (the class). Windows of 20 nodes grown from a random start almost always sit on that node; the learner finds only seven patterns, and the greedy largest-first cover then leaves 28,124 of 49,999 edges uncovered. A single star pattern would presumably describe the graph far better (not tested); our window sampling and cover do not find that description. This is the star-shaped, few-predicate case in which the grammar compressors claim their advantage, and here the claim holds against us.
 3. **Not robust and not scalable.** With seed 1 the learner chose other patterns and the cover of the whole graph did not finish within 40 minutes for either file (backtracking through nodes of degree 6,000-12,500). So the numbers above are one seed, and a different draw of training windows can make our pipeline unusable on graphs of this kind. ITR needs under a second.
 4. Consequence for the status table: claim 15 now reads "smaller on c6288 and on one of two RDF extracts, larger on the other, sometimes not finishing". That is not an advantage over published grammar compressors; it is a description of where a subgraph-pattern dictionary helps (repeated cells with internal structure) and where it does not (stars around hubs, at least with this learner).
+
+## 13. The curiosity half, first test: data selection by predicted gain (16 November 2026)
+
+Protocol fixed in advance in `docs/prereg-curiosity.md` (three dated amendments, each committed before the step it concerns). Scripts `src/curio_common.py`, `curio_gate.py`, `curio.py`, `curio_agg.py`; results `results/curio_gate_*.json`, `results/curio_*.json`, `results/curio_agg.json`.
+
+**Gate (passed).** For every learning round on a pool of 200 windows from region A, the 30 candidates the learner evaluates were ranked by their gain on the pool and by their gain on 100 windows of the unseen region B. Spearman correlation: pooled median 0.95 over 66 rounds (per seed 0.96, 0.87, 0.93; lowest round 0.52). On this circuit the in-sample gain of a pattern predicts its held-out gain well.
+
+**Experiment.** Budget 60 windows in 12 batches of 5, dictionary relearned after every batch, held-out bits per window on B after each batch; five seeds, all arms on the same pool and test windows. Arms: random order; highest predicted gain first; highest current cost first ("surprise"). Two pools: clean, and with 60 of 200 windows replaced by windows with random endpoints. Primary outcome: mean held-out bits per window over the 12 rounds (lower is better).
+
+| pool | random | gain | surprise |
+|---|---|---|---|
+| clean, per seed | 113.7 116.7 115.0 115.8 117.6 | 112.3 119.8 128.5 115.1 117.5 | 110.1 110.4 111.7 118.0 108.3 |
+| clean, mean | 115.8 | 118.6 | 111.7 |
+| with unlearnable windows, per seed | 145.8 152.3 117.2 122.2 131.5 | 151.2 154.0 175.0 137.3 146.3 | 157.9 177.4 173.1 173.9 188.0 |
+| with unlearnable windows, mean | 133.8 | 152.8 | 174.0 |
+| unlearnable windows among the 60 chosen (18 expected) | 24 20 13 15 16 | 36 34 36 31 33 | 52 45 46 49 47 |
+
+**Pre-registered hypotheses.**
+* **H1 (gain beats random, clean pool): refuted.** Random minus gain = -2.9 bits on average, positive in 3 of 5 seeds. Gain is clearly worse in rounds 1-4 (-16.5, 1 of 5 seeds) and slightly better in rounds 5-12 (+3.9, 5 of 5); the late advantage was not a pre-registered criterion and is descriptive only.
+* **H2 (gain beats surprise, pool with unlearnable windows): holds by the stated criterion** (surprise minus gain = +21.3, positive in 4 of 5 seeds; gain picks 31-36 unlearnable windows, surprise 45-52). **But the criterion was too weak**: gain is worse than *random* in all five seeds (-19.0 on average) and picks about twice as many unlearnable windows as random does. Progress-ordering avoids noise better than surprise-ordering, and worse than not choosing at all.
+* **H3:** in the clean pool surprise is the best arm (4.1 bits ahead of random, 4 of 5 seeds; 6.9 ahead of gain). Descriptive.
+
+**Why the gain arm fails (looked at after the fact, so a hypothesis, not a result).** The predicted gain is a one-step estimate: the best single new pattern. In round 1 it prefers clean windows (median 157 against 126 bits). After a few rounds the dictionary covers clean windows and their predicted gain drops to about zero, while the "unlearnable" windows keep a small positive value (5-9 bits): their labels were drawn from the pool's label frequencies, 85% of which are NOR-to-NOR, so they still contain generic two-edge chains. The arm then drifts into the noise. Two design weaknesses of our own protocol are visible here: the noise windows are not truly unlearnable, and the estimator saturates. In the clean pool the gain arm starts badly because the five windows with the highest predicted gain are near-duplicates (four of the first five have identical scores), so the first batch is less diverse than a random one.
+
+**Further observations.** With unlearnable windows in the training set, held-out cost gets *worse* as more data arrive in the surprise arm (the learner spends dictionary entries on noise). The oracle arm (3 seeds, clean pool) was still running when this was written.
+
+**What this means for the idea.** The premise of curiosity-as-compression-progress holds in its static form (the gate: in-sample gain predicts held-out gain). The first operational form of it, choosing data by a one-step predicted gain, does not help on this circuit and is harmful when part of the data is noise-like, although it is less harmful than choosing by surprise. One circuit, one estimator, five seeds. A fair next test needs a progress estimate that does not saturate (e.g. realised progress on a window class over time, as in Schmidhuber's formulation, rather than a one-step prediction per window), truly unlearnable distractors, and data in which windows differ in what they teach; on c6288 nearly every window contains the same cells, as anticipated in the pre-registration.
