@@ -88,3 +88,19 @@ def test_windows_do_not_depend_on_the_hash_seed():
         assert p.returncode == 0, p.stderr
         outs.append(p.stdout)
     assert json.loads(outs[0])[0] and outs[0] == outs[1] == outs[2]
+
+# --- coder: bytes written and read back ---
+def test_coder_roundtrip_both_modes():
+    import coder
+    from core import Comp
+    pat = ((0, 0, 1), (1, 1, 2), (2, 0, 0))                       # a labelled triangle
+    edges = []
+    for k in range(5):                                            # five triangles in a chain, joined at one node each
+        a, b, c = 2 * k, 2 * k + 1, 2 * k + 2
+        edges += [(a, 0, b), (b, 1, c), (c, 0, a)]
+    edges.append((0, 1, 10))
+    comp = Comp(11, edges)
+    for mode in ('all', 'boundary'):
+        b, info = coder.encode(comp, [pat], 2, mode); v = coder.verify(comp, b, info, mode)
+        assert info['instances'] == 5 and all(v.values()), (mode, v)
+    assert coder._subset_unrank(coder._subset_rank([1, 3, 4], 6), 6, 3) == [1, 3, 4]

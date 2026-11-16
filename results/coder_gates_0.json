@@ -1,0 +1,164 @@
+{
+ "cond": "gates",
+ "seed": 0,
+ "edges": 4288,
+ "patterns": 15,
+ "runs": [
+  {
+   "numbering": "name",
+   "R": 64,
+   "mode": "boundary",
+   "file_bits": 35928,
+   "model_bits": 35174,
+   "bytes": 4491,
+   "bits_exact": 35925,
+   "header_bits": 160,
+   "dict_bits": 1401,
+   "instance_bits": 31658,
+   "raw_bits": 2705,
+   "instances": 508,
+   "raw_edges": 95,
+   "verify": {
+    "equal_after_renaming": true,
+    "renaming_is_bijection": true,
+    "nodes_renamed": 1214,
+    "colour_refinement_equal": true
+   }
+  },
+  {
+   "numbering": "name",
+   "R": 64,
+   "mode": "all",
+   "file_bits": 45800,
+   "model_bits": 44608,
+   "bytes": 5725,
+   "bits_exact": 45797,
+   "header_bits": 160,
+   "dict_bits": 1401,
+   "instance_bits": 41531,
+   "raw_bits": 2705,
+   "instances": 508,
+   "raw_edges": 95,
+   "verify": {
+    "exact_equal": true
+   }
+  },
+  {
+   "numbering": "name",
+   "R": 6,
+   "mode": "boundary",
+   "file_bits": 35320,
+   "model_bits": 34812,
+   "bytes": 4415,
+   "bits_exact": 35317,
+   "header_bits": 160,
+   "dict_bits": 1118,
+   "instance_bits": 31658,
+   "raw_bits": 2381,
+   "instances": 508,
+   "raw_edges": 95,
+   "verify": {
+    "equal_after_renaming": true,
+    "renaming_is_bijection": true,
+    "nodes_renamed": 1214,
+    "colour_refinement_equal": true
+   }
+  },
+  {
+   "numbering": "name",
+   "R": 6,
+   "mode": "all",
+   "file_bits": 45192,
+   "model_bits": 44246,
+   "bytes": 5649,
+   "bits_exact": 45189,
+   "header_bits": 160,
+   "dict_bits": 1118,
+   "instance_bits": 41531,
+   "raw_bits": 2381,
+   "instances": 508,
+   "raw_edges": 95,
+   "verify": {
+    "exact_equal": true
+   }
+  },
+  {
+   "numbering": "anonymous",
+   "R": 64,
+   "mode": "boundary",
+   "file_bits": 33328,
+   "model_bits": 32580,
+   "bytes": 4166,
+   "bits_exact": 33328,
+   "header_bits": 160,
+   "dict_bits": 1401,
+   "instance_bits": 29061,
+   "raw_bits": 2705,
+   "instances": 491,
+   "raw_edges": 95,
+   "verify": {
+    "equal_after_renaming": true,
+    "renaming_is_bijection": true,
+    "nodes_renamed": 1327,
+    "colour_refinement_equal": true
+   }
+  },
+  {
+   "numbering": "anonymous",
+   "R": 64,
+   "mode": "all",
+   "file_bits": 44488,
+   "model_bits": 43293,
+   "bytes": 5561,
+   "bits_exact": 44483,
+   "header_bits": 160,
+   "dict_bits": 1401,
+   "instance_bits": 40217,
+   "raw_bits": 2705,
+   "instances": 491,
+   "raw_edges": 95,
+   "verify": {
+    "exact_equal": true
+   }
+  },
+  {
+   "numbering": "anonymous",
+   "R": 6,
+   "mode": "boundary",
+   "file_bits": 32720,
+   "model_bits": 32218,
+   "bytes": 4090,
+   "bits_exact": 32720,
+   "header_bits": 160,
+   "dict_bits": 1118,
+   "instance_bits": 29061,
+   "raw_bits": 2381,
+   "instances": 491,
+   "raw_edges": 95,
+   "verify": {
+    "equal_after_renaming": true,
+    "renaming_is_bijection": true,
+    "nodes_renamed": 1327,
+    "colour_refinement_equal": true
+   }
+  },
+  {
+   "numbering": "anonymous",
+   "R": 6,
+   "mode": "all",
+   "file_bits": 43880,
+   "model_bits": 42931,
+   "bytes": 5485,
+   "bits_exact": 43875,
+   "header_bits": 160,
+   "dict_bits": 1118,
+   "instance_bits": 40217,
+   "raw_bits": 2381,
+   "instances": 491,
+   "raw_edges": 95,
+   "verify": {
+    "exact_equal": true
+   }
+  }
+ ]
+}

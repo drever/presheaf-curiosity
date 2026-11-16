@@ -40,11 +40,12 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 11 | Treewidth separation: SL-HR grammars with bounded right-hand sides cannot generate large grids compactly, a product-closed dictionary can | proof sketch (review) | argument, not a measured result; irrelevant for stars/few labels (review-repair-presheaves.md 3.2) |
 | 12 | Curiosity: learning-progress-driven data selection helps | – | **not tested**; protocol pre-registered in `docs/prereg-curiosity.md` |
 | 13 | Held-out generalisation (c6288, repaired split) | dictionaries do about as well on the held-out half as on the unseen part of the training half (gluing 100/103 vs 101/119) | measured, 2 seeds, one circuit; first attempt withdrawn (see "Held-out test") |
-| 14 | Reference against a published grammar compressor (ITR, successor of gRePair; the original gRePair code is not public) | whole c6288: ITR grammar 70 kbit with gate-name order, 133-135 kbit with anonymous node numbers; our model length for gluing about 35-39 kbit incl. dictionary | **not like for like** (file with query support vs. model code length that no coder has produced); shows that real compressors are equally order-dependent; no claim against ITR (10) |
+| 14 | The gluing description of c6288 can be written as an actual file and read back, and its size matches the computed length | `src/coder.py`: file 2-4% longer than the model length, all round trips verified; whole c6288 with node numbers preserved 50-53 kbit, up to renaming of inner nodes 36-41 kbit; almost independent of node numbering and edge order | measured, one circuit; holes, products, lattice and embedding models are still computed lengths only (11) |
+| 15 | Reference against a published grammar compressor (ITR, successor of gRePair; the original gRePair code is not public) | whole c6288, grammar part: ITR 70 kbit with gate-name order, 133-135 kbit with anonymous numbering, against our 50-53 kbit file on the same task | **not a claim of beating ITR**: its output supports queries and targets large RDF graphs; ours is a plain archive of one small, very regular circuit and would not scale. Shows that digram-grammar compressors depend on the presentation of the graph and a pattern dictionary does not (10, 11) |
 
 ## Honest caveats
 
-* Learner and evaluator share one cost function (home advantage); costs of bundle tables, runs and label tables are modelled, not produced by a real entropy coder.
+* Learner and evaluator share one cost function (home advantage). Only the plain gluing description has an actual coder and decoder (`src/coder.py`, file 2-4% above the computed length on c6288); costs of holes, products, bundle tables, runs and label tables are computed, not produced by a coder.
 * All "RePair"/"gRePair-like" numbers are from our own re-implementation (`src/repair.py`). Its results depend strongly on the order of edges inside a window (factor of 3-4 on c6288, lab notebook section 9); treat every number for it as unverified.
 * Synthetic worlds are built to contain the sought structure; they show that the learner can find it, not that real data have it.
 * Most real-data results are in-sample, on windows of a single regular circuit (c6288). Training/test windows overlap.
@@ -91,6 +92,7 @@ python heldout2.py 0                    # the same test on the repaired split (s
 python heldout_lattice.py 0             # held-out split: lattice rule learned on A, applied to B (still uses the old, flawed split)
 python diag_order.py gates 0 ; python diag_grow.py gates 0   # notebook section 9
 python itr_whole.py /path/to/cgraph-cli ; python whole_graph.py full 0   # notebook section 10 (needs ITR, see there)
+python coder_run.py full 0              # notebook section 11: write c6288 with our coder and read it back
 ```
 
 Runs can take minutes to hours; pynauty-based steps are the slow ones. Some results depend on hash order (`PYTHONHASHSEED`); expect small deviations.

@@ -593,3 +593,31 @@ Reading. (a) With random edge order we recover the old numbers of 4d (about 169)
 2. Our model figure for gluing on the whole circuit (about 35 kbit including dictionary) is roughly half of ITR's grammar in name order. **This is not a result against ITR**: one side is a model code length that no coder has produced, the other a file that supports queries; ITR's design targets large RDF graphs, not a 4,800-edge netlist. What the comparison does give is a scale: our model lengths are not absurdly far from what real tools write, and an actual coder for our model (Leo's point 1) is the missing piece.
 3. The window-level setting, in which all our earlier baseline comparisons were made, is not one in which a published compressor can be run meaningfully. Baseline comparisons should move to whole graphs.
 4. Our own re-implementation remains in the repository as a labelled side line (`src/repair.py`); its numbers are not to be read as gRePair's.
+
+## 11. An actual coder for the gluing description (16 November 2026)
+
+Until here every number for our method was a computed code length. `src/coder.py` writes the bytes and reads them back; `src/coder_run.py` applies it to the whole c6288 (dictionary learned on 40 windows as before, stored inside the file); results `results/coder_{full,gates}_{0,1}.json`; a round-trip test is in `tests/`.
+
+**Coder.** Every symbol is an integer from a known range; the message is one mixed-radix integer, so a symbol of range r costs exactly log2(r) bits. File = header (five 32-bit counts), patterns as flat edge lists, instances, raw edges. Two instance modes:
+* **all**: one pointer per pattern node. Node numbers are preserved exactly; the decoder's output is compared for exact equality with the input. This is the same task ITR solves (its grammar part also excludes node names).
+* **boundary**: pointers only for nodes that have an edge outside the instance, the rest are numbered afresh by the decoder. The graph is preserved up to renaming of those nodes (about half of all nodes here). Verified by equality after renaming, a check that the renaming is a bijection fixing all other nodes, and colour refinement.
+All 32 files (2 graphs, 2 seeds, 2 numberings, 2 modes, R = 64 and R = number of labels) decode correctly.
+
+**Sizes, whole c6288, kbit, R = 64** (seed 0 / seed 1; "name" = node numbers and edge order follow gate names, "anonymous" = random numbers and random edge order):
+
+| | with input edges | without input edges |
+|---|---|---|
+| our file, mode all, name | 50.4 / 52.6 | 45.8 / 45.5 |
+| our file, mode all, anonymous | 50.2 / 52.3 | 44.5 / 44.4 |
+| our file, mode boundary, name | 36.3 / 40.5 | 35.9 / 35.6 |
+| our file, mode boundary, anonymous | 36.0 / 40.0 | 33.3 / 33.4 |
+| model length for the same cover (boundary) | 34.9 / 39.0 | 35.2 / 34.8 |
+| ITR grammar, name | 70.4 | 59.8 |
+| ITR grammar, anonymous | 132.7 / 134.7 | 120.7 / 120.2 |
+| xz -9e on N-Triples, name / anonymous | 65.2 / 169 | 60.9 / 152 |
+
+**Reading.**
+1. **The model lengths were honest to within 2-4%.** The file is slightly longer than the computed length (flat instead of hierarchical dictionary, a 160-bit header) and never shorter. This closes the "no real coder" caveat for the gluing description of this graph; it does not cover holes, products, label tables, lattice rules or the embedding model, which are still computed lengths only.
+2. **The gluing description does not depend on how the graph is presented**: name order or anonymous numbering changes the file by 0-7%, whereas ITR and xz double. A dictionary of subgraph patterns finds repeated cells by matching, not through the numbering.
+3. On the like-for-like task (node numbers preserved, mode all) our file is 50-53 kbit against ITR's 70 kbit in name order and 133-135 kbit anonymous. **We do not read this as beating ITR.** ITR's output answers neighbourhood queries without decompression and is designed for RDF graphs with millions of triples; ours is a plain archive format. The graph is one small, extremely regular circuit, the case most favourable to a cell dictionary; pattern matching by `cover_u` would not scale to ITR's graph sizes. What can be said: on this circuit a subgraph-pattern dictionary yields an actual file that is smaller than a published digram-grammar compressor's grammar, and in the anonymous setting much smaller.
+4. Still in-sample in the sense of section 6: one circuit, the dictionary learned on its own windows (but paid for inside the file).
