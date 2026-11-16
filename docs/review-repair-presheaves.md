@@ -4,6 +4,8 @@ Status: 15 October 2026 (translated from the German original). Tags as in `revie
 
 Throughout, "RePair" in our own measurements means **our re-implementation** of a gRePair-like digram grammar, not the original code.
 
+> **Note added 16 November 2026.** The comparisons with this re-implementation quoted below (e.g. "31% ahead" on c6288, "12-14%" on streets) turned out to depend on the order of edges fed to the baseline and are withdrawn or unverified; see lab notebook, section 9.
+
 ---
 
 ## 1. Which effects are we investigating?
