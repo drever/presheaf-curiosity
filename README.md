@@ -38,7 +38,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 9 | A learned recursive lattice rule extrapolates | c6288 cell quotient: 3x3-5x5 block regenerates up to 13x13 with 0 exceptions, ~65 bits vs 2.4-3.7 kbit gluing; own multipliers k=16/24/32: ~66 bits vs 3.9-25 kbit | in-sample / own regular generator; rule class prescribed (4k, 4m) |
 | 10 | The whole cell quotient is a typed Z² patch with constant-size description | c6288 ~2.64 kbit vs 9.2 kbit; own multipliers 1.46/1.49/1.52 kbit vs 6.9-30.6 kbit | in-sample; bus and dictionaries excluded; bundle-table and run costs modelled, not verified with a real coder (4n-4p) |
 | 11 | Treewidth separation: SL-HR grammars with bounded right-hand sides cannot generate large grids compactly, a product-closed dictionary can | proof sketch (review) | argument, not a measured result; irrelevant for stars/few labels (review-repair-presheaves.md 3.2) |
-| 12 | Curiosity: learning-progress-driven data selection helps | – | **not tested** |
+| 12 | Curiosity: learning-progress-driven data selection helps | – | **not tested**; protocol pre-registered in `docs/prereg-curiosity.md` |
 | 13 | Held-out generalisation (c6288 halves) | first split was flawed: half A holds all inputs and AND gates, half B is almost pure NOR-to-NOR and fragmented | **not shown**; numbers withdrawn as evidence, repaired split planned (see "Held-out test") |
 
 ## Honest caveats
