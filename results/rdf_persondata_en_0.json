@@ -1,0 +1,46 @@
+{
+ "file": "persondata_en.ttl",
+ "seed": 0,
+ "triples": 49999,
+ "nodes": 31594,
+ "labels": 10,
+ "patterns": 23,
+ "raw_model_bits": 1660799.4863407516,
+ "runs": [
+  {
+   "mode": "all",
+   "file_bits": 888912,
+   "bytes": 111114,
+   "bits_exact": 888913,
+   "header_bits": 160,
+   "dict_bits": 1651,
+   "instance_bits": 765397,
+   "raw_bits": 121706,
+   "instances": 7835,
+   "raw_edges": 3664,
+   "verify": {
+    "exact_equal": true
+   },
+   "time": 51
+  },
+  {
+   "mode": "boundary",
+   "file_bits": 643736,
+   "bytes": 80467,
+   "bits_exact": 643736,
+   "header_bits": 160,
+   "dict_bits": 1651,
+   "instance_bits": 520219,
+   "raw_bits": 121706,
+   "instances": 7835,
+   "raw_edges": 3664,
+   "verify": {
+    "equal_after_renaming": true,
+    "renaming_is_bijection": true,
+    "nodes_renamed": 19590,
+    "colour_refinement_equal": true
+   },
+   "time": 51
+  }
+ ]
+}

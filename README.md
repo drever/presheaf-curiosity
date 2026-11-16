@@ -41,7 +41,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 12 | Curiosity: learning-progress-driven data selection helps | – | **not tested**; protocol pre-registered in `docs/prereg-curiosity.md` |
 | 13 | Held-out generalisation (c6288, repaired split) | dictionaries do about as well on the held-out half as on the unseen part of the training half (gluing 100/103 vs 101/119) | measured, 2 seeds, one circuit; first attempt withdrawn (see "Held-out test") |
 | 14 | The gluing description of c6288 can be written as an actual file and read back, and its size matches the computed length | `src/coder.py`: file 2-4% longer than the model length, all round trips verified; whole c6288 with node numbers preserved 50-53 kbit, up to renaming of inner nodes 36-41 kbit; almost independent of node numbering and edge order | measured, one circuit; holes, products, lattice and embedding models are still computed lengths only (11) |
-| 15 | Reference against a published grammar compressor (ITR, successor of gRePair; the original gRePair code is not public) | whole c6288, grammar part: ITR 70 kbit with gate-name order, 133-135 kbit with anonymous numbering, against our 50-53 kbit file on the same task | **not a claim of beating ITR**: its output supports queries and targets large RDF graphs; ours is a plain archive of one small, very regular circuit and would not scale. Shows that digram-grammar compressors depend on the presentation of the graph and a pattern dictionary does not (10, 11) |
+| 15 | Reference against a published grammar compressor (ITR, successor of gRePair; the original gRePair code is not public), actual files on the same task | c6288: ours 50-53 kbit, ITR 70 kbit (gate-name order) or 133-135 kbit (anonymous). DBpedia persondata extract: ours 889, ITR 1,173 kbit. DBpedia geo_coordinates extract: ours 1,324, ITR 1,075 kbit. With a second seed our cover did not finish within 40 minutes on either RDF file; ITR takes under a second | **mixed, and no claim of beating ITR**: smaller where the graph has repeated cells with internal structure, larger on stars around a hub, not robust and not scalable; ITR's output also supports queries (10-12) |
 
 ## Honest caveats
 
@@ -93,6 +93,7 @@ python heldout_lattice.py 0             # held-out split: lattice rule learned o
 python diag_order.py gates 0 ; python diag_grow.py gates 0   # notebook section 9
 python itr_whole.py /path/to/cgraph-cli ; python whole_graph.py full 0   # notebook section 10 (needs ITR, see there)
 python coder_run.py full 0              # notebook section 11: write c6288 with our coder and read it back
+python rdf_run.py FILE.nt 0             # notebook section 12: the coder on an RDF graph
 ```
 
 Runs can take minutes to hours; pynauty-based steps are the slow ones. Some results depend on hash order (`PYTHONHASHSEED`); expect small deviations.

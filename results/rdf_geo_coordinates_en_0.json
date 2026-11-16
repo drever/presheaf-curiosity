@@ -1,0 +1,46 @@
+{
+ "file": "geo_coordinates_en.ttl",
+ "seed": 0,
+ "triples": 49999,
+ "nodes": 46107,
+ "labels": 4,
+ "patterns": 7,
+ "raw_model_bits": 1649236.832393332,
+ "runs": [
+  {
+   "mode": "all",
+   "file_bits": 1324432,
+   "bytes": 165554,
+   "bits_exact": 1324432,
+   "header_bits": 160,
+   "dict_bits": 500,
+   "instance_bits": 396090,
+   "raw_bits": 927681,
+   "instances": 3125,
+   "raw_edges": 28124,
+   "verify": {
+    "exact_equal": true
+   },
+   "time": 23
+  },
+  {
+   "mode": "boundary",
+   "file_bits": 1183016,
+   "bytes": 147877,
+   "bits_exact": 1183020,
+   "header_bits": 160,
+   "dict_bits": 500,
+   "instance_bits": 254679,
+   "raw_bits": 927681,
+   "instances": 3125,
+   "raw_edges": 28124,
+   "verify": {
+    "equal_after_renaming": true,
+    "renaming_is_bijection": true,
+    "nodes_renamed": 10950,
+    "colour_refinement_equal": true
+   },
+   "time": 23
+  }
+ ]
+}

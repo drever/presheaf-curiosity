@@ -621,3 +621,20 @@ All 32 files (2 graphs, 2 seeds, 2 numberings, 2 modes, R = 64 and R = number of
 2. **The gluing description does not depend on how the graph is presented**: name order or anonymous numbering changes the file by 0-7%, whereas ITR and xz double. A dictionary of subgraph patterns finds repeated cells by matching, not through the numbering.
 3. On the like-for-like task (node numbers preserved, mode all) our file is 50-53 kbit against ITR's 70 kbit in name order and 133-135 kbit anonymous. **We do not read this as beating ITR.** ITR's output answers neighbourhood queries without decompression and is designed for RDF graphs with millions of triples; ours is a plain archive format. The graph is one small, extremely regular circuit, the case most favourable to a cell dictionary; pattern matching by `cover_u` would not scale to ITR's graph sizes. What can be said: on this circuit a subgraph-pattern dictionary yields an actual file that is smaller than a published digram-grammar compressor's grammar, and in the anonymous setting much smaller.
 4. Still in-sample in the sense of section 6: one circuit, the dictionary learned on its own windows (but paid for inside the file).
+
+## 12. A second kind of graph: two DBpedia extracts (16 November 2026)
+
+To leave our most favourable case, we took the two RDF files found in a public repository of this research line: `persondata_en.ttl` and `geo_coordinates_en.ttl` from the test resources of https://github.com/dice-group/GraphCompression (commit 526d761), 49,999 triples each. DBpedia extracts are the data family on which the gRePair papers report their advantage; these are not the files used in those papers (their data sets are on a server we cannot reach). Script `src/rdf_run.py`; results `results/rdf_*_0.json`. Nodes = distinct subjects and objects (literals included), label = predicate; node numbers and edge order random; pipeline unchanged (dictionary from 40 BFS windows of 20 nodes, `maxe = 12`, stored in the file; coder of section 11). ITR on the original files, grammar part only.
+
+| graph | nodes | predicates | largest degree | ITR grammar | our file, node numbers preserved | our file, up to renaming of inner nodes | every edge raw (our model) |
+|---|---|---|---|---|---|---|---|
+| geo_coordinates | 46,107 | 4 | 12,500 | 1,075 kbit | 1,324 kbit | 1,183 kbit | about 1,650 kbit |
+| persondata | 31,594 | 10 | 6,304 | 1,173 kbit | 889 kbit | 644 kbit | about 1,660 kbit |
+
+Seed 0; all four files decode correctly. Run time: ITR under one second per file; ours 90 s and 558 s for learning plus 23 s and 51 s for encoding.
+
+**Reading.**
+1. **Mixed.** On geo_coordinates ITR's grammar is smaller than our file; on persondata ours is smaller. On the like-for-like task (node numbers preserved) that is +23% and -24%.
+2. **Why we lose on geo_coordinates.** The graph is 12,500 small stars that all meet in one node (the class). Windows of 20 nodes grown from a random start almost always sit on that node; the learner finds only seven patterns, and the greedy largest-first cover then leaves 28,124 of 49,999 edges uncovered. A single star pattern would presumably describe the graph far better (not tested); our window sampling and cover do not find that description. This is the star-shaped, few-predicate case in which the grammar compressors claim their advantage, and here the claim holds against us.
+3. **Not robust and not scalable.** With seed 1 the learner chose other patterns and the cover of the whole graph did not finish within 40 minutes for either file (backtracking through nodes of degree 6,000-12,500). So the numbers above are one seed, and a different draw of training windows can make our pipeline unusable on graphs of this kind. ITR needs under a second.
+4. Consequence for the status table: claim 15 now reads "smaller on c6288 and on one of two RDF extracts, larger on the other, sometimes not finishing". That is not an advantage over published grammar compressors; it is a description of where a subgraph-pattern dictionary helps (repeated cells with internal structure) and where it does not (stars around hubs, at least with this learner).
