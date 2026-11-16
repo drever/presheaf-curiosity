@@ -665,3 +665,27 @@ Protocol fixed in advance in `docs/prereg-curiosity.md` (three dated amendments,
 **Further observations.** With unlearnable windows in the training set, held-out cost gets *worse* as more data arrive in the surprise arm (the learner spends dictionary entries on noise). The oracle arm (3 seeds, clean pool) was still running when this was written.
 
 **What this means for the idea.** The premise of curiosity-as-compression-progress holds in its static form (the gate: in-sample gain predicts held-out gain). The first operational form of it, choosing data by a one-step predicted gain, does not help on this circuit and is harmful when part of the data is noise-like, although it is less harmful than choosing by surprise. One circuit, one estimator, five seeds. A fair next test needs a progress estimate that does not saturate (e.g. realised progress on a window class over time, as in Schmidhuber's formulation, rather than a one-step prediction per window), truly unlearnable distractors, and data in which windows differ in what they teach; on c6288 nearly every window contains the same cells, as anticipated in the pre-registration.
+
+## 14. Is the dictionary a stable "basis"? Stability and spectrum (16 November 2026)
+
+Motivation: the loose analogy with PCA. Components should be a property of the data rather than of the sample, and a few of them should carry most of the effect. Script `src/basis.py` (committed with its four expectations before the first run), results `results/basis_{0..4}.json`. Per seed: repaired split of c6288; dictionaries from 100 windows each: A1 and A2 (two independent draws from region A), B1 (region B), X (circuit c880); 100 fresh evaluation windows of A and of B.
+
+**Stability** (five seeds):
+
+| pair, evaluated on B | identical patterns | Jaccard | share of covered edges that the first dictionary covers with patterns also present in the second |
+|---|---|---|---|
+| A1 vs A2 (same region, other sample) | 15-21 of 16-24 | 0.63-0.96 | 96-100% |
+| A1 vs B1 (other region) | 13-17 of 16-26 | 0.45-0.67 | 93-99% |
+| B1 vs A1 (other direction) | same | same | 66-92% |
+
+Bits per window on B: with the dictionary from B itself 105.8, 99.4, 100.0, 110.2, 99.6; with the dictionary from A 106.5, 115.6, 104.0, 109.8, 109.5 (differences +0.7%, +16.3%, +4.0%, -0.4%, +9.9%). For comparison, two samples of the *same* region differ by up to 9% as well (on A: A1 103.8 109.3 99.7 101.6 103.9, A2 106.4 102.6 98.9 101.6 98.2).
+
+**Spectrum** (dictionary A1, evaluated on B, patterns in the order the learner added them): the first pattern alone gives 49-51% of the total saving, two patterns 57-60%, five 72-76%, ten 91-94%; 90% is reached with 9-10 of 16-22 patterns. The sizes of the first ten patterns are almost the same in every seed (2, 4, 1, 8, 2 or 3, ...). In the final cover 4-7 patterns of each dictionary are not used at all (they were stepping stones for larger ones).
+
+**Against the expectations.**
+* E1 (other region is about as similar as another sample of the same region): **holds** in the direction A1 -> B1 (93-99% against 96-100%).
+* E2 (at least 70% shared use; coding B with the dictionary from A costs at most 10% more): the shared-use part **holds**; the cost part **fails in one of five seeds** (+16.3%) and is at the limit in another (+9.9%). In both, A1 had only 16 patterns, i.e. the learner stopped early on that sample; the spread between two samples of one region is of the same order.
+* E3 (a dictionary from c880 shares little): **uninformative**. It shares nothing (0 patterns, no compression), but c880 uses other gate types, so its edge labels hardly occur in c6288 at all; this was a badly chosen reference and says nothing about structure.
+* E4 (half of the saving with at most 3 patterns, 90% with at most 10): **holds** (1-2 and 9-10).
+
+**Reading.** On this circuit the learned patterns behave like a basis in the two senses asked for: the patterns that do the work are the same whichever half or sample they are learned from (the core that carries 93-100% of the cover recurs), and the gain is concentrated in few of them. Three qualifications. (1) The dictionary as a *set* is much less stable (Jaccard 0.45-0.96): the tail varies, and the learner sometimes stops early, costing up to 16%. Unlike PCA there is no uniqueness. (2) The reverse direction is weaker: a dictionary learned on B uses patterns absent from A's dictionary for 8-34% of its cover. (3) One very regular circuit; the first "component" is a generic two-edge NOR chain, which says more about the label statistics than about cells. A reference with the same labels but different structure (another NOR-only circuit, or a degree-preserving rewiring of c6288) is the missing control.
