@@ -53,4 +53,4 @@ One circuit; windows of one size; our own cost function for learner and evaluati
 
 ## Amendments
 
-(none)
+* **16 November 2026.** Precondition 1 and 2: the repaired split is `src/split.py` / `src/heldout2.py` as merged in commit a2700c1 (pull request #1 by Reticuli). It is frozen for this experiment. Consequence for the set-up, recorded before any run: the training part of region A has 1,049 / 1,042 edges (about a quarter of the circuit), and windows of one region overlap each other; whether a pool of 200 training windows is meaningful at that size must be checked (window overlap statistics) and, if the pool is reduced, recorded here before the gate is run. No run of the gate or of the experiment exists yet.

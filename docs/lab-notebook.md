@@ -523,3 +523,26 @@ Protocol (`src/heldout.py`, results `results/heldout_{0,1}.json`): c6288 is spli
 | 1 | RePair re-impl. | 97.9 | 239.1 |
 
 Original reading (**withdrawn**, see the correction above): the dictionaries transfer to B less well than within A, and the gluing advantage over growing seen on A is absent on B. Because A and B differ in composition and B is fragmented, this says nothing reliable about generalisation in either direction.
+
+## 8. Held-out test on a repaired split (16 November 2026)
+
+The split of section 7 was flawed (see the correction there). Reticuli contributed a repaired split and script (pull request #1, merge commit a2700c1); we reviewed the diff, ran it here and obtained the contributor's numbers exactly.
+
+Protocol (`src/heldout2.py`, split in `src/split.py`, contributed by Reticuli in pull request #1; results `results/heldout2_{0,1}.json`): the walk that cuts c6288 in two does not pass through primary inputs, and the 512 input fan-out edges are in neither region. Region A is cut once more by the same walk into a training part and a test part that share no node. Cuts: 82 / 94 edges between A and B, 51 / 36 inside A (seeds 0 / 1). Every region is 85-91% NOR-to-NOR; training part and test part of A are one piece each, B is 3 pieces (seed 0) or one (seed 1). Dictionaries are learned on 40 windows of the training part (about a quarter of the circuit) and evaluated on 100 windows of the other part of A and 100 windows of B. Bits per window, lower is better, no dictionary cost. The output is identical under different `PYTHONHASHSEED` values; our run reproduced the contributor's numbers exactly.
+
+| seed | method | patterns / rules | A (unseen part) | B (held out) |
+|---|---|---|---|---|
+| 0 | empty | 0 | 455.0 | 458.6 |
+| 0 | gluing | 24 | 99.7 | 101.4 |
+| 0 | growing | 12 | 185.4 | 186.8 |
+| 0 | RePair re-impl. | 72 | 82.4 | 73.8 |
+| 1 | empty | 0 | 460.4 | 449.1 |
+| 1 | gluing | 16 | 103.3 | 118.5 |
+| 1 | growing | 10 | 186.8 | 189.1 |
+| 1 | RePair re-impl. | 62 | 81.4 | 85.7 |
+
+Reading:
+* **Transfer.** On a split whose halves are the same kind of graph, the dictionaries do about as well on B as on the unseen part of A. The drop on B in the first attempt was an artefact of the split.
+* **Gluing against growing.** Gluing is lower by 71-86 bits on average, on 100 / 100 windows of A and 100 / 94 of 100 windows of B. This is the first support for the gluing advantage on circuit parts not seen in training. Caveat: growing stops at 12 and 10 patterns, and we have not found out why.
+* **Our RePair re-implementation against gluing.** It is lower than gluing in all four cells. Its dictionary is larger (1673 / 1432 bits against 479 / 330), but with the dictionary spread over 100 windows it stays lower (seed 0: 99 / 91 against 105 / 106; seed 1: 96 / 100 against 107 / 122). **This contradicts claim 4 for c6288**, where earlier in-sample runs had gluing about 53 bits ahead. We do not know which difference is responsible: the missing input edges, the skipped star patterns (`und.TWIN_MAX = 6`), 80 rules against 40 patterns, or the in-sample set-up of the earlier runs.
+* **Limits.** Two seeds, one circuit; windows of one region overlap each other, so 100 windows are far fewer than 100 independent draws; no window contains an input label any more; R = 64 although 6 labels occur; learner and evaluation still share one cost function.
