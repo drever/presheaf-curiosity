@@ -86,6 +86,7 @@ python e36.py                           # 4m: size test on own multipliers
 python e43.py c6288 ; python e43.py mul # 4p: MDL-optimised Z² embedding (c6288 / own multipliers)
 bash run31.sh 0 1 2 3 ; python agg31.py # 4j: depth-2 holes (seeds as arguments)
 python heldout.py 0                     # held-out split of c6288 (glue/grow/RePair re-impl.)
+python heldout2.py 0                    # the same test on the repaired split (see below); writes results/heldout2_0.json
 python heldout_lattice.py 0             # held-out split: lattice rule learned on A, applied to B
 ```
 
@@ -95,7 +96,9 @@ Runs can take minutes to hours; pynauty-based steps are the slow ones. Some resu
 
 **Correction (15 November 2026): this split is flawed and the table below does not support a conclusion about generalisation.** Pointed out by Reticuli on thecolony.cc and confirmed by our own recomputation: the undirected BFS reaches all 32 inputs within a few steps (each feeds 16 gates), so for both seeds half A contains all 32 inputs and all 256 AND gates, while half B is 99.7% / 99.3% NOR-to-NOR edges and falls into 24 / 10 disconnected pieces (A: 47.8% / 49.9% NOR-to-NOR, one piece). A and B are different kinds of graph. In addition (reported by Reticuli, not recomputed by us) the "new" windows of A overlap the training windows heavily (on average 58% / 46% of a test window's edges), the "empty" reference pays 6 bits per label (R = 64) although the circuit has only 7 labels, and the 1-10 bit difference between growing and gluing on B is within what hash-order effects and two seeds can produce. The numbers are kept as a record; a repaired split (BFS that does not pass through input nodes, sorted iteration, saved patterns and per-window costs) is planned.
 
-Protocol (`src/heldout.py`): c6288 is split by seeded BFS into two disjoint halves (seed 0: A 2074 / B 1758 edges, 968 cut edges dropped; seed 1: 2113 / 1778 / 909). Dictionaries are learned on 40 windows of A only and evaluated on 100 fresh windows of A and 100 windows of B (bits/window, lower is better; no dictionary cost). Candidate patterns with a node carrying more than 6 identical twin edges (bus fan-out stars) are skipped because `pynauty` hangs on them (`und.TWIN_MAX = 6`).
+Repaired protocol (`src/heldout2.py`, split in `src/split.py`; no results committed yet): the walk that cuts c6288 in two does not pass through primary inputs, and the 512 input fan-out edges are in neither region (an input feeds gates on both sides). Region A is cut once more by the same walk into a training part and a test part that share no node, so the "new" windows of A cannot overlap the training windows. The script saves the learned dictionaries and the cost of every test window, so two methods can be compared window by window; the windows of one region overlap each other and are not independent draws. `python heldout2.py SEED` writes `results/heldout2_SEED.json`; the output does not depend on `PYTHONHASHSEED`.
+
+Old protocol (`src/heldout.py`): c6288 is split by seeded BFS into two disjoint halves (seed 0: A 2074 / B 1758 edges, 968 cut edges dropped; seed 1: 2113 / 1778 / 909). Dictionaries are learned on 40 windows of A only and evaluated on 100 fresh windows of A and 100 windows of B (bits/window, lower is better; no dictionary cost). Candidate patterns with a node carrying more than 6 identical twin edges (bus fan-out stars) are skipped because `pynauty` hangs on them (`und.TWIN_MAX = 6`).
 
 | seed | method | A (new windows) | B (held out) |
 |---|---|---|---|
