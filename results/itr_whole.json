@@ -1,0 +1,56 @@
+[
+ {
+  "graph": "full",
+  "order": "sorted",
+  "edges": 4800,
+  "nodes": 2448,
+  "itr_grammar_bits": 70352,
+  "itr_file_bits": 140688,
+  "xz_bits": 65152
+ },
+ {
+  "graph": "full",
+  "order": "shuf0",
+  "edges": 4800,
+  "nodes": 2448,
+  "itr_grammar_bits": 132696,
+  "itr_file_bits": 203040,
+  "xz_bits": 168608
+ },
+ {
+  "graph": "full",
+  "order": "shuf1",
+  "edges": 4800,
+  "nodes": 2448,
+  "itr_grammar_bits": 134720,
+  "itr_file_bits": 205064,
+  "xz_bits": 169280
+ },
+ {
+  "graph": "gates",
+  "order": "sorted",
+  "edges": 4288,
+  "nodes": 2415,
+  "itr_grammar_bits": 59808,
+  "itr_file_bits": 129088,
+  "xz_bits": 60896
+ },
+ {
+  "graph": "gates",
+  "order": "shuf0",
+  "edges": 4288,
+  "nodes": 2415,
+  "itr_grammar_bits": 120664,
+  "itr_file_bits": 189944,
+  "xz_bits": 152032
+ },
+ {
+  "graph": "gates",
+  "order": "shuf1",
+  "edges": 4288,
+  "nodes": 2415,
+  "itr_grammar_bits": 120160,
+  "itr_file_bits": 189440,
+  "xz_bits": 152000
+ }
+]

@@ -1,0 +1,1 @@
+{"cond": "gates", "seed": 1, "nodes": 2415, "edges": 4288, "labels": 6, "raw_model_bits": 122103.43689464961, "glue_bits": 34434.81531679729, "glue_dict_bits": 344.34990594697683, "glue_k": 17, "glue_time": 7, "repair_reimpl_sorted_bits": 32812.38947901627, "repair_reimpl_dict_bits": 1528.400346420699}

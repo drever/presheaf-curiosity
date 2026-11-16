@@ -1,0 +1,1 @@
+{"cond": "full", "seed": 0, "nodes": 2448, "edges": 4800, "labels": 7, "raw_model_bits": 136870.92328984945, "glue_bits": 34372.27771293731, "glue_dict_bits": 527.0249293104287, "glue_k": 24, "glue_time": 11, "repair_reimpl_sorted_bits": 62847.55582436433, "repair_reimpl_dict_bits": 1867.2750316700738}

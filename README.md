@@ -40,6 +40,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 11 | Treewidth separation: SL-HR grammars with bounded right-hand sides cannot generate large grids compactly, a product-closed dictionary can | proof sketch (review) | argument, not a measured result; irrelevant for stars/few labels (review-repair-presheaves.md 3.2) |
 | 12 | Curiosity: learning-progress-driven data selection helps | – | **not tested**; protocol pre-registered in `docs/prereg-curiosity.md` |
 | 13 | Held-out generalisation (c6288, repaired split) | dictionaries do about as well on the held-out half as on the unseen part of the training half (gluing 100/103 vs 101/119) | measured, 2 seeds, one circuit; first attempt withdrawn (see "Held-out test") |
+| 14 | Reference against a published grammar compressor (ITR, successor of gRePair; the original gRePair code is not public) | whole c6288: ITR grammar 70 kbit with gate-name order, 133-135 kbit with anonymous node numbers; our model length for gluing about 35-39 kbit incl. dictionary | **not like for like** (file with query support vs. model code length that no coder has produced); shows that real compressors are equally order-dependent; no claim against ITR (10) |
 
 ## Honest caveats
 
@@ -87,7 +88,9 @@ python e43.py c6288 ; python e43.py mul # 4p: MDL-optimised Z² embedding (c6288
 bash run31.sh 0 1 2 3 ; python agg31.py # 4j: depth-2 holes (seeds as arguments)
 python heldout.py 0                     # held-out split of c6288 (glue/grow/RePair re-impl.)
 python heldout2.py 0                    # the same test on the repaired split (see below); writes results/heldout2_0.json
-python heldout_lattice.py 0             # held-out split: lattice rule learned on A, applied to B
+python heldout_lattice.py 0             # held-out split: lattice rule learned on A, applied to B (still uses the old, flawed split)
+python diag_order.py gates 0 ; python diag_grow.py gates 0   # notebook section 9
+python itr_whole.py /path/to/cgraph-cli ; python whole_graph.py full 0   # notebook section 10 (needs ITR, see there)
 ```
 
 Runs can take minutes to hours; pynauty-based steps are the slow ones. Some results depend on hash order (`PYTHONHASHSEED`); expect small deviations.

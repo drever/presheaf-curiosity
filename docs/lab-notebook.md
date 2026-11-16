@@ -567,3 +567,29 @@ Reading. (a) With random edge order we recover the old numbers of 4d (about 169)
 **(2) Growing stops in a structural local optimum, not because of the candidate cap.** Traced on windows without input edges, seed 0. Growing stops after 9 patterns (largest: 4 edges). At that point only 25 distinct candidate patterns exist in total (fewer than the cap of 30), and the best of them makes the training description 0.7 bits *longer*. Cause: in our growing mode a candidate is an existing cover piece plus one adjacent piece that is a single edge. Once the windows are tiled by 2-4-edge patterns, hardly any single edges are left next to an instance, so there is almost nothing to extend with. Gluing may join two multi-edge pieces and continues to 15 patterns (largest 12 edges). With random edge order growing stops even earlier (4 patterns). This is the "search advantage" caveat of section 3 in sharp form: **the gluing-versus-growing gap (71-86 bits in section 8) is measured against a growing variant that is weak by construction.** A fair growing baseline (extend an instance by any adjacent edge, also one currently covered by another instance, as SUBDUE does) has not been built. Note also that both learners optimise the old cost (`total_h`, all node pointers) while the evaluation uses interface costs.
 
 **Consequences.** Claim 4 is withdrawn for c6288 and marked unverified for streets. Claim 2's held-out number stands as a measurement but only against our weak growing variant. Next steps would be a graph-only edge order for the baseline (or the original gRePair), and a fair growing baseline.
+
+## 10. A published grammar compressor as reference: ITR (16 November 2026)
+
+**Which code.** The original gRePair implementation (Maneth and Peternek, Scala) is not public: the gRePair paper links no code, the ITR paper only cites it, and the gRDF authors write that they "received a prototypical implementation ... from the authors". Publicly available are (a) **ITR / libcgraph** (Adler et al., https://github.com/adlerenno/IncidenceTypeRePair, C, commit 396f377), the successor of gRePair by an overlapping group, and (b) RDFRePair in https://github.com/dice-group/GraphCompression (Java port for RDF; not tried). We built ITR here. Build notes: needs libdivsufsort with `-DBUILD_DIVSUFSORT64=ON` and serd; the command-line tool does not compile without the web service, fixed by a two-line `#ifdef` (`docs/itr-build-fix.patch`, no change to the compressor). `--decompress` returned an error for our files, so losslessness on the window files was checked by querying every edge back (all identical); the whole-graph files were not checked in this way.
+
+**What is measured.** ITR writes a file; we report its grammar part ("Grammar Size", i.e. without the dictionary of node names) in bits. This is a real, queryable data structure, not a model code length, and it contains its own rules. Our numbers are model code lengths with a dictionary learned on 40 windows. The two are **not like for like**; the table is a reference, not a contest. Scripts: `src/itr_whole.py`, `src/whole_graph.py`, `src/itr_windows.py`; results `results/itr_whole.json`, `results/whole_graph_*.json`, `results/itr_windows_*.json`.
+
+**Whole c6288 as one graph** (kbit; "name order" = node numbers and triple order follow the gate names of the netlist file, "anonymous" = random node numbers and random order, two shuffles):
+
+| | with input edges (4800 edges) | without input edges (4288 edges) |
+|---|---|---|
+| ITR grammar, name order | 70.4 | 59.8 |
+| ITR grammar, anonymous | 132.7 / 134.7 | 120.7 / 120.2 |
+| xz -9e on the N-Triples text, name order | 65.2 | 60.9 |
+| xz -9e, anonymous | 168.6 / 169.3 | 152.0 / 152.0 |
+| our model: every edge raw | 136.9 | 122.1 |
+| our model: gluing, incl. dictionary (seeds 0 / 1) | 34.9 / 39.0 | 35.2 / 34.8 |
+| our model: RePair re-impl., name order, incl. dictionary | 64.7 / 64.9 | 32.7 / 34.3 |
+
+**Held-out windows of section 8 as one file of 100 disjoint windows** (bits per window): ITR grammar 313-366 with name order and 599-613 with random order (seeds 0/1, sets A and B), against 100-119 for gluing and 449-460 for our "empty" reference. Here ITR is far outside its design range: about 2,900 edges, fixed structure overhead, and node addresses over the whole file (11 bits) instead of one window (5 bits).
+
+**Reading.**
+1. **A real grammar compressor also depends strongly on the presentation of the graph**: a factor of about two between name order and anonymous numbering, for ITR and for xz alike. With anonymous numbering ITR's grammar is about as large as our "every edge raw" model. So the order sensitivity found in section 9 is not a peculiarity of our re-implementation; it is where much of the compression in this family comes from, and the gate names of c6288 carry the layout.
+2. Our model figure for gluing on the whole circuit (about 35 kbit including dictionary) is roughly half of ITR's grammar in name order. **This is not a result against ITR**: one side is a model code length that no coder has produced, the other a file that supports queries; ITR's design targets large RDF graphs, not a 4,800-edge netlist. What the comparison does give is a scale: our model lengths are not absurdly far from what real tools write, and an actual coder for our model (Leo's point 1) is the missing piece.
+3. The window-level setting, in which all our earlier baseline comparisons were made, is not one in which a published compressor can be run meaningfully. Baseline comparisons should move to whole graphs.
+4. Our own re-implementation remains in the repository as a labelled side line (`src/repair.py`); its numbers are not to be read as gRePair's.

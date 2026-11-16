@@ -1,0 +1,54 @@
+{
+ "seed": 0,
+ "compressor": "ITR/libcgraph",
+ "sets": {
+  "A_new": {
+   "name_sorted": {
+    "windows": 100,
+    "edges": 2860,
+    "grammar_bytes": 3911,
+    "file_bytes": 12218,
+    "grammar_bits_per_window": 312.88,
+    "lossless": true
+   },
+   "random": {
+    "windows": 100,
+    "edges": 2860,
+    "grammar_bytes": 7489,
+    "file_bytes": 15796,
+    "grammar_bits_per_window": 599.12,
+    "lossless": true
+   },
+   "ours": {
+    "none": 454.98002895412924,
+    "glue": 99.72475764941892,
+    "grow": 185.3819199288238,
+    "repair_reimpl": 82.37292914983296
+   }
+  },
+  "B_heldout": {
+   "name_sorted": {
+    "windows": 100,
+    "edges": 2883,
+    "grammar_bytes": 4571,
+    "file_bytes": 12887,
+    "grammar_bits_per_window": 365.68,
+    "lossless": true
+   },
+   "random": {
+    "windows": 100,
+    "edges": 2883,
+    "grammar_bytes": 7578,
+    "file_bytes": 15894,
+    "grammar_bits_per_window": 606.24,
+    "lossless": true
+   },
+   "ours": {
+    "none": 458.6389592569072,
+    "glue": 101.41896289465902,
+    "grow": 186.78298205493445,
+    "repair_reimpl": 73.78633511505457
+   }
+  }
+ }
+}

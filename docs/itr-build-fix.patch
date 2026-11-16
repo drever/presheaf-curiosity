@@ -1,0 +1,20 @@
+diff --git a/cmd/cgraph.c b/cmd/cgraph.c
+index 4646e99..eb8b0b9 100644
+--- a/cmd/cgraph.c
++++ b/cmd/cgraph.c
+@@ -434,6 +434,7 @@ static int parse_args(int argc, char** argv, CGraphArgs* argd) {
+ 			check_mode(mode_compress, mode_read, false);
+ 			add_command_none(argd, CMD_EDGE_LABELS);
+ 			break;
++#ifdef WEB_SERVICE
+         case OPT_R_PORT:
+             check_mode(mode_compress, mode_read, false);
+             add_command_none(argd, CMD_WEB_SERVICE);
+@@ -443,6 +444,7 @@ static int parse_args(int argc, char** argv, CGraphArgs* argd) {
+             }
+             argd->params.port = v;
+             break;
++#endif
+ 		case '?':
+ 		case ':':
+ 		default:
