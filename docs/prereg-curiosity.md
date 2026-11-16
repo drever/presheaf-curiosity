@@ -68,4 +68,4 @@ One circuit; windows of one size; our own cost function for learner and evaluati
 
 ## Outcome (16 November 2026)
 
-H1 refuted; H2 holds by the stated criterion, but the gain arm is worse than random in the pool with unlearnable windows, which the criterion did not ask about. Details and numbers: lab notebook, section 13. Deviation: the oracle arm was not finished when the result was written up.
+H1 refuted; H2 holds by the stated criterion, but the gain arm is worse than random in the pool with unlearnable windows, which the criterion did not ask about. Details and numbers: lab notebook, section 13. The oracle arm finished later: worse than random in all three seeds (116.5, 120.1, 119.7 against 113.7, 116.7, 115.0), so as defined it is not an upper reference (it picks the five individually best windows, which are similar to each other).
