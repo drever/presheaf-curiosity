@@ -56,12 +56,12 @@ def windows_from(E, rng, k, nmax=30, emin=8, labeler=None):
             u = q.popleft()
             for v in sorted(adj[u]):
                 if v not in seen and len(seen) < nmax: seen.add(v); q.append(v)
-        es = [(u, v, l) for u in seen for v in outs[u] if v in seen for l in sorted(lab[(u, v)])]
+        es = [(u, v, l) for u in sorted(seen) for v in sorted(outs[u]) if v in seen for l in sorted(lab[(u, v)])]   # sorted: a set of names iterates in hash order
         if len(es) >= emin: out.append(es)
     return out
 
 def to_comp(es, rng, NN=31):
-    nodes = list({x for u, v, _ in es for x in (u, v)}); rng.shuffle(nodes); ix = {x: i for i, x in enumerate(nodes)}
+    nodes = sorted({x for u, v, _ in es for x in (u, v)}); rng.shuffle(nodes); ix = {x: i for i, x in enumerate(nodes)}   # sorted before the shuffle, else the shuffle starts from hash order
     return Comp(NN, [(ix[u], l, ix[v]) for u, v, l in es])
 
 def sq_stats(comps):
