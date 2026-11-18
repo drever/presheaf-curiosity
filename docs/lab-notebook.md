@@ -749,3 +749,47 @@ Bits per window on B: with the dictionary from B itself 105.8, 99.4, 100.0, 110.
 1. **The computed lengths of the higher-order models were honest.** The file is 2-13 bits per window above the computed figure, for every model alike (the counts per window that the model leaves out), so the differences between models survive unchanged: product closure against gluing on unseen pairs 117 / 145 / 111 bits per window in the file against 115 / 142 / 110 computed; holes against gluing 45 / 46 / 29 against 41 / 41 / 24.
 2. **Two modelling slips came to light, both small.** The product model charged factors as pointers into the dictionary, but 11-12 of 12-13 factors are not dictionary entries; written out they cost 50-67 bits more in total. The hole model over-charged its dictionary (hole tables at 6 bits per option plus filler costs): the file needs 1,177-1,415 bits where the model said 2,189-2,476, so the hole model was *more* expensive than necessary.
 3. Synthetic worlds built for these constructions; this shows that the bits are real, not that real data have the structure. That is the next step (Quip circuits).
+
+## 17. Circuits designed by others: the pre-registered Quip measurement (18 November 2026)
+
+Pre-registration `docs/prereg-quip.md` (two amendments, both dated, the second after the first two results: hub-aware split). Ten Quip circuits from `ispras/hdl-benchmarks`, synthesised with Yosys defaults; seeds 0 and 1; `src/quip_run.py`, `src/quip_size.py`, `src/quip_agg.py`; results `results/quip_*_{0,1}.json`, `results/quip_size_{0,1}.json`, `results/quip_agg.json`. Every number below is from an actual `coder2` file (mode `boundary`), decoded and verified (all 80 circuit files and 40 control files round-trip).
+
+**Data bits per test window (100 windows of region B, dictionary excluded), share of the empty file that remains, and the same share on the label- and degree-preserving rewiring (gluing only).** Product and holes columns are omitted because they equal gluing everywhere except one entry (see below). TV = label-mix distance between regions A and B.
+
+| circuit | seed | TV | empty | gluing | share | control share | shared use circuit / control |
+|---|---|---|---|---|---|---|---|
+| barrel16 | 0 | 0.08 | 332.0 | 122.9 | 0.370 | 0.482 | 0.32 / 0.74 |
+| | 1 | 0.08 | 330.4 | 126.2 | 0.382 | 0.503 | 0.20 / 0.75 |
+| barrel32 | 0 | 0.03 | 315.9 | 99.2 | 0.314 | 0.433 | 0.34 / 0.46 |
+| | 1 | 0.03 | 315.6 | 96.7 | 0.306 | 0.449 | 0.67 / 0.48 |
+| barrel64 | 0 | 0.01 | 313.7 | 89.5 | 0.285 | 0.393 | 0.77 / 0.40 |
+| | 1 | 0.01 | 313.9 | 81.3 | 0.259 | 0.410 | 0.93 / 0.37 |
+| mux8_64bit | 0 | 0.02 | 313.2 | 84.2 | 0.269 | 0.425 | 0.20 / 0.24 |
+| | 1 | 0.02 | 313.1 | 78.7 | 0.251 | 0.442 | 0.99 / 0.34 |
+| mux8_128bit | 0 | 0.01 | 312.3 | 64.8 | 0.208 | 0.430 | 0.22 / 0.85 |
+| | 1 | 0.02 | 312.3 | 71.2 | 0.228 | 0.438 | 0.99 / 0.43 |
+| mux32_16bit | 0 | 0.08 | 316.2 | 150.4 | 0.476 | 0.450 | 0.46 / 0.30 |
+| | 1 | 0.08 | 309.2 | 121.1 | 0.392 | 0.393 | 0.19 / 0.36 |
+| mux64_16bit | 0 | 0.06 | 313.9 | 138.7 | 0.442 | 0.443 | 0.49 / 0.29 |
+| | 1 | 0.04 | 311.7 | 124.2 | 0.398 | 0.448 | 0.36 / 0.21 |
+| oc_aes_core | 0 | 0.32 | 343.1 | 287.3 | 0.837 | 0.803 | 0.72 / 0.61 |
+| | 1 | 0.34 | 338.3 | 274.8 | 0.812 | 0.793 | 0.71 / 0.52 |
+| oc_des_area_opt | 0 | 0.37 | 316.5 | 141.8 | 0.448 | 0.604 | 0.54 / 0.76 |
+| | 1 | 0.43 | 319.9 | 138.3 | 0.432 | 0.535 | 0.76 / 0.45 |
+| oc_des_perf_opt | 0 | 0.25 | 349.0 | 299.7 | 0.859 | 0.830 | 0.41 / 0.56 |
+| | 1 | 0.23 | 348.8 | 292.7 | 0.839 | 0.879 | 0.49 / 0.62 |
+
+**Size family (P5), data bits per window:** barrel16 dictionary on barrel32 138.7 / 133.4 (seed 0 / 1) against own 99.2 / 96.7, ratio 1.40 / 1.38; on barrel64 129.6 / 130.8 against own 89.5 / 81.3, ratio 1.45 / 1.61.
+
+**Verdicts against the pre-registered expectations.**
+* **P1 fails.** Gluing beats the rewired control by at least 10 points in 12 of 20 runs: all barrel shifters, both narrow multiplexers (mux8_64bit, mux8_128bit, 16-22 points) and oc_des_area_opt. It does not in the wide multiplexers (mux32_16bit, mux64_16bit: -3 to +5 points), nor in AES and DES-perf, where the circuit is even slightly worse than its control. For AES and the two DES variants the regions differ in label mix (TV 0.23-0.43), so these are not same-kind held-out tests, as the amendment said in advance.
+* **P2 holds.** Product closure selected no factor in any circuit or seed; its file equals the gluing file.
+* **P3 holds formally, and the one hole is useless.** A hole was found once (oc_des_area_opt, seed 0, in the training windows); on the test windows it costs 1.0 bit per window *more* than gluing (142.8 against 141.8) and a larger dictionary (1,094 against 960 bits). Nowhere does a hole save anything.
+* **P4 fails.** Shared use is higher on the circuit than on its control in 4 of 10 circuits (seed 0); with seed 1 it would be 7 of 10. The measure jumps between seeds on the same circuit (mux8_64bit 0.20 / 0.99, mux8_128bit 0.22 / 0.99), so on these circuits it does not separate structure from rewiring; the clean separation of section 15 (c6288: 93-99% against 57-86%) does not carry over.
+* **P5 fails clearly.** The barrel16 dictionary costs 38-61% more on the larger barrel shifters than their own dictionaries, not at most 10%. The patterns learned on the small instance do not transfer to the larger members of the same family at the window level.
+
+**Reading.**
+1. On circuits we did not design, the presheaf constructions beyond gluing contribute nothing measurable: no product factors, no useful holes, as expected in advance (P2, P3) and as on streets and c6288.
+2. The gluing dictionary does find circuit-specific structure in the barrel shifters and narrow multiplexers (clearly better than the rewiring, on held-out regions with matching label mix). In the wide multiplexers and in AES/DES it does not; there the compression it achieves is what the label and degree statistics alone already allow.
+3. The two "basis" properties claimed for c6288 (section 14-15) were stability and transfer. Neither holds here as pre-registered: stability is noisy and not better than the control in most circuits, and transfer across sizes of the same design family is poor. Claim 16 stays restricted to c6288.
+4. Residual home advantage: Yosys may itself produce regular structure; the four positive circuits are also the most regular designs in the set.

@@ -2,9 +2,10 @@
 import json, glob, os
 from quip import CIRCUITS
 rows = {}
-for f in glob.glob('../results/quip_*_[0-9].json'):
-    d = json.load(open(f))
-    if 'circuit' in d and 'control' in d: rows[(d['circuit'], d['seed'])] = d
+for c in CIRCUITS:
+    for f in glob.glob(f'../results/quip_{c}_[0-9].json'):
+        d = json.load(open(f))
+        if 'circuit' in d and 'control' in d: rows[(c, d['seed'])] = d
 seeds = sorted({s for _, s in rows}); res = {'P1': [], 'P2': [], 'P3': [], 'P4': [], 'table': []}
 print(f"{'circuit':16s} seed |  empty   glue  product  holes | glue/empty  control glue/empty | factors holes | shared use circuit/control | verified")
 for c in CIRCUITS:
@@ -13,9 +14,10 @@ for c in CIRCUITS:
         d = rows[(c, s)]; a = d['circuit']; k = d['control']
         g = a['glue']['data_bits_per_window']; p = a['product']['data_bits_per_window']; h = a['holes']['data_bits_per_window']
         ver = all(x['verified'] for x in (a['empty'], a['glue'], a['product'], a['holes'], k['empty'], k['glue']))
-        print(f"{c:16s} {s:4d} | {a['empty']['data_bits_per_window']:6.1f} {g:6.1f} {p:7.1f} {h:6.1f} | {a['share_of_empty']:9.3f}  {k['share_of_empty']:17.3f} | {a['product']['factors']:7d} {a['holes']['holes']:5d} | {a['shared_use'] or 0:8.3f} / {k['shared_use'] or 0:5.3f} | {ver}")
+        tv = a['split']['label_tv']
+        print(f"{c:16s} {s:4d} tv={tv:.2f} | {a['empty']['data_bits_per_window']:6.1f} {g:6.1f} {p:7.1f} {h:6.1f} | {a['share_of_empty']:9.3f}  {k['share_of_empty']:17.3f} | {a['product']['factors']:7d} {a['holes']['holes']:5d} | {a['shared_use'] or 0:8.3f} / {k['shared_use'] or 0:5.3f} | {ver}")
         res['table'].append({'circuit': c, 'seed': s, 'empty': a['empty']['data_bits_per_window'], 'glue': g, 'product': p, 'holes': h, 'share': a['share_of_empty'], 'control_share': k['share_of_empty'],
-                             'factors': a['product']['factors'], 'holes_found': a['holes']['holes'], 'shared_use': a['shared_use'], 'control_shared_use': k['shared_use'], 'verified': ver,
+                             'factors': a['product']['factors'], 'holes_found': a['holes']['holes'], 'shared_use': a['shared_use'], 'control_shared_use': k['shared_use'], 'verified': ver, 'label_tv': tv,
                              'dict_bits': {m: a[m]['dict_bits'] for m in ('glue', 'product', 'holes')}})
         res['P1'].append(k['share_of_empty'] - a['share_of_empty'] >= 0.10)
         res['P2'].append((a['product']['factors'] > 0, (g - p) / g))

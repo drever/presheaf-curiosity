@@ -1,0 +1,622 @@
+{
+ "P1": [
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  true,
+  true,
+  false,
+  false
+ ],
+ "P2": [
+  [
+   false,
+   -8.093134029119154e-16
+  ],
+  [
+   false,
+   -3.378052523424268e-16
+  ],
+  [
+   false,
+   -4.2957773484562824e-16
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   -1.5879843038040478e-16
+  ],
+  [
+   false,
+   -1.0489190165102137e-15
+  ],
+  [
+   false,
+   -1.6869207115865521e-16
+  ],
+  [
+   false,
+   -3.611943782266838e-16
+  ],
+  [
+   false,
+   2.1932058874584487e-16
+  ],
+  [
+   false,
+   5.990119596152153e-16
+  ],
+  [
+   false,
+   -3.7794891204857992e-16
+  ],
+  [
+   false,
+   -4.695415234171085e-16
+  ],
+  [
+   false,
+   -4.0991800475478025e-16
+  ],
+  [
+   false,
+   -2.2890585890240976e-16
+  ],
+  [
+   false,
+   -3.9569692670764327e-16
+  ],
+  [
+   false,
+   -4.1368840864831846e-16
+  ],
+  [
+   false,
+   -1.4027829765384053e-15
+  ],
+  [
+   false,
+   -1.0278723058772455e-15
+  ],
+  [
+   false,
+   -7.58762532564476e-16
+  ],
+  [
+   false,
+   -3.8840630556079955e-16
+  ]
+ ],
+ "P3": [
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   true,
+   -0.007050862600916824
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ],
+  [
+   false,
+   0.0
+  ]
+ ],
+ "P4": [
+  false,
+  false,
+  true,
+  false,
+  false,
+  true,
+  true,
+  true,
+  false,
+  false
+ ],
+ "table": [
+  {
+   "circuit": "barrel16",
+   "seed": 0,
+   "empty": 331.98678271826844,
+   "glue": 122.91404374189125,
+   "product": 122.91404374189135,
+   "holes": 122.91404374189125,
+   "share": 0.37023776288768373,
+   "control_share": 0.48179825499269346,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.3208778173190985,
+   "control_shared_use": 0.735693215339233,
+   "verified": true,
+   "label_tv": 0.08396946564885496,
+   "dict_bits": {
+    "glue": 479.291084450612,
+    "product": 591.7286844967681,
+    "holes": 479.291084450612
+   }
+  },
+  {
+   "circuit": "barrel16",
+   "seed": 1,
+   "empty": 330.3759434561917,
+   "glue": 126.20456268806083,
+   "product": 126.20456268806088,
+   "holes": 126.20456268806083,
+   "share": 0.38200288243685554,
+   "control_share": 0.5027194050226659,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.1948286229705352,
+   "control_shared_use": 0.7492590397154713,
+   "verified": true,
+   "label_tv": 0.08396946564885496,
+   "dict_bits": {
+    "glue": 564.0608152685057,
+    "product": 676.4984153146619,
+    "holes": 564.0608152685057
+   }
+  },
+  {
+   "circuit": "barrel32",
+   "seed": 0,
+   "empty": 315.9183900974956,
+   "glue": 99.24295578523483,
+   "product": 99.24295578523487,
+   "holes": 99.24295578523483,
+   "share": 0.3141411164908996,
+   "control_share": 0.4332017594917524,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.3392188336008561,
+   "control_shared_use": 0.46391184573002753,
+   "verified": true,
+   "label_tv": 0.03382451796877574,
+   "dict_bits": {
+    "glue": 401.10300388742803,
+    "product": 513.540603933582,
+    "holes": 401.10300388742803
+   }
+  },
+  {
+   "circuit": "barrel32",
+   "seed": 1,
+   "empty": 315.6002222450801,
+   "glue": 96.7143310432643,
+   "product": 96.7143310432643,
+   "holes": 96.7143310432643,
+   "share": 0.30644570005454735,
+   "control_share": 0.44920181817750765,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.6713325867861142,
+   "control_shared_use": 0.4839246119733925,
+   "verified": true,
+   "label_tv": 0.03382451796877574,
+   "dict_bits": {
+    "glue": 441.2464566775091,
+    "product": 553.6840567236645,
+    "holes": 441.2464566775091
+   }
+  },
+  {
+   "circuit": "barrel64",
+   "seed": 0,
+   "empty": 313.69121513058707,
+   "glue": 89.4898940824517,
+   "product": 89.48989408245171,
+   "holes": 89.4898940824517,
+   "share": 0.28528020475548793,
+   "control_share": 0.392550178988083,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.7736373748609566,
+   "control_shared_use": 0.39596602972399153,
+   "verified": true,
+   "label_tv": 0.008654319914210357,
+   "dict_bits": {
+    "glue": 289.0308064132373,
+    "product": 401.4684064593898,
+    "holes": 289.0308064132373
+   }
+  },
+  {
+   "circuit": "barrel64",
+   "seed": 1,
+   "empty": 313.85029905679477,
+   "glue": 81.28857132831071,
+   "product": 81.2885713283108,
+   "holes": 81.28857132831071,
+   "share": 0.2590042818904583,
+   "control_share": 0.41014357466842905,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.9329039184111648,
+   "control_shared_use": 0.3693058568329718,
+   "verified": true,
+   "label_tv": 0.008654319914210357,
+   "dict_bits": {
+    "glue": 379.7290996302611,
+    "product": 492.16669967641434,
+    "holes": 379.7290996302611
+   }
+  },
+  {
+   "circuit": "mux8_64bit",
+   "seed": 0,
+   "empty": 313.2139633519638,
+   "glue": 84.24139094146676,
+   "product": 84.24139094146678,
+   "holes": 84.24139094146676,
+   "share": 0.26895796739050004,
+   "control_share": 0.42507642980222604,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.19886685552407932,
+   "control_shared_use": 0.24217365623154163,
+   "verified": true,
+   "label_tv": 0.023326572008113593,
+   "dict_bits": {
+    "glue": 364.0044589412327,
+    "product": 476.44205898738545,
+    "holes": 364.0044589412327
+   }
+  },
+  {
+   "circuit": "mux8_64bit",
+   "seed": 1,
+   "empty": 313.05487942575604,
+   "glue": 78.68812789928498,
+   "product": 78.688127899285,
+   "holes": 78.68812789928498,
+   "share": 0.25135569853958023,
+   "control_share": 0.4422475032671113,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.9924406047516199,
+   "control_shared_use": 0.33852140077821014,
+   "verified": true,
+   "label_tv": 0.02495433558402818,
+   "dict_bits": {
+    "glue": 373.02634975143286,
+    "product": 485.4639497975858,
+    "holes": 373.02634975143286
+   }
+  },
+  {
+   "circuit": "mux8_128bit",
+   "seed": 0,
+   "empty": 312.2594597947173,
+   "glue": 64.79489589401913,
+   "product": 64.79489589401912,
+   "holes": 64.79489589401913,
+   "share": 0.20750338816513672,
+   "control_share": 0.4296399115811457,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.21833598304186538,
+   "control_shared_use": 0.846944603083952,
+   "verified": true,
+   "label_tv": 0.011627906976744175,
+   "dict_bits": {
+    "glue": 422.32110444659,
+    "product": 534.7587044927448,
+    "holes": 422.32110444659
+   }
+  },
+  {
+   "circuit": "mux8_128bit",
+   "seed": 1,
+   "empty": 312.2594597947173,
+   "glue": 71.17147406037051,
+   "product": 71.17147406037047,
+   "holes": 71.17147406037051,
+   "share": 0.22792415674823557,
+   "control_share": 0.4376494492132235,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.9893955461293743,
+   "control_shared_use": 0.4289142171565687,
+   "verified": true,
+   "label_tv": 0.01606518440324604,
+   "dict_bits": {
+    "glue": 385.54127518773424,
+    "product": 497.97887523388766,
+    "holes": 385.54127518773424
+   }
+  },
+  {
+   "circuit": "mux32_16bit",
+   "seed": 0,
+   "empty": 316.23655794991106,
+   "glue": 150.39974199873237,
+   "product": 150.39974199873242,
+   "holes": 150.39974199873237,
+   "share": 0.4755925215406446,
+   "control_share": 0.44965437143615056,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.4564505566470203,
+   "control_shared_use": 0.3027127003699137,
+   "verified": true,
+   "label_tv": 0.08245150187148512,
+   "dict_bits": {
+    "glue": 659.2742545598812,
+    "product": 771.7118546060374,
+    "holes": 659.2742545598812
+   }
+  },
+  {
+   "circuit": "mux32_16bit",
+   "seed": 1,
+   "empty": 309.15686519677007,
+   "glue": 121.06153774671002,
+   "product": 121.06153774671007,
+   "holes": 121.06153774671002,
+   "share": 0.39158612140040167,
+   "control_share": 0.39283622397953255,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.1935687263556116,
+   "control_shared_use": 0.36108048511576624,
+   "verified": true,
+   "label_tv": 0.08487891600999421,
+   "dict_bits": {
+    "glue": 560.0415891558539,
+    "product": 672.47918920201,
+    "holes": 560.0415891558539
+   }
+  },
+  {
+   "circuit": "mux64_16bit",
+   "seed": 0,
+   "empty": 313.85029905679477,
+   "glue": 138.67021746169138,
+   "product": 138.67021746169144,
+   "holes": 138.67021746169138,
+   "share": 0.4418355435009397,
+   "control_share": 0.4431814261943497,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.48466257668711654,
+   "control_shared_use": 0.29343404997094713,
+   "verified": true,
+   "label_tv": 0.06257170309183732,
+   "dict_bits": {
+    "glue": 417.87136251900546,
+    "product": 530.3089625651601,
+    "holes": 417.87136251900546
+   }
+  },
+  {
+   "circuit": "mux64_16bit",
+   "seed": 1,
+   "empty": 311.742208016094,
+   "glue": 124.16331135727346,
+   "product": 124.16331135727349,
+   "holes": 124.16331135727346,
+   "share": 0.3982884196126031,
+   "control_share": 0.4475959041175966,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.3572289156626506,
+   "control_shared_use": 0.21208530805687204,
+   "verified": true,
+   "label_tv": 0.04049761778718898,
+   "dict_bits": {
+    "glue": 543.911834953713,
+    "product": 656.3494349998691,
+    "holes": 543.911834953713
+   }
+  },
+  {
+   "circuit": "oc_aes_core",
+   "seed": 0,
+   "empty": 343.1265587174021,
+   "glue": 287.3078612652769,
+   "product": 287.30786126527704,
+   "holes": 287.3078612652769,
+   "share": 0.8373232965096786,
+   "control_share": 0.8029850589490991,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.7189988623435722,
+   "control_shared_use": 0.6060885608856088,
+   "verified": true,
+   "label_tv": 0.3222605157425795,
+   "dict_bits": {
+    "glue": 876.9378784536786,
+    "product": 1109.8326285546361,
+    "holes": 876.9378784536786
+   }
+  },
+  {
+   "circuit": "oc_aes_core",
+   "seed": 1,
+   "empty": 338.31600953884174,
+   "glue": 274.8127221960976,
+   "product": 274.8127221960977,
+   "holes": 274.8127221960976,
+   "share": 0.8122959435785926,
+   "control_share": 0.7925750243887989,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.7140096618357488,
+   "control_shared_use": 0.5170603674540682,
+   "verified": true,
+   "label_tv": 0.3389694267963073,
+   "dict_bits": {
+    "glue": 872.2727211700011,
+    "product": 1105.167471270959,
+    "holes": 872.2727211700011
+   }
+  },
+  {
+   "circuit": "oc_des_area_opt",
+   "seed": 0,
+   "empty": 316.4710655478436,
+   "glue": 141.82661847221323,
+   "product": 141.82661847221343,
+   "holes": 142.82661847221345,
+   "share": 0.44815034899540324,
+   "control_share": 0.6044153462395816,
+   "factors": 0,
+   "holes_found": 1,
+   "shared_use": 0.539381153305204,
+   "control_shared_use": 0.7626666666666667,
+   "verified": true,
+   "label_tv": 0.37238576521767575,
+   "dict_bits": {
+    "glue": 959.6463343470574,
+    "product": 1108.538071909792,
+    "holes": 1093.865759633449
+   }
+  },
+  {
+   "circuit": "oc_des_area_opt",
+   "seed": 1,
+   "empty": 319.861332771168,
+   "glue": 138.255059835216,
+   "product": 138.25505983521614,
+   "holes": 138.255059835216,
+   "share": 0.4322343643022492,
+   "control_share": 0.5348539361611933,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.7605070046697798,
+   "control_shared_use": 0.44502617801047123,
+   "verified": true,
+   "label_tv": 0.4292946573683476,
+   "dict_bits": {
+    "glue": 944.0889238417989,
+    "product": 1092.9806614045347,
+    "holes": 944.0889238417989
+   }
+  },
+  {
+   "circuit": "oc_des_perf_opt",
+   "seed": 0,
+   "empty": 349.02385943750704,
+   "glue": 299.66381533725894,
+   "product": 299.66381533725917,
+   "holes": 299.66381533725894,
+   "share": 0.8585768772948714,
+   "control_share": 0.8302075430159572,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.41316073354908306,
+   "control_shared_use": 0.5639913232104121,
+   "verified": true,
+   "label_tv": 0.2516267583430024,
+   "dict_bits": {
+    "glue": 895.874779056408,
+    "product": 1063.7860666278002,
+    "holes": 895.874779056408
+   }
+  },
+  {
+   "circuit": "oc_des_perf_opt",
+   "seed": 1,
+   "empty": 348.8184819450986,
+   "glue": 292.70080349872165,
+   "product": 292.70080349872177,
+   "holes": 292.70080349872165,
+   "share": 0.8391206849664307,
+   "control_share": 0.8787206054410582,
+   "factors": 0,
+   "holes_found": 0,
+   "shared_use": 0.49187432286023836,
+   "control_shared_use": 0.6159509202453988,
+   "verified": true,
+   "label_tv": 0.2252437979760342,
+   "dict_bits": {
+    "glue": 873.0911650717368,
+    "product": 1041.0024526431305,
+    "holes": 873.0911650717368
+   }
+  }
+ ]
+}

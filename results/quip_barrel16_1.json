@@ -1,0 +1,104 @@
+{
+ "circuit": {
+  "split": {
+   "cut": 0,
+   "A_edges": 486,
+   "B_edges": 524,
+   "hub_edges": 545,
+   "input_edges": 58,
+   "label_tv": 0.08396946564885496,
+   "pieces_B": 2
+  },
+  "test_edges_per_window": 20.13,
+  "empty": {
+   "data_bits_per_window": 330.3759434561917,
+   "dict_bits": 1.0,
+   "bytes": 4135,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 2013,
+   "verified": true
+  },
+  "glue": {
+   "data_bits_per_window": 126.20456268806083,
+   "dict_bits": 564.0608152685057,
+   "bytes": 1654,
+   "units": 0,
+   "instances": 340,
+   "raw_edges": 351,
+   "verified": true,
+   "patterns": 24,
+   "max_pattern": 12
+  },
+  "shared_use": 0.1948286229705352,
+  "jaccard": 0.23255813953488372,
+  "share_of_empty": 0.38200288243685554,
+  "product": {
+   "data_bits_per_window": 126.20456268806088,
+   "dict_bits": 676.4984153146619,
+   "bytes": 1668,
+   "units": 0,
+   "instances": 340,
+   "raw_edges": 351,
+   "verified": true,
+   "factors": 0,
+   "factor_sizes": [],
+   "implicit": 0
+  },
+  "holes": {
+   "data_bits_per_window": 126.20456268806083,
+   "dict_bits": 564.0608152685057,
+   "bytes": 1654,
+   "units": 0,
+   "instances": 340,
+   "raw_edges": 351,
+   "verified": true,
+   "holes": 0,
+   "fillers": []
+  }
+ },
+ "seed": 1,
+ "edges": 1613,
+ "R": 64,
+ "times": {
+  "circuit_glue": 4,
+  "product": 0,
+  "holes": 0,
+  "control_glue": 5
+ },
+ "control": {
+  "split": {
+   "cut": 167,
+   "A_edges": 461,
+   "B_edges": 382,
+   "hub_edges": 545,
+   "input_edges": 58,
+   "label_tv": 0.21051436099533222,
+   "pieces_B": 15
+  },
+  "test_edges_per_window": 19.05,
+  "empty": {
+   "data_bits_per_window": 313.05487942575604,
+   "dict_bits": 1.0,
+   "bytes": 3919,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 1905,
+   "verified": true
+  },
+  "glue": {
+   "data_bits_per_window": 157.37876272435847,
+   "dict_bits": 476.8788502568006,
+   "bytes": 2032,
+   "units": 0,
+   "instances": 674,
+   "raw_edges": 216,
+   "verified": true,
+   "patterns": 23,
+   "max_pattern": 12
+  },
+  "shared_use": 0.7492590397154713,
+  "jaccard": 0.24242424242424243,
+  "share_of_empty": 0.5027194050226659
+ }
+}

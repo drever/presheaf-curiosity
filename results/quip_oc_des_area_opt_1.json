@@ -1,0 +1,104 @@
+{
+ "circuit": {
+  "split": {
+   "cut": 212,
+   "A_edges": 1556,
+   "B_edges": 1142,
+   "hub_edges": 1215,
+   "input_edges": 912,
+   "label_tv": 0.4292946573683476,
+   "pieces_B": 80
+  },
+  "test_edges_per_window": 18.96,
+  "empty": {
+   "data_bits_per_window": 319.861332771168,
+   "dict_bits": 1.0,
+   "bytes": 4004,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 1896,
+   "verified": true
+  },
+  "glue": {
+   "data_bits_per_window": 138.255059835216,
+   "dict_bits": 944.0889238417989,
+   "bytes": 1852,
+   "units": 0,
+   "instances": 356,
+   "raw_edges": 397,
+   "verified": true,
+   "patterns": 40,
+   "max_pattern": 7
+  },
+  "shared_use": 0.7605070046697798,
+  "jaccard": 0.1267605633802817,
+  "share_of_empty": 0.4322343643022492,
+  "product": {
+   "data_bits_per_window": 138.25505983521614,
+   "dict_bits": 1092.9806614045347,
+   "bytes": 1870,
+   "units": 0,
+   "instances": 356,
+   "raw_edges": 397,
+   "verified": true,
+   "factors": 0,
+   "factor_sizes": [],
+   "implicit": 0
+  },
+  "holes": {
+   "data_bits_per_window": 138.255059835216,
+   "dict_bits": 944.0889238417989,
+   "bytes": 1852,
+   "units": 0,
+   "instances": 356,
+   "raw_edges": 397,
+   "verified": true,
+   "holes": 0,
+   "fillers": []
+  }
+ },
+ "seed": 1,
+ "edges": 5037,
+ "R": 87,
+ "times": {
+  "circuit_glue": 7,
+  "product": 0,
+  "holes": 0,
+  "control_glue": 8
+ },
+ "control": {
+  "split": {
+   "cut": 404,
+   "A_edges": 1481,
+   "B_edges": 1025,
+   "hub_edges": 1215,
+   "input_edges": 912,
+   "label_tv": 0.42284744981143263,
+   "pieces_B": 110
+  },
+  "test_edges_per_window": 17.11,
+  "empty": {
+   "data_bits_per_window": 289.37136095541655,
+   "dict_bits": 1.0,
+   "bytes": 3623,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 1711,
+   "verified": true
+  },
+  "glue": {
+   "data_bits_per_window": 154.77141141932597,
+   "dict_bits": 864.31759857532,
+   "bytes": 2048,
+   "units": 0,
+   "instances": 470,
+   "raw_edges": 374,
+   "verified": true,
+   "patterns": 39,
+   "max_pattern": 11
+  },
+  "shared_use": 0.44502617801047123,
+  "jaccard": 0.1111111111111111,
+  "share_of_empty": 0.5348539361611933
+ }
+}
