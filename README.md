@@ -46,7 +46,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 
 ## Honest caveats
 
-* Learner and evaluator share one cost function (home advantage). Only the plain gluing description has an actual coder and decoder (`src/coder.py`, file 2-4% above the computed length on c6288); costs of holes, products, bundle tables, runs and label tables are computed, not produced by a coder.
+* Learner and evaluator share one cost function (home advantage). Gluing, product closure and holes with subgraph fillers have actual coders and decoders (`src/coder.py`, `src/coder2.py`): the files are 2-13 bits per window above the computed lengths and preserve the differences between models (lab notebook, sections 11 and 16). Label holes, depth-2 holes, lattice rules, bundle tables and runs are still computed lengths only.
 * All "RePair"/"gRePair-like" numbers are from our own re-implementation (`src/repair.py`). Its results depend strongly on the order of edges inside a window (factor of 3-4 on c6288, lab notebook section 9); treat every number for it as unverified.
 * Synthetic worlds are built to contain the sought structure; they show that the learner can find it, not that real data have it.
 * Most real-data results are in-sample, on windows of a single regular circuit (c6288). Training/test windows overlap.
@@ -97,6 +97,7 @@ python coder_run.py full 0              # notebook section 11: write c6288 with 
 python rdf_run.py FILE.nt 0             # notebook section 12: the coder on an RDF graph
 python curio_gate.py 0 ; python curio.py 0 clean gain ; python curio_agg.py   # notebook section 13: curiosity experiment
 python basis.py 0 ; python basis.py 0 rewired   # notebook sections 14-15: stability and spectrum, and the rewired control
+python coder2_check.py product 0 ; python coder2_check.py holes 0   # notebook section 16: products and holes as actual files
 ```
 
 Runs can take minutes to hours; pynauty-based steps are the slow ones. Some results depend on hash order (`PYTHONHASHSEED`); expect small deviations.

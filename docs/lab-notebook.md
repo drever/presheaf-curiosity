@@ -719,3 +719,33 @@ Bits per window on B: with the dictionary from B itself 105.8, 99.4, 100.0, 110.
 2. **Stability of the working core is a sign of structure.** In the original, the patterns that do the work recur across samples and halves (93-99% shared use); in the control much less so (57-86%), and the dictionaries as sets overlap about half as much. This was the point of the control: without it, stability could have been an artefact of labels and degrees, and it is not.
 3. **What the structure buys is the level of compression and large patterns that recur**: about half the residual code length, and the stable core of 8-12-edge patterns. In the control, transfer between halves is as good as in the original or better (the halves are equally random), so good transfer alone is no evidence either.
 4. In the PCA analogy: a good basis is shown not by how quickly the explained share rises, but by components that are reproducible and that explain much more than the same procedure explains on a structureless graph with the same marginals.
+
+## 16. An actual coder for products and holes (18 November 2026)
+
+`src/coder2.py` extends the coder of section 11 to the two higher-order constructions; `src/coder2_check.py` applies it to the synthetic worlds of sections 4 (product world, e17, n = 50 training windows) and 4h (hole world, e30, 120 training windows), seeds 0-2; results `results/coder2_{product,holes}_{0,1,2}.json`; round-trip tests in `tests/`.
+
+**What changed against coder.py.** (1) Exact big-integer rANS instead of fixed-width fields, so a symbol with frequency f of T costs log2(T/f) bits. (2) Counts and sizes in Elias gamma code instead of 32- or 16-bit fields (a first version with fixed fields cost about 128 bits per window more than the model, purely in headers). (3) Dictionary patterns are written either flat or as a gluing of earlier patterns, whichever is shorter, as the hierarchical model assumes; the encoder switches to the decoder's renumbered copies before covering. (4) Products: the file carries the explicit patterns, the factors (as references or as edge lists), the label classes and the size cap; the decoder rebuilds the implicit products itself. (5) Holes: frame, attachment pair, filler library; each frame occurrence stores which filler sits in each hole (or none), with option frequencies counted on the data and stored in the file. "Empty" and "other" of the model are merged into "none". All 24 files (2 worlds x 3 seeds x 2 models x seen/unseen or test) decode correctly.
+
+**Computed length against file, bits per test window (data part, dictionary excluded), and dictionary bits:**
+
+| world, seed | model | data: computed | data: file | dictionary: computed | dictionary: file |
+|---|---|---|---|---|---|
+| product 0, unseen pairs | gluing | 324.2 | 337.0 | 1073 | 1081 |
+| | product closure | 209.6 | 220.0 | 1005 | 1063 |
+| product 1, unseen pairs | gluing | 363.6 | 375.6 | 1000 | 1009 |
+| | product closure | 221.4 | 230.9 | 973 | 1022 |
+| product 2, unseen pairs | gluing | 420.1 | 433.1 | 1062 | 1070 |
+| | product closure | 310.5 | 322.5 | 1018 | 1085 |
+| holes 0 | gluing | 157.8 | 164.3 | 1539 | 1501 |
+| | holes | 116.9 | 119.5 | 2476 | 1177 |
+| holes 1 | gluing | 153.5 | 160.0 | 1467 | 1401 |
+| | holes | 112.4 | 114.4 | 2291 | 1395 |
+| holes 2 | gluing | 145.5 | 152.2 | 1795 | 1823 |
+| | holes | 121.2 | 123.4 | 2189 | 1415 |
+
+(Seen factor pairs in the product world: the same picture, file 9-12 bits above the computed figure.)
+
+**Reading.**
+1. **The computed lengths of the higher-order models were honest.** The file is 2-13 bits per window above the computed figure, for every model alike (the counts per window that the model leaves out), so the differences between models survive unchanged: product closure against gluing on unseen pairs 117 / 145 / 111 bits per window in the file against 115 / 142 / 110 computed; holes against gluing 45 / 46 / 29 against 41 / 41 / 24.
+2. **Two modelling slips came to light, both small.** The product model charged factors as pointers into the dictionary, but 11-12 of 12-13 factors are not dictionary entries; written out they cost 50-67 bits more in total. The hole model over-charged its dictionary (hole tables at 6 bits per option plus filler costs): the file needs 1,177-1,415 bits where the model said 2,189-2,476, so the hole model was *more* expensive than necessary.
+3. Synthetic worlds built for these constructions; this shows that the bits are real, not that real data have the structure. That is the next step (Quip circuits).

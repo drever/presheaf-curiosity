@@ -1,0 +1,97 @@
+{
+ "world": "holes",
+ "seed": 1,
+ "learn_time": 36,
+ "holes": 6,
+ "fillers": [
+  6,
+  6,
+  6,
+  6,
+  6,
+  6
+ ],
+ "glue_test": {
+  "model_bits_per_window": 153.47818365928535,
+  "file_data_bits_per_window": 160.0286027669669,
+  "model_dict_bits": 1466.9591869574738,
+  "file_dict_bits": 1400.8832058460873,
+  "file_bytes": 2181,
+  "units": 0,
+  "option_counts": [],
+  "verify": {
+   "equal_after_renaming": true,
+   "renaming_is_injective": true,
+   "colour_refinement_equal": true
+  }
+ },
+ "holes_test": {
+  "model_bits_per_window": 112.41123472647595,
+  "file_data_bits_per_window": 114.36774345426875,
+  "model_dict_bits": 2290.6951162839896,
+  "file_dict_bits": 1395.095345624273,
+  "file_bytes": 1610,
+  "units": 200,
+  "option_counts": [
+   [
+    7,
+    7,
+    11,
+    13,
+    13,
+    11,
+    5
+   ],
+   [
+    9,
+    6,
+    13,
+    10,
+    12,
+    4,
+    13
+   ],
+   [
+    16,
+    9,
+    10,
+    7,
+    11,
+    13,
+    6
+   ],
+   [
+    10,
+    8,
+    10,
+    7,
+    13,
+    12,
+    12
+   ],
+   [
+    4,
+    13,
+    8,
+    7,
+    16,
+    8,
+    5
+   ],
+   [
+    10,
+    9,
+    8,
+    8,
+    9,
+    5,
+    12
+   ]
+  ],
+  "verify": {
+   "equal_after_renaming": true,
+   "renaming_is_injective": true,
+   "colour_refinement_equal": true
+  }
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "world": "product",
+ "seed": 0,
+ "learn_time": 19,
+ "factors": 13,
+ "factors_in_Dp": 1,
+ "explicit": 36,
+ "effective": 78,
+ "glue_seen": {
+  "model_bits_per_window": 271.8119341281406,
+  "file_data_bits_per_window": 283.2248054157002,
+  "model_dict_bits": 1073.0594815226098,
+  "file_dict_bits": 1081.484975893704,
+  "file_bytes": 3680,
+  "verify": {
+   "exact_equal": true
+  }
+ },
+ "glue_unseen": {
+  "model_bits_per_window": 324.23028433291694,
+  "file_data_bits_per_window": 336.9951139528884,
+  "model_dict_bits": 1073.0594815226098,
+  "file_dict_bits": 1081.484975893704,
+  "file_bytes": 4352,
+  "verify": {
+   "exact_equal": true
+  }
+ },
+ "product_seen": {
+  "model_bits_per_window": 194.7231620023079,
+  "file_data_bits_per_window": 204.1083939849441,
+  "model_dict_bits": 1005.1825215662146,
+  "file_dict_bits": 1062.7738472086503,
+  "file_bytes": 2689,
+  "verify": {
+   "exact_equal": true
+  }
+ },
+ "product_unseen": {
+  "model_bits_per_window": 209.55681628440288,
+  "file_data_bits_per_window": 219.99451307001974,
+  "model_dict_bits": 1005.1825215662146,
+  "file_dict_bits": 1062.7738472086503,
+  "file_bytes": 2887,
+  "verify": {
+   "exact_equal": true
+  }
+ }
+}

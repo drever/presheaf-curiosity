@@ -104,3 +104,36 @@ def test_coder_roundtrip_both_modes():
         b, info = coder.encode(comp, [pat], 2, mode); v = coder.verify(comp, b, info, mode)
         assert info['instances'] == 5 and all(v.values()), (mode, v)
     assert coder._subset_unrank(coder._subset_rank([1, 3, 4], 6), 6, 3) == [1, 3, 4]
+
+# --- coder2: products and holes, bytes written and read back ---
+def test_coder2_rans_and_models():
+    import random, coder2
+    from core import Comp
+    # rANS with skewed frequencies round-trips
+    w = coder2.Enc(); rng = random.Random(1); syms = [rng.choice([0, 0, 0, 1, 2]) for _ in range(300)]; tab = [50, 3, 1]
+    for s in syms: w.freq(s, tab)
+    w.uni(7, 11); d = coder2.Dec(w.tobytes())
+    assert [d.freq(tab) for _ in syms] == syms and d.uni(11) == 7 and d.done()
+    # product closure: a 3x2 grid is rebuilt by the decoder from two path factors
+    import und4
+    h = ((0, 0, 1), (1, 0, 2)); v = ((0, 1, 1),)
+    g = und4.prod_pattern(h, v)
+    comp = Comp(12, [(a, r, b) for a, r, b in g] + [(a + 6, r, b + 6) for a, r, b in g])
+    m = coder2.model_product([], [h, v], {0: 0, 1: 1}, 12)
+    for mode in ('all', 'boundary'):
+        b, info = coder2.encode([comp], m, 2, mode); assert all(coder2.verify([comp], b, info).values()) and info['raw_edges'] == 0
+    # hole: frame triangle with a hole between nodes 0 and 1, two different fillers, one empty
+    frame = ((0, 0, 1), (1, 0, 2), (2, 0, 0)); f1 = ((0, 1, 2), (2, 1, 1)); f2 = ((0, 2, 2), (2, 2, 3), (3, 2, 1))
+    es = []
+    def add(base, fil):
+        es.extend((base + a, r, base + b) for a, r, b in frame)
+        if fil:
+            loc = {0: base, 1: base + 1}
+            for k in range(2, 2 + max(max(a, b) for a, _, b in fil) - 1): loc[k] = base + 1 + k
+            es.extend((loc[a], r, loc[b]) for a, r, b in fil)
+    add(0, f1); add(6, f2); add(12, None); add(18, f1)
+    comp = Comp(24, es)
+    m = coder2.model_holes([frame], [{'key': (0, 0, 1), 'fil': ['a', 'b']}], {'a': f1, 'b': f2}, {0})
+    for mode in ('all', 'boundary'):
+        b, info = coder2.encode([comp], m, 3, mode); v = coder2.verify([comp], b, info)
+        assert all(v.values()) and info['units'] == 4 and info['raw_edges'] == 0, (mode, v, info)
