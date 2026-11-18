@@ -30,7 +30,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 1 | MDL selection explains most of the lead over gSpan/SUBDUE (run with our wrappers and limits) | several data sets and seeds (early results) | measured; not presheaf-specific |
 | 2 | Gluing beats growing by one edge on hierarchical data | synthetic hierarchies 17/48/63 bits at depth 1/2/3; c6288 gate level 46-53 bits (3 seeds, in-sample) and 71-86 bits on held-out circuit parts (2 seeds); Kinships 2.5-3.4, 16-atom molecules ~7 bits; streets and UMLS: no difference | measured, but our growing variant is weak by construction: it can only extend by single edges left over in the cover and stops in a local optimum after 9-12 small patterns; a fair growing baseline is missing (1e, 4c, 8, 9) |
 | 3 | Instances that pay only for boundary nodes ("interface") save bits | c6288 ~26% for glue; on streets the same for glue and grow, i.e. a generic coding gain | measured; generic (4c) |
-| 4 | Against our digram-grammar re-implementation, our patterns are shorter on c6288 and streets | **withdrawn for c6288, unverified for streets.** The re-implementation's result depends on the order of edges inside a window: 169-187 bits/window with random order (the earlier runs), 42-52 with edges sorted by node name, 122-135 with a crude graph-only order; gluing stays at 103-117 | no comparison with this baseline supports a claim in either direction until it has a principled edge order; no claim about the original gRePair (4d, 4e, 9) |
+| 4 | Against our digram-grammar re-implementation, our patterns are shorter on c6288 and streets | **withdrawn for c6288, unverified for streets.** The comparison turns on the order of edges inside a window. Held-out c6288 windows: re-implementation 74-86 bits/window with edges sorted by gate name, 189-207 with random orders; gluing 99-119 and 108-138. In-sample: 42-52 sorted, 169-187 random, 122-135 with a crude graph-only order | edge order is a parameter of every figure for this baseline and is named wherever one is given; no comparison with it supports a claim in either direction until it has a principled order; no claim about the original gRePair (4d, 4e, 8, 9) |
 | 5 | Product closure generalises to unseen factor pairs | synthetic grid world: 230 vs 369 bits (n=150), oracle 225; holds at medium noise | synthetic only; **no gain on real streets or circuits** (1c, 1e, 1f) |
 | 6 | Label holes (anti-unification) and a hybrid dictionary help | synthetic 13-92 bits; hybrid 4-10 bits better than either part; real data: hybrid -7.6 bits (c6288), -4.3 (streets) | synthetic strong, real small; label tables make the dictionary larger (4f, 4g) |
 | 7 | Macros whose hole is filled by a subgraph help | synthetic 28-35 bits/window | synthetic only; almost no such holes in real data (4h) |
@@ -105,21 +105,25 @@ Runs can take minutes to hours; pynauty-based steps are the slow ones. Some resu
 
 Protocol (`src/heldout2.py`, split in `src/split.py`, contributed by Reticuli in pull request #1; results `results/heldout2_{0,1}.json`): the walk that cuts c6288 in two does not pass through primary inputs, and the 512 input fan-out edges are in neither region. Region A is cut once more by the same walk into a training part and a test part that share no node. Cuts: 82 / 94 edges between A and B, 51 / 36 inside A (seeds 0 / 1). Every region is 85-91% NOR-to-NOR; training part and test part of A are one piece each, B is 3 pieces (seed 0) or one (seed 1). Dictionaries are learned on 40 windows of the training part (about a quarter of the circuit) and evaluated on 100 windows of the other part of A and 100 windows of B. Bits per window, lower is better, no dictionary cost. The output is identical under different `PYTHONHASHSEED` values; our run reproduced the contributor's numbers exactly.
 
-| seed | method | patterns / rules | A (unseen part) | B (held out) |
-|---|---|---|---|---|
-| 0 | empty | 0 | 455.0 | 458.6 |
-| 0 | gluing | 24 | 99.7 | 101.4 |
-| 0 | growing | 12 | 185.4 | 186.8 |
-| 0 | RePair re-impl. | 72 | 82.4 | 73.8 |
-| 1 | empty | 0 | 460.4 | 449.1 |
-| 1 | gluing | 16 | 103.3 | 118.5 |
-| 1 | growing | 10 | 186.8 | 189.1 |
-| 1 | RePair re-impl. | 62 | 81.4 | 85.7 |
+Edge order inside a window is a parameter of these numbers (lab notebook, section 9), above all for our RePair re-implementation. "name" = edges sorted by gate name (the default of `heldout2.py`); "random" = the range over three random orders of the edges of every window (`heldout2.py SEED 40 100 randomK`, K = 0, 1, 2; same windows, same node numbering).
+
+| seed | method | A (unseen part), name | A, random (3 orders) | B (held out), name | B, random (3 orders) |
+|---|---|---|---|---|---|
+| 0 | empty | 455.0 | 455.0 | 458.6 | 458.6 |
+| 0 | gluing | 99.7 | 108.4-110.7 | 101.4 | 108.6-112.0 |
+| 0 | growing | 185.4 | 186.4-206.3 | 186.8 | 183.4-212.8 |
+| 0 | RePair re-impl. | 82.4 | 190.2-205.3 | 73.8 | 194.5-207.4 |
+| 1 | empty | 460.4 | 460.4 | 449.1 | 449.1 |
+| 1 | gluing | 103.3 | 114.1-123.3 | 118.5 | 129.3-137.7 |
+| 1 | growing | 186.8 | 214.8 | 189.1 | 215.5 |
+| 1 | RePair re-impl. | 81.4 | 189.0-193.2 | 85.7 | 196.6-204.9 |
+
+Number of patterns / rules learned with name order: gluing 24 / 16, growing 12 / 10, RePair re-impl. 72 / 62 (seed 0 / 1); with random orders gluing 16-25, growing 4-20, RePair re-impl. 52-62.
 
 Reading:
 * **Transfer.** On a split whose halves are the same kind of graph, the dictionaries do about as well on B as on the unseen part of A. The drop on B in the first attempt was an artefact of the split.
 * **Gluing against growing.** Gluing is lower by 71-86 bits on average, on 100 / 100 windows of A and 100 / 94 of 100 windows of B. This is the first support for the gluing advantage on circuit parts not seen in training. Caveat: growing stops at 12 and 10 patterns, and we have not found out why.
-* **Our RePair re-implementation against gluing.** It is lower than gluing in all four cells, also with dictionary cost spread over 100 windows. The reason (lab notebook, section 9) is the order of edges inside a window: the repaired pipeline sorts them by node name, and our re-implementation is extremely sensitive to that order (42-52 bits/window sorted, 169-187 random, 122-135 with a graph-only order), while gluing moves by at most 10 bits. The earlier in-sample statement that gluing is about 53 bits ahead of this baseline on c6288 was an artefact of hash-ordered edges and is withdrawn. Node-name order is side information from the netlist file, so the low numbers are not a fair result for the baseline either.
+* **Our RePair re-implementation against gluing: the order decides.** With edges sorted by gate name the re-implementation is below gluing in all four cells (also with its larger dictionary spread over 100 windows); with random edge order it is far above gluing in all twelve cells (189-207 against 108-138). The earlier statement that gluing is about 53 bits ahead of this baseline on c6288 came from hash-ordered edges and is withdrawn; the sorted figure is not a fair result for the baseline either, since gate-name order is side information from the netlist file. Gluing also moves with the order, by 7-19 bits per window (more than the at most 10 bits seen in the in-sample diagnostic of section 9), because its cover is greedy. No direction can be read from this baseline until it has a principled, graph-only edge order.
 * **Why growing stops.** In our growing mode a pattern can only be extended by a single edge left over in the cover; once the windows are tiled by 2-4-edge patterns there is almost nothing to extend with (25 candidates in total, none of which shortens the description). The gap to gluing is therefore measured against a weak growing variant.
 * **Limits.** Two seeds, one circuit; windows of one region overlap each other, so 100 windows are far fewer than 100 independent draws; no window contains an input label any more; R = 64 although 6 labels occur; learner and evaluation still share one cost function.
 

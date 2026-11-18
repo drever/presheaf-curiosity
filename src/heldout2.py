@@ -10,8 +10,10 @@ What changed against heldout.py:
   4. The three random streams (split, inner split, windows) are separate, so changing the number of windows does not move
      the split.
 
-Usage: python heldout2.py SEED [TRAIN_WINDOWS=40] [TEST_WINDOWS=100]
-Writes ../results/heldout2_SEED.json. Bits per window, lower is better, no dictionary cost, as in heldout.py."""
+Usage: python heldout2.py SEED [TRAIN_WINDOWS=40] [TEST_WINDOWS=100] [EDGE_ORDER=name]
+EDGE_ORDER: 'name' (edges of a window sorted by node name, the default) or 'randomK' (edges of every window shuffled with
+Random(K); the windows themselves are the same). The order matters a lot for repair_reimpl (lab notebook, section 9).
+Writes ../results/heldout2_SEED.json (or heldout2_SEED_randomK.json). Bits per window, lower is better, no dictionary cost, as in heldout.py."""
 import sys, os, json, time, random, platform
 import und
 from und import *
@@ -23,6 +25,8 @@ import split as SP
 
 NN = 31; maxn = NN + 1; R = 64; TRAIN_FRAC = 0.5
 seed = int(sys.argv[1]); n = int(sys.argv[2]) if len(sys.argv) > 2 else 40; kt = int(sys.argv[3]) if len(sys.argv) > 3 else 100
+order = sys.argv[4] if len(sys.argv) > 4 else 'name'
+assert order == 'name' or (order.startswith('random') and order[6:].isdigit()), order
 und.SYMS = set(); und.TWIN_MAX = 6; L = Labeler()
 E = load_bench('c6288')
 sp = SP.gate_walk_split(E, random.Random(900 + seed))
@@ -37,10 +41,14 @@ for t in ('A_new', 'B_heldout'): raw[t] = windows_from(regions[t], rng, kt, nmax
 train_nodes = set().union(*[SP.nodes_of(w) for w in raw['A_train']])
 for t in ('A_new', 'B_heldout'):
     assert not any(SP.nodes_of(w) & train_nodes for w in raw[t]), 'a test window shares a node with a training window'
+if order != 'name':
+    orng = random.Random(int(order[6:]))            # separate stream: split, windows and node numbering stay as for 'name'
+    for t in raw:
+        for w in raw[t]: orng.shuffle(w)
 comps = {t: [to_comp(w, rng, NN) for w in ws] for t, ws in raw.items()}
 train = comps['A_train']; tests = {t: comps[t] for t in ('A_new', 'B_heldout')}
 
-res = {'script': 'heldout2.py', 'seed': seed, 'python': platform.python_version(), 'PYTHONHASHSEED': os.environ.get('PYTHONHASHSEED'),
+res = {'script': 'heldout2.py', 'seed': seed, 'edge_order': order, 'python': platform.python_version(), 'PYTHONHASHSEED': os.environ.get('PYTHONHASHSEED'),
        'R': R, 'labels_seen': len(L.ids), 'train_frac': TRAIN_FRAC,
        'split': {'cut_A_B': sp['cut'], 'cut_inside_A': inner['cut'], 'input_edges_left_out': sp['input_edges'], **{t: SP.describe(es) for t, es in regions.items()}},
        'windows': {t: [{'nodes': sorted(SP.nodes_of(w)), 'edges': len(w)} for w in ws] for t, ws in raw.items()},
@@ -72,4 +80,4 @@ for t in tests:
     res['paired_glue_minus_grow'][t] = {'windows': len(d), 'mean_difference': sum(d) / len(d) if d else None,
                                          'glue_lower': sum(x < 0 for x in d), 'equal': sum(x == 0 for x in d), 'glue_higher': sum(x > 0 for x in d)}
     print(seed, 'glue minus grow', t, res['paired_glue_minus_grow'][t], flush=True)
-json.dump(res, open(f'../results/heldout2_{seed}.json', 'w'), indent=1)
+json.dump(res, open(f'../results/heldout2_{seed}.json' if order == 'name' else f'../results/heldout2_{seed}_{order}.json', 'w'), indent=1)
