@@ -41,6 +41,28 @@ def gate_walk_split(E, rng, frac=0.5):
     return {'A': A, 'B': B, 'SA': SA, 'cut': len(gate) - len(A) - len(B), 'input_edges': len(E) - len(gate)}
 
 
+def hub_walk_split(E, rng, frac=0.5, hub=8):
+    """Like gate_walk_split, but every node with more than `hub` outgoing edges is treated like a primary input: its
+    fan-out edges go to neither region and the walk does not pass through it. Needed for synthesised netlists (lab
+    notebook, section 17), in which select, enable and clock-enable nets fan out to hundreds of gates; through them the
+    single walk of gate_walk_split collects whole functional blocks and leaves the other region a different kind of
+    graph. Returns the same keys as gate_walk_split, plus hub_edges (number of hub fan-out edges left out)."""
+    from collections import Counter
+    outd = Counter(e[0] for e in E)
+    gate = [e for e in E if not is_input_edge(e) and outd[e[0]] <= hub]
+    SA = walk(gate, rng, frac)
+    A = [e for e in gate if e[0] in SA and e[1] in SA]
+    B = [e for e in gate if e[0] not in SA and e[1] not in SA]
+    return {'A': A, 'B': B, 'SA': SA, 'cut': len(gate) - len(A) - len(B), 'input_edges': sum(is_input_edge(e) for e in E),
+            'hub_edges': sum(not is_input_edge(e) and outd[e[0]] > hub for e in E)}
+
+
+def label_tv(A, B):
+    """Total-variation distance between the label distributions of two edge lists (0 = same mix, 1 = disjoint)."""
+    ca = Counter(l for *_, l in A); cb = Counter(l for *_, l in B); na, nb = sum(ca.values()), sum(cb.values())
+    return 0.5 * sum(abs(ca[l] / na - cb[l] / nb) for l in set(ca) | set(cb)) if na and nb else 1.0
+
+
 def inner_split(A, rng, frac):
     """Split one region again by the same walk: the reached part is for training, the rest for testing. The two parts
     share no node, so no test window can overlap a training window. Edges between the parts are dropped."""

@@ -1,0 +1,96 @@
+{
+ "circuit": {
+  "split": {
+   "cut": 924,
+   "A_edges": 956,
+   "B_edges": 632
+  },
+  "test_edges_per_window": 18.22,
+  "empty": {
+   "data_bits_per_window": 299.6109135505128,
+   "dict_bits": 1.0,
+   "bytes": 3751,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 1822,
+   "verified": true
+  },
+  "glue": {
+   "data_bits_per_window": 299.61091355051315,
+   "dict_bits": 411.4194468802299,
+   "bytes": 3802,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 1822,
+   "verified": true,
+   "patterns": 18,
+   "max_pattern": 11
+  },
+  "shared_use": null,
+  "jaccard": 0.0,
+  "share_of_empty": 1.000000000000001,
+  "product": {
+   "data_bits_per_window": 299.6109135505132,
+   "dict_bits": 523.8570469263842,
+   "bytes": 3816,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 1822,
+   "verified": true,
+   "factors": 0,
+   "factor_sizes": [],
+   "implicit": 0
+  },
+  "holes": {
+   "data_bits_per_window": 299.61091355051315,
+   "dict_bits": 411.4194468802299,
+   "bytes": 3802,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 1822,
+   "verified": true,
+   "holes": 0,
+   "fillers": []
+  }
+ },
+ "seed": 0,
+ "edges": 3102,
+ "R": 64,
+ "times": {
+  "circuit_glue": 19,
+  "product": 1,
+  "holes": 0,
+  "control_glue": 225
+ },
+ "control": {
+  "split": {
+   "cut": 809,
+   "A_edges": 974,
+   "B_edges": 729
+  },
+  "test_edges_per_window": 18.78,
+  "empty": {
+   "data_bits_per_window": 308.6796134181468,
+   "dict_bits": 1.0,
+   "bytes": 3864,
+   "units": 0,
+   "instances": 0,
+   "raw_edges": 1878,
+   "verified": true
+  },
+  "glue": {
+   "data_bits_per_window": 188.44061097465203,
+   "dict_bits": 561.7778179441588,
+   "bytes": 2431,
+   "units": 0,
+   "instances": 564,
+   "raw_edges": 463,
+   "verified": true,
+   "patterns": 24,
+   "max_pattern": 10
+  },
+  "shared_use": 0.7434628975265017,
+  "jaccard": 0.0975609756097561,
+  "share_of_empty": 0.6104731339007629
+ }
+}

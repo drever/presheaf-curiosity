@@ -17,11 +17,12 @@ LD = lambda T: learn_h(T, R, 40, MAXN, False, mode='hier', topc=30, maxe=12, obj
 out = {'circuit': name, 'seed': seed, 'edges': len(E), 'R': R, 'times': {}}
 
 def windows(E, s):
-    sp = SP.gate_walk_split(E, random.Random(900 + s)); rng = random.Random(10900 + s)
+    sp = SP.hub_walk_split(E, random.Random(900 + s)); rng = random.Random(10900 + s)
     tr = [to_comp(w, rng, NN) for w in windows_from(sp['A'], rng, NTR, nmax=20, labeler=L)]
     te = [to_comp(w, rng, NN) for w in windows_from(sp['B'], rng, NTE, nmax=20, labeler=L)]
     trB = [to_comp(w, rng, NN) for w in windows_from(sp['B'], rng, NTR, nmax=20, labeler=L)]
-    return tr, te, trB, {'cut': sp['cut'], 'A_edges': len(sp['A']), 'B_edges': len(sp['B'])}
+    return tr, te, trB, {'cut': sp['cut'], 'A_edges': len(sp['A']), 'B_edges': len(sp['B']), 'hub_edges': sp['hub_edges'], 'input_edges': sp['input_edges'],
+                        'label_tv': SP.label_tv(sp['A'], sp['B']), 'pieces_B': len(SP.components(sp['B']))}
 
 def code(te, model):
     b, info = coder2.encode(te, model, R, 'boundary'); v = coder2.verify(te, b, info)
