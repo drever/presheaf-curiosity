@@ -36,4 +36,4 @@ These are priors, not hopes: P2 and P3 expect the presheaf constructions to cont
 
 ## Amendments
 
-(none)
+* **18 November 2026, before any result was seen.** The first runs hung in the subgraph matcher (`und.embed_u`): windows of these circuits contain many identical edges at high-fan-out nodes, and the backtracking search explodes (no output after 18 minutes for the smallest circuit). An opt-in step budget was added (`und.EMBED_BUDGET`, default off, so every earlier result is unaffected); `quip_run.py` sets 2,000 steps per embedding attempt. An attempt that exceeds the budget counts as "no embedding": the learner may then miss some instances, and the files stay lossless but can only get longer. Measured on barrel16 seed 0 (learning time only): budget 2,000 -> 146 s and 18 patterns, budget 500 -> 47 s and 16 patterns. Star patterns with more than 6 identical edges at one node are skipped as before (`und.TWIN_MAX = 6`).

@@ -20,9 +20,18 @@ def canon_u(edges, und):
     lab = pynauty.canon_label(g)
     return (pynauty.certificate(g), tuple(color[lab[i]] for i in range(N)))
 
+EMBED_BUDGET = None   # opt-in: maximal number of search steps per embedding attempt; beyond it the attempt counts as failed
+
+
+class _Budget(Exception): pass
+
+
 def embed_u(pat, comp, used):
-    m = {}; inv = set(); ch = []
+    m = {}; inv = set(); ch = []; steps = [0]
     def rec(i):
+        if EMBED_BUDGET is not None:
+            steps[0] += 1
+            if steps[0] > EMBED_BUDGET: raise _Budget
         if i == len(pat): return True
         u, r, v = pat[i]; sym = r in SYMS
         if u in m: cand = comp.out[m[u]] + (comp.inn[m[u]] if sym else [])
@@ -45,7 +54,9 @@ def embed_u(pat, comp, used):
                     ch.pop()
                 for x in new: inv.discard(m[x]); del m[x]
         return False
-    return (list(ch), dict(m)) if rec(0) else None
+    try: ok = rec(0)
+    except _Budget: return None
+    return (list(ch), dict(m)) if ok else None
 
 def cover_u(comp, D):
     used = set(); inst = []

@@ -11,7 +11,7 @@ import split as SP, coder2
 from rewire import rewire
 from quip import load_quip
 name = sys.argv[1]; seed = int(sys.argv[2]); NN = 31; MAXN = 32; NTR = 40; NTE = 100
-und.SYMS = set(); und.TWIN_MAX = 6
+und.SYMS = set(); und.TWIN_MAX = 6; und.EMBED_BUDGET = 2000
 E = load_quip(name); L = Labeler(); R = max(64, len({l for *_, l in E}))
 LD = lambda T: learn_h(T, R, 40, MAXN, False, mode='hier', topc=30, maxe=12, objective='hier')
 out = {'circuit': name, 'seed': seed, 'edges': len(E), 'R': R, 'times': {}}
