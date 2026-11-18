@@ -42,18 +42,7 @@ from iface import total_iface
 import split as SP
 NN = 31; MAXN = 32; R = 64; seed = int(sys.argv[1]); N = 100; rewired = len(sys.argv) > 2 and sys.argv[2] == 'rewired'
 
-def rewire(E, rng, per_edge=20):
-    """Swap targets of two edges with equal label; keeps labels, gate types and all in/out degrees."""
-    E = list(E); pairs = {(u, v) for u, v, _ in E}; bylab = collections.defaultdict(list)
-    for i, (u, v, l) in enumerate(E): bylab[l].append(i)
-    done = 0; tries = 0
-    while done < per_edge * len(E) and tries < 50 * per_edge * len(E):
-        tries += 1; i = rng.randrange(len(E)); idx = bylab[E[i][2]]
-        if len(idx) < 2: continue
-        j = rng.choice(idx); (a, b, l), (c, d, _) = E[i], E[j]
-        if i == j or a == d or c == b or (a, d) in pairs or (c, b) in pairs: continue
-        pairs -= {(a, b), (c, d)}; pairs |= {(a, d), (c, b)}; E[i] = (a, d, l); E[j] = (c, b, l); done += 1
-    return E, done
+from rewire import rewire
 und.SYMS = set(); und.TWIN_MAX = 6; L = Labeler()
 E0 = load_bench('c6288')
 if rewired:
