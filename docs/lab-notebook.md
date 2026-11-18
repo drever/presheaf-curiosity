@@ -691,3 +691,31 @@ Bits per window on B: with the dictionary from B itself 105.8, 99.4, 100.0, 110.
 **Reading.** On this circuit the learned patterns behave like a basis in the two senses asked for: the patterns that do the work are the same whichever half or sample they are learned from (the core that carries 93-100% of the cover recurs), and the gain is concentrated in few of them. Three qualifications. (1) The dictionary as a *set* is much less stable (Jaccard 0.45-0.96): the tail varies, and the learner sometimes stops early, costing up to 16%. Unlike PCA there is no uniqueness. (2) The reverse direction is weaker: a dictionary learned on B uses patterns absent from A's dictionary for 8-34% of its cover. (3) One very regular circuit; the first "component" is a generic two-edge NOR chain, which says more about the label statistics than about cells. A reference with the same labels but different structure (another NOR-only circuit, or a degree-preserving rewiring of c6288) is the missing control.
 
 **Addendum to sections 8 and 9 (18 November 2026), suggested by Reticuli.** Edge order is a parameter of every figure for the RePair re-implementation, so the held-out table of section 8 was rerun with three random edge orders per seed (`heldout2.py SEED 40 100 random0|1|2`; same windows, same node numbering; results `results/heldout2_{0,1}_random{0,1,2}.json`). Ranges over the three orders, bits per window, A (unseen part) / B (held out): seed 0 gluing 108.4-110.7 / 108.6-112.0, growing 186.4-206.3 / 183.4-212.8, RePair re-impl. 190.2-205.3 / 194.5-207.4; seed 1 gluing 114.1-123.3 / 129.3-137.7, growing 214.8 / 215.5, RePair re-impl. 189.0-193.2 / 196.6-204.9 (name order: section 8). With random order the re-implementation is far above gluing in all twelve cells, with name order below it in all four: the ordering of the two methods is decided by the edge order. Gluing itself moves by 7-19 bits per window on these windows, more than the at most 10 bits of the in-sample diagnostic; the README table now shows both orders side by side.
+
+## 15. Control for section 14: the same measurement on a rewired c6288 (18 November 2026)
+
+`python basis.py SEED rewired`, results `results/basis_rewired_{0..4}.json`; expectations C1-C3 committed in the script before the first run. The rewiring swaps the targets of two edges with the same label, 20 swaps per edge: every node keeps its gate type, its in- and out-degree and its label counts, the cells of the multiplier are destroyed. Everything else as in section 14 (same seeds, same split procedure, dictionaries from 100 windows). Note: windows of 20 nodes contain fewer edges in the rewired graph (empty code 303-305 bits per window against 456-459), so absolute bits are not comparable and shares of the empty code are reported as well.
+
+| measure (5 seeds) | original c6288 | rewired control |
+|---|---|---|
+| bits per window on B, dictionary from A | 104.0-115.6 | 128.8-141.7 |
+| share of the empty code that remains | 23-25% | 42-47% |
+| largest pattern in the dictionary from A (edges) | 10-12 | 7-12 |
+| Jaccard, two samples of one region | 0.62-0.95 | 0.35-0.43 |
+| Jaccard, dictionary from A vs from B | 0.45-0.67 | 0.20-0.38 |
+| shared use, dictionary from A vs from B, on B | 93-99% | 57-86% |
+| shared use, other direction | 66-92% | 39-57% |
+| coding B with A's dictionary instead of B's own | -0.4% to +16.3% | -3.3% to +6.6% |
+| saving reached with 1 / 5 / 10 patterns | 49-51% / 72-76% / 91-94% | 62-65% / 86-93% / 94-98% |
+| patterns needed for 90% of the saving | 9-10 | 5-7 |
+
+**Against the expectations.**
+* C1 (at least 30% more bits per window on B): **fails as stated** (+11% to +36%, one seed of five above 30%). The criterion was badly chosen, because rewired windows have fewer edges; measured as the share of the empty code that remains, the rewired graph keeps about twice as much (42-47% against 23-25%).
+* C2 (flatter spectrum in the control): **refuted, the opposite holds.** The control's spectrum is steeper: one pattern (a two-edge NOR chain) gives 62-65% of the saving and 5-7 patterns give 90%.
+* C3 (stability of the working core stays at least 80% in the control): **refuted** (57-86%, one seed of five at 80% or above). Stability drops clearly when the cell structure is destroyed.
+
+**Reading. This corrects part of section 14 and of claim 16.**
+1. **A steep spectrum is not a sign of a good basis.** It is steeper in the structureless control, because there only a few small, generic patterns help at all. That "one pattern gives half of the saving" in section 14 says more about the label statistics than about cells.
+2. **Stability of the working core is a sign of structure.** In the original, the patterns that do the work recur across samples and halves (93-99% shared use); in the control much less so (57-86%), and the dictionaries as sets overlap about half as much. This was the point of the control: without it, stability could have been an artefact of labels and degrees, and it is not.
+3. **What the structure buys is the level of compression and large patterns that recur**: about half the residual code length, and the stable core of 8-12-edge patterns. In the control, transfer between halves is as good as in the original or better (the halves are equally random), so good transfer alone is no evidence either.
+4. In the PCA analogy: a good basis is shown not by how quickly the explained share rises, but by components that are reproducible and that explain much more than the same procedure explains on a structureless graph with the same marginals.

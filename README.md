@@ -42,7 +42,7 @@ Read `docs/lab-notebook.md` for the full story (it is long; the preface explains
 | 13 | Held-out generalisation (c6288, repaired split) | dictionaries do about as well on the held-out half as on the unseen part of the training half (gluing 100/103 vs 101/119) | measured, 2 seeds, one circuit; first attempt withdrawn (see "Held-out test") |
 | 14 | The gluing description of c6288 can be written as an actual file and read back, and its size matches the computed length | `src/coder.py`: file 2-4% longer than the model length, all round trips verified; whole c6288 with node numbers preserved 50-53 kbit, up to renaming of inner nodes 36-41 kbit; almost independent of node numbering and edge order | measured, one circuit; holes, products, lattice and embedding models are still computed lengths only (11) |
 | 15 | Reference against a published grammar compressor (ITR, successor of gRePair; the original gRePair code is not public), actual files on the same task | c6288: ours 50-53 kbit, ITR 70 kbit (gate-name order) or 133-135 kbit (anonymous). DBpedia persondata extract: ours 889, ITR 1,173 kbit. DBpedia geo_coordinates extract: ours 1,324, ITR 1,075 kbit. With a second seed our cover did not finish within 40 minutes on either RDF file; ITR takes under a second | **mixed, and no claim of beating ITR**: smaller where the graph has repeated cells with internal structure, larger on stars around a hub, not robust and not scalable; ITR's output also supports queries (10-12) |
-| 16 | The learned patterns behave like a stable basis: the ones that do the work recur across samples and circuit halves, and few of them carry most of the gain | c6288, 5 seeds: a dictionary from one half covers 93-99% of its covered edges on the other half with patterns that the other half's own dictionary also contains; one pattern gives about half of the saving, ten give over 90% | measured on one very regular circuit; the dictionary as a set is not stable (Jaccard 0.45-0.96, no uniqueness as in PCA), cross-half coding costs up to 16% more in one seed, and the control with equal labels but different structure is missing (14) |
+| 16 | The learned patterns behave like a stable basis of the data | c6288, 5 seeds: the patterns that do the work recur across samples and circuit halves (shared use 93-99%), against 57-86% on a label- and degree-preserving rewiring of the same circuit; the code keeps 23-25% of the empty length against 42-47% on the rewiring. That few patterns carry most of the gain is **not** evidence: the spectrum is even steeper on the rewiring | measured on one very regular circuit; the dictionary as a set is not unique (Jaccard 0.45-0.96); cross-half coding costs up to 16% more in one seed (14, 15) |
 
 ## Honest caveats
 
@@ -96,7 +96,7 @@ python itr_whole.py /path/to/cgraph-cli ; python whole_graph.py full 0   # noteb
 python coder_run.py full 0              # notebook section 11: write c6288 with our coder and read it back
 python rdf_run.py FILE.nt 0             # notebook section 12: the coder on an RDF graph
 python curio_gate.py 0 ; python curio.py 0 clean gain ; python curio_agg.py   # notebook section 13: curiosity experiment
-python basis.py 0                       # notebook section 14: stability and spectrum of the dictionary
+python basis.py 0 ; python basis.py 0 rewired   # notebook sections 14-15: stability and spectrum, and the rewired control
 ```
 
 Runs can take minutes to hours; pynauty-based steps are the slow ones. Some results depend on hash order (`PYTHONHASHSEED`); expect small deviations.
