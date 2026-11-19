@@ -793,3 +793,27 @@ Pre-registration `docs/prereg-quip.md` (two amendments, both dated, the second a
 2. The gluing dictionary does find circuit-specific structure in the barrel shifters and narrow multiplexers (clearly better than the rewiring, on held-out regions with matching label mix). In the wide multiplexers and in AES/DES it does not; there the compression it achieves is what the label and degree statistics alone already allow.
 3. The two "basis" properties claimed for c6288 (section 14-15) were stability and transfer. Neither holds here as pre-registered: stability is noisy and not better than the control in most circuits, and transfer across sizes of the same design family is poor. Claim 16 stays restricted to c6288.
 4. Residual home advantage: Yosys may itself produce regular structure; the four positive circuits are also the most regular designs in the set.
+
+## 18. Why the wide multiplexers look like their rewiring: window size and hub edges (19 November 2026)
+
+Pre-registration `docs/prereg-quip-window.md` (committed before any output was inspected; three timing runs had been started before it was written, as stated there). `src/quip_window.py`, `src/quipw_agg.py`; results `results/quipw_*.json`, `results/quipw_agg.json`. Gluing only, all 72 files round-trip. The runs with 20-node windows and no hub edges reproduce the shares of section 17 exactly.
+
+Label counts and out-degrees suggest that Yosys builds the multiplexers as a one-hot select decoder whose lines fan out to every output bit, NAND gates for data and select, and an AND tree per output bit (mux8_64bit: 8 select lines with fan-out 64; mux32_16bit: 32 with fan-out 16; mux64_16bit: 64 with fan-out 16). In the presheaf view, a product (output bit x select line) glued along the select lines.
+
+**Gap = control share of empty minus circuit share (positive = circuit compresses better than its rewiring), seed 0 / seed 1.**
+
+| circuit | window 20 | window 40 | window 60 | window 20 + hub edges | 40 + hubs | 60 + hubs |
+|---|---|---|---|---|---|---|
+| mux32_16bit | -0.026 / +0.001 | -0.019 / -0.046 | +0.013 / -0.082 | -0.023 / -0.072 | -0.134 / -0.129 | -0.155 / -0.141 |
+| mux64_16bit | +0.001 / +0.049 | -0.045 / +0.036 | -0.019 / +0.067 | -0.099 / +0.034 | -0.122 / -0.061 | -0.116 / -0.097 |
+| mux8_64bit | +0.156 / +0.191 | +0.151 / +0.142 | +0.127 / +0.105 | -0.035 / +0.027 | -0.029 / +0.009 | +0.030 / +0.082 |
+
+**Verdicts.**
+* **W1 fails.** Going from 20 to 60 nodes changes the gap of the wide multiplexers by +0.04 / -0.08 (mux32_16bit) and -0.02 / +0.02 (mux64_16bit), not by +0.10 or more. Larger windows do not let the circuit pull away from its rewiring.
+* **W2 holds.** mux8_64bit changes by -0.03 / -0.09; it keeps its lead at every window size, shrinking slightly.
+* **H1 fails, in the opposite direction.** With the select-line edges added back, the gap at 20 nodes changes by +0.00 / -0.07 (mux32_16bit) and -0.10 / -0.02 (mux64_16bit). Hub edges make the circuit look *less* structured than its rewiring, and they also wipe out most of the lead of the narrow multiplexer (+0.16 / +0.19 down to -0.04 / +0.03). On mux8_64bit seed 0, adding hub edges moves the circuit from 84 to 116 bits per window and the control from 133 to 102. Why the control gains is not understood. One candidate, flagged in advance: windows that contain a select line contain stars of many identical edges, which the learner skips (`und.TWIN_MAX = 6`).
+
+**Reading.**
+1. Neither explanation holds as stated: the wide multiplexers do not become distinguishable from their rewiring with larger windows or with the select lines included.
+2. The confound named in advance is binding: the largest learned pattern has exactly 12 edges, the cap, in 31 of 36 circuit runs. The learner cannot hold a whole 32- or 64-input slice, whatever the window. So this refutes "window size alone, with the current pattern cap", not "the structure is larger than what the learner can represent". A test of that would need a larger cap and its own pre-registration; it is also where learning time grows fastest.
+3. The structure a human sees at once in these circuits (identical slices sharing select lines) does not show up as an MDL gain of the gluing dictionary at any setting tried. Where the select lines are included, they even hurt. For the presheaf view this is the most direct negative so far: the product is there by construction of the circuit, and the learner does not turn it into shorter files.

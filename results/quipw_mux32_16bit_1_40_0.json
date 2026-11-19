@@ -1,0 +1,110 @@
+{
+ "name": "mux32_16bit",
+ "seed": 1,
+ "nmax": 40,
+ "hubs": 0,
+ "NN": 51,
+ "edges": 3190,
+ "R": 64,
+ "times": {
+  "circuit": 7,
+  "control": 9
+ },
+ "circuit": {
+  "split": {
+   "cut": 168,
+   "A_edges": 968,
+   "B_edges": 946,
+   "label_tv": 0.08487891600999421
+  },
+  "test_edges_per_window": 39.22,
+  "empty": {
+   "data_bits_per_window": 692.085043824307,
+   "dict_bits": 1.0,
+   "verified": true
+  },
+  "glue": {
+   "data_bits_per_window": 311.429343369989,
+   "dict_bits": 553.0152607312738,
+   "verified": true,
+   "patterns": 24,
+   "pattern_edges": [
+    12,
+    9,
+    9,
+    8,
+    8,
+    7,
+    6,
+    6,
+    6,
+    5,
+    5,
+    5,
+    5,
+    4,
+    4,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1
+   ]
+  },
+  "share_of_empty": 0.44998710223399735
+ },
+ "control": {
+  "split": {
+   "cut": 326,
+   "A_edges": 914,
+   "B_edges": 842,
+   "label_tv": 0.12980711757459837
+  },
+  "test_edges_per_window": 39.31,
+  "empty": {
+   "data_bits_per_window": 693.826080385861,
+   "dict_bits": 1.0,
+   "verified": true
+  },
+  "glue": {
+   "data_bits_per_window": 280.59761524492956,
+   "dict_bits": 586.1244371318879,
+   "verified": true,
+   "patterns": 26,
+   "pattern_edges": [
+    12,
+    10,
+    8,
+    8,
+    8,
+    7,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4,
+    4,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1
+   ]
+  },
+  "share_of_empty": 0.40442068001952214
+ },
+ "gap": -0.04556642221447521
+}
