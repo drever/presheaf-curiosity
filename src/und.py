@@ -2,6 +2,8 @@ import itertools, collections, pynauty
 from core import LOG, normalize, order_pattern, dict_bits
 SYMS = set()
 
+CANON_UNDIRECTED = False   # opt-in: canonical form via an undirected encoding; pynauty's directed mode can take seconds to minutes on 24-32-edge trees
+
 TWIN_MAX = None    # opt-in: pynauty can hang on many identical twin edges at one node (e.g. a 12-leaf star); set e.g. 6 to skip such candidates in learn_h
 
 
@@ -16,6 +18,16 @@ def canon_u(edges, und):
         else: adj[ix[a]].append(w); adj[w].append(ix[b])
     cl = collections.defaultdict(set)
     for v, c in enumerate(color): cl[c].add(v)
+    if CANON_UNDIRECTED:     # same labelled digraph, encoded undirected: a - w - h(w) - b with a marker node h per directed edge
+        uadj = collections.defaultdict(list); M = N
+        for x, ys in adj.items():
+            for y in ys:
+                if x >= nv and y < nv and not (und and color[x] - 1 in SYMS):   # edge node -> head: insert marker
+                    uadj[x].append(M); uadj[M].append(y); color.append(-1); cl[-1].add(M); M += 1
+                else: uadj[x].append(y)
+        g = pynauty.Graph(M, directed=False, adjacency_dict=dict(uadj), vertex_coloring=[cl[c] for c in sorted(cl)])
+        lab = pynauty.canon_label(g)
+        return (pynauty.certificate(g), tuple(color[lab[i]] for i in range(M)))
     g = pynauty.Graph(N, directed=True, adjacency_dict=dict(adj), vertex_coloring=[cl[c] for c in sorted(cl)])
     lab = pynauty.canon_label(g)
     return (pynauty.certificate(g), tuple(color[lab[i]] for i in range(N)))

@@ -14,7 +14,7 @@ from rewire import rewire
 from quip import load_quip
 name = sys.argv[1]; seed = int(sys.argv[2]); NMAX = int(sys.argv[3]); MAXE = int(sys.argv[4]); HUBS = 0
 NN = NMAX + 11; MAXN = max(32, MAXE + 1); NTR = 40; NTE = 100        # NN = 31 for NMAX = 20, as in quip_run.py
-und.SYMS = set(); und.TWIN_MAX = 6; und.EMBED_BUDGET = 2000
+und.SYMS = set(); und.TWIN_MAX = 6; und.EMBED_BUDGET = 2000; und.CANON_UNDIRECTED = True
 E = load_quip(name); L = Labeler(); R = max(64, len({l for *_, l in E}))
 LD = lambda T: learn_h(T, R, 40, MAXN, False, mode='hier', topc=30, maxe=MAXE, objective='hier')
 out = {'name': name, 'seed': seed, 'nmax': NMAX, 'hubs': HUBS, 'maxe': MAXE, 'MAXN': MAXN, 'NN': NN, 'edges': len(E), 'R': R, 'times': {}}
