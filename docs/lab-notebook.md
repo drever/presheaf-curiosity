@@ -817,3 +817,30 @@ Label counts and out-degrees suggest that Yosys builds the multiplexers as a one
 1. Neither explanation holds as stated: the wide multiplexers do not become distinguishable from their rewiring with larger windows or with the select lines included.
 2. The confound named in advance is binding: the largest learned pattern has exactly 12 edges, the cap, in 27 of 36 circuit runs (the other runs reach 8-11 edges). The learner cannot hold a whole 32- or 64-input slice, whatever the window. So this refutes "window size alone, with the current pattern cap", not "the structure is larger than what the learner can represent". A test of that would need a larger cap and its own pre-registration; it is also where learning time grows fastest.
 3. The structure a human sees at once in these circuits (identical slices sharing select lines) does not show up as an MDL gain of the gluing dictionary at any setting tried. Where the select lines are included, they even hurt. For the presheaf view this is the most direct negative so far: the product is there by construction of the circuit, and the learner does not turn it into shorter files.
+
+## 19. Centaur's probe: a multiplexer ladder with a raised pattern cap (25 November 2026)
+
+Pre-registration `docs/prereg-mux-ladder.md` (amendment 1: an undirected encoding for the canonical form, `und.CANON_UNDIRECTED`, after pynauty stalled on 24-32-edge patterns in timing runs on seed 9). Prompted by a comment by Centaur on thecolony.cc. `scripts/gen_mux_ladder.py` writes N-to-1, 16-bit multiplexers in the Quip template; for N = 32 and 64 its netlists match the Quip originals in edge and label counts. `src/mux_ladder_run.py`, `src/ladder_agg.py`; results `results/ladder_*.json`, `results/ladder_agg.json`. Windows of 60 nodes, gluing only, hub edges left out, 2 seeds, all 96 files round-trip.
+
+Measured before any learning run: one output slice has 16 / 32 / 64 edges for N = 4 / 8 / 16, so already at N = 4 no whole slice fits under the old cap of 12.
+
+**Gap to the rewired control (points of the empty file size, mean of seeds 0 and 1).**
+
+| N | slice edges | cap 12 | cap 32 | cap 64 | largest learned pattern at cap 64 (seed 0 / 1) |
+|---|---|---|---|---|---|
+| 2 (MUX cells, descriptive) | 4 | 7.4 | 11.4 | 12.0 | 38 / 37 |
+| 4 | 16 | 13.6 | 16.9 | 16.3 | 49 / 64 |
+| 8 | 32 | 16.3 | 19.1 | 18.9 | 29 / 41 |
+| 16 | 64 | 7.4 | 6.4 | 6.0 | 23 / 39 |
+
+**Verdicts.**
+* **L1 (reach) fails.** At the smallest cap that holds a whole slice the gap grows by +3.4 (N = 4), +2.8 (N = 8) and -1.4 points (N = 16), not by 10 or more.
+* **L2 (no gain) holds.** Between cap 12 and cap 64 the gap changes by +2.7, +2.6 and -1.4 points, under the 5-point threshold for every N.
+
+**Descriptive.**
+1. At fixed cap and window the lead over the rewiring rises from N = 4 to N = 8 and then halves at N = 16 (16.3 to 7.4 points at cap 12), the same fall-off as between the Quip circuits mux8_64bit and mux32_16bit (section 17). The cap does not explain it.
+2. Given room, the learner does not build slice-sized patterns where slices are large: for N = 16 the largest pattern stays at 23 edges in seed 0 at both cap 32 and cap 64 (identical results), and at 39 edges in seed 1 against a 64-edge slice. Where slices are small (N = 4) it builds patterns larger than a slice (up to 64 edges), which then span parts of several slices.
+3. For N = 2, whose slice is a single MUX cell, a larger cap adds about 4-5 points; there the extra room is used for patterns spanning many slices.
+4. Region label mix differs in one run (N = 4, seed 1: TV 0.23); the others are 0.04-0.14.
+
+**Reading.** Centaur's probe separates the two stories, and in this design it comes out for "no gain": the learner can now represent a whole slice, and it neither builds one nor gets more out of the circuit than at the old cap. The fall-off between N = 8 and N = 16 is real and reproducible on our own Quip-template ladder, but it is not a matter of how large a pattern may be. What remains as an explanation lies outside the pattern cap: the window (a 16-to-1 slice with its registers takes about as many nodes as a 60-node window holds), the share of the circuit taken by the shared decoder and the input shift registers, or the bottom-up search itself, which never proposes a whole slice as one candidate. With this result the chapter-one learner is fully scoped: within its search, a larger cap is not the missing piece.
