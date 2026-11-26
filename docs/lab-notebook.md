@@ -853,7 +853,7 @@ Descriptive, no compression, no pre-registration (nothing is tested against a th
 
 **Whole-graph automorphisms (ladder N = 2 ... 32).** Three views: as the learner sees it (edge label = driver and sink type), with the sink pin added for non-commutative cells (ANDNOT, ORNOT, MUX, DFF), and with pins plus the DFF -> DFF edges of the input shift chains cut. Isolated Yosys `scopeinfo` cells are dropped (they first produced spurious groups of size 9!).
 
-* With pins, the automorphism group of every ladder circuit is **trivial**: no gate can be mapped to another. Without pins, at most 2-32 gates sit in non-trivial orbits, all of them from swapping the two inputs of an ANDNOT, which is not a symmetry of the real circuit.
+* With pins, the automorphism group of every ladder circuit is **trivial**: no gate can be mapped to another. Without pins, at most 2-32 gates sit in non-trivial orbits; these come from swapping inputs that play different roles (they vanish once pins are labelled), so they are not symmetries of the real circuit.
 * Cutting the shift chains creates large groups for N = 2 and 4 (10^12 and 10^9; 60 of 65 and 180 of 198 gates in non-trivial orbits), a small one for N = 8 (10^1.2), and none for N = 16 and 32.
 * The rewired control has groups as large or larger in most views (for example N = 16, cut: 10^2.1 against trivial).
 * So exact global symmetry does not exist in these netlists and would not separate circuit from control. The shift chains number the bit positions, and the slices hook onto the shared select decoder in different ways.
@@ -870,7 +870,7 @@ Descriptive, no compression, no pre-registration (nothing is tested against a th
 | ladder mux64 | 16 | 255 / 127 | 16 | 6 (11) |
 | Quip mux8_64bit | 64 | 31 / 15 | 12 | 4 (42) |
 | Quip mux8_128bit | 128 | 31 / 15 | 12 | 4 (84) |
-| Quip barrel16 / 32 / 64 | 16 / 32 / 64 | 57-69 / 117-... / 239-... | all distinct | 15 / 31 / 57 |
+| Quip barrel16, 32, 64 | 16, 32, 64 | 57-69 / 28-34; 117-133 / 58-66; 239-261 / 119-130 | all distinct | 15, 31, 57 (2) |
 
 1. The exclusive parts of a multiplexer always have the same size, but after synthesis they are not always the same shape: in N = 32 there are 14 shapes among 16 slices, in N = 16 a single one. Yosys/ABC balances the AND trees and picks gate types differently from bit to bit.
 2. Whole cones are almost never identical (12-16 shapes per 16 outputs from N = 8 on), because each slice taps the shared decoder differently.
