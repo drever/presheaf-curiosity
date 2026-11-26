@@ -844,3 +844,36 @@ Measured before any learning run: one output slice has 16 / 32 / 64 edges for N 
 4. Region label mix differs in one run (N = 4, seed 1: TV 0.23); the others are 0.04-0.14.
 
 **Reading.** Centaur's probe separates the two stories, and in this design it comes out for "no gain": the learner can now represent a whole slice, and it neither builds one nor gets more out of the circuit than at the old cap. The fall-off between N = 8 and N = 16 is real and reproducible on our own Quip-template ladder, but it is not a matter of how large a pattern may be. What remains as an explanation lies outside the pattern cap: the window (a 16-to-1 slice with its registers takes about as many nodes as a 60-node window holds), the share of the circuit taken by the shared decoder and the input shift registers, or the bottom-up search itself, which never proposes a whole slice as one candidate. With this result the chapter-one learner is fully scoped: within its search, a larger cap is not the missing piece.
+
+# Chapter two: reading structure top-down
+
+## 20. Step 0: which symmetries are there at all? (26 November 2026)
+
+Descriptive, no compression, no pre-registration (nothing is tested against a threshold). `src/symmetry.py`, `src/slice_shapes.py`; results `results/symmetry_ladder_*.json`, `results/slice_shapes.json`. Netlists as in section 19. Canonical forms and automorphism groups with nauty, using the undirected encoding of amendment 1 of `docs/prereg-mux-ladder.md` (each directed edge a -> b becomes a - t - h - b).
+
+**Whole-graph automorphisms (ladder N = 2 ... 32).** Three views: as the learner sees it (edge label = driver and sink type), with the sink pin added for non-commutative cells (ANDNOT, ORNOT, MUX, DFF), and with pins plus the DFF -> DFF edges of the input shift chains cut. Isolated Yosys `scopeinfo` cells are dropped (they first produced spurious groups of size 9!).
+
+* With pins, the automorphism group of every ladder circuit is **trivial**: no gate can be mapped to another. Without pins, at most 2-32 gates sit in non-trivial orbits, all of them from swapping the two inputs of an ANDNOT, which is not a symmetry of the real circuit.
+* Cutting the shift chains creates large groups for N = 2 and 4 (10^12 and 10^9; 60 of 65 and 180 of 198 gates in non-trivial orbits), a small one for N = 8 (10^1.2), and none for N = 16 and 32.
+* The rewired control has groups as large or larger in most views (for example N = 16, cut: 10^2.1 against trivial).
+* So exact global symmetry does not exist in these netlists and would not separate circuit from control. The shift chains number the bit positions, and the slices hook onto the shared select decoder in different ways.
+
+**Output slices.** For each output register: its whole input cone, and its exclusive part (gates no other output uses; shared gates, registers and inputs as leaves).
+
+| circuit | outputs | edges / gates of exclusive part | distinct cone shapes | distinct exclusive shapes (largest class) |
+|---|---|---|---|---|
+| ladder mux2 | 16 | 4 / 1 | 1 | 1 (16) |
+| ladder mux4 | 16 | 15 / 7 | 2 | 2 (12) |
+| ladder mux8 | 16 | 31 / 15 | 12 | 3 (11) |
+| ladder mux16 | 16 | 63 / 31 | 16 | **1 (16)** |
+| ladder mux32 | 16 | 127 / 63 | 16 | 14 (2) |
+| ladder mux64 | 16 | 255 / 127 | 16 | 6 (11) |
+| Quip mux8_64bit | 64 | 31 / 15 | 12 | 4 (42) |
+| Quip mux8_128bit | 128 | 31 / 15 | 12 | 4 (84) |
+| Quip barrel16 / 32 / 64 | 16 / 32 / 64 | 57-69 / 117-... / 239-... | all distinct | 15 / 31 / 57 |
+
+1. The exclusive parts of a multiplexer always have the same size, but after synthesis they are not always the same shape: in N = 32 there are 14 shapes among 16 slices, in N = 16 a single one. Yosys/ABC balances the AND trees and picks gate types differently from bit to bit.
+2. Whole cones are almost never identical (12-16 shapes per 16 outputs from N = 8 on), because each slice taps the shared decoder differently.
+3. The slice structure does not line up with the gluing results. N = 16 has 16 identical exclusive slices but the smallest lead over the rewiring (sections 19, 7.4 points). The barrel shifters have 15-57 different slice shapes and solid leads (section 17, 11-15 points). Whatever the gluing dictionary exploits, it is not repeated whole slices.
+
+**Consequence for chapter two.** The plan "read the product from Aut(G)" fails at step 0: there is no global automorphism to read. A top-down route has to work with a decomposition instead: cut the circuit at its outputs (or registers), sort the pieces into isomorphism classes, code one representative per class plus how each copy attaches. The ladder gives a sharp test case: in N = 16 such a decomposition finds 16 copies of one 63-edge slice, while the gluing dictionary gains only 7 points over the rewiring there.

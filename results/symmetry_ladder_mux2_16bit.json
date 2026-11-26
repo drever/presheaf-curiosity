@@ -1,0 +1,156 @@
+{
+ "name": "ladder_mux2_16bit",
+ "plain": {
+  "circuit": {
+   "log10_group_size": 0.3,
+   "generators": 1,
+   "cells": 65,
+   "cell_orbits": 49,
+   "cells_in_nontrivial_orbits": 32,
+   "orbit_sizes": {
+    "1": 33,
+    "2": 16
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 0.0,
+   "generators": 0,
+   "cells": 65,
+   "cell_orbits": 65,
+   "cells_in_nontrivial_orbits": 0,
+   "orbit_sizes": {
+    "1": 65
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 146
+ },
+ "pins": {
+  "circuit": {
+   "log10_group_size": 0.0,
+   "generators": 0,
+   "cells": 65,
+   "cell_orbits": 65,
+   "cells_in_nontrivial_orbits": 0,
+   "orbit_sizes": {
+    "1": 65
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 0.0,
+   "generators": 0,
+   "cells": 65,
+   "cell_orbits": 65,
+   "cells_in_nontrivial_orbits": 0,
+   "orbit_sizes": {
+    "1": 65
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 146
+ },
+ "cut": {
+  "circuit": {
+   "log10_group_size": 12.12,
+   "generators": 14,
+   "cells": 65,
+   "cell_orbits": 9,
+   "cells_in_nontrivial_orbits": 60,
+   "orbit_sizes": {
+    "1": 5,
+    "15": 4
+   },
+   "output_register_orbits": [
+    15,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 10.94,
+   "generators": 13,
+   "cells": 65,
+   "cell_orbits": 13,
+   "cells_in_nontrivial_orbits": 56,
+   "orbit_sizes": {
+    "1": 9,
+    "14": 4
+   },
+   "output_register_orbits": [
+    14,
+    1,
+    1
+   ]
+  },
+  "edges": 116
+ }
+}

@@ -1,0 +1,176 @@
+{
+ "name": "ladder_mux8_16bit",
+ "plain": {
+  "circuit": {
+   "log10_group_size": 0.3,
+   "generators": 1,
+   "cells": 399,
+   "cell_orbits": 398,
+   "cells_in_nontrivial_orbits": 2,
+   "orbit_sizes": {
+    "1": 397,
+    "2": 1
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 0.6,
+   "generators": 2,
+   "cells": 399,
+   "cell_orbits": 395,
+   "cells_in_nontrivial_orbits": 8,
+   "orbit_sizes": {
+    "1": 391,
+    "2": 4
+   },
+   "output_register_orbits": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 798
+ },
+ "pins": {
+  "circuit": {
+   "log10_group_size": 0.0,
+   "generators": 0,
+   "cells": 399,
+   "cell_orbits": 399,
+   "cells_in_nontrivial_orbits": 0,
+   "orbit_sizes": {
+    "1": 399
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 0.6,
+   "generators": 2,
+   "cells": 399,
+   "cell_orbits": 395,
+   "cells_in_nontrivial_orbits": 8,
+   "orbit_sizes": {
+    "1": 391,
+    "2": 4
+   },
+   "output_register_orbits": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 798
+ },
+ "cut": {
+  "circuit": {
+   "log10_group_size": 1.2,
+   "generators": 4,
+   "cells": 399,
+   "cell_orbits": 303,
+   "cells_in_nontrivial_orbits": 192,
+   "orbit_sizes": {
+    "1": 207,
+    "2": 96
+   },
+   "output_register_orbits": [
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 3.01,
+   "generators": 10,
+   "cells": 399,
+   "cell_orbits": 376,
+   "cells_in_nontrivial_orbits": 46,
+   "orbit_sizes": {
+    "1": 353,
+    "2": 23
+   },
+   "output_register_orbits": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 678
+ }
+}

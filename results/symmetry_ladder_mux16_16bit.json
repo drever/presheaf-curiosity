@@ -1,0 +1,182 @@
+{
+ "name": "ladder_mux16_16bit",
+ "plain": {
+  "circuit": {
+   "log10_group_size": 0.6,
+   "generators": 2,
+   "cells": 796,
+   "cell_orbits": 794,
+   "cells_in_nontrivial_orbits": 4,
+   "orbit_sizes": {
+    "1": 792,
+    "2": 2
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 0.3,
+   "generators": 1,
+   "cells": 796,
+   "cell_orbits": 794,
+   "cells_in_nontrivial_orbits": 4,
+   "orbit_sizes": {
+    "1": 792,
+    "2": 2
+   },
+   "output_register_orbits": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 1592
+ },
+ "pins": {
+  "circuit": {
+   "log10_group_size": 0.0,
+   "generators": 0,
+   "cells": 796,
+   "cell_orbits": 796,
+   "cells_in_nontrivial_orbits": 0,
+   "orbit_sizes": {
+    "1": 796
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 0.3,
+   "generators": 1,
+   "cells": 796,
+   "cell_orbits": 794,
+   "cells_in_nontrivial_orbits": 4,
+   "orbit_sizes": {
+    "1": 792,
+    "2": 2
+   },
+   "output_register_orbits": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 1592
+ },
+ "cut": {
+  "circuit": {
+   "log10_group_size": 0.0,
+   "generators": 0,
+   "cells": 796,
+   "cell_orbits": 796,
+   "cells_in_nontrivial_orbits": 0,
+   "orbit_sizes": {
+    "1": 796
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 2.11,
+   "generators": 7,
+   "cells": 796,
+   "cell_orbits": 782,
+   "cells_in_nontrivial_orbits": 28,
+   "orbit_sizes": {
+    "1": 768,
+    "2": 14
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 1352
+ }
+}

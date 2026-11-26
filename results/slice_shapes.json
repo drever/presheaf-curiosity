@@ -1,0 +1,706 @@
+{
+ "ladder_mux2_16bit": {
+  "cone": {
+   "distinct_shapes": 1,
+   "class_counts": [
+    16
+   ],
+   "edges_gates": [
+    [
+     4,
+     1
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 1,
+   "class_counts": [
+    16
+   ],
+   "edges_gates": [
+    [
+     4,
+     1
+    ]
+   ]
+  },
+  "outputs": 16
+ },
+ "ladder_mux4_16bit": {
+  "cone": {
+   "distinct_shapes": 2,
+   "class_counts": [
+    12,
+    4
+   ],
+   "edges_gates": [
+    [
+     23,
+     11
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 2,
+   "class_counts": [
+    12,
+    4
+   ],
+   "edges_gates": [
+    [
+     15,
+     7
+    ]
+   ]
+  },
+  "outputs": 16
+ },
+ "ladder_mux8_16bit": {
+  "cone": {
+   "distinct_shapes": 12,
+   "class_counts": [
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     55,
+     27
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 3,
+   "class_counts": [
+    11,
+    4,
+    1
+   ],
+   "edges_gates": [
+    [
+     31,
+     15
+    ]
+   ]
+  },
+  "outputs": 16
+ },
+ "ladder_mux16_16bit": {
+  "cone": {
+   "distinct_shapes": 16,
+   "class_counts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     111,
+     55
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 1,
+   "class_counts": [
+    16
+   ],
+   "edges_gates": [
+    [
+     63,
+     31
+    ]
+   ]
+  },
+  "outputs": 16
+ },
+ "ladder_mux32_16bit": {
+  "cone": {
+   "distinct_shapes": 16,
+   "class_counts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     235,
+     117
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 14,
+   "class_counts": [
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     127,
+     63
+    ]
+   ]
+  },
+  "outputs": 16
+ },
+ "ladder_mux64_16bit": {
+  "cone": {
+   "distinct_shapes": 16,
+   "class_counts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     459,
+     229
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 6,
+   "class_counts": [
+    11,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     255,
+     127
+    ]
+   ]
+  },
+  "outputs": 16
+ },
+ "mux8_64bit": {
+  "cone": {
+   "distinct_shapes": 12,
+   "class_counts": [
+    10,
+    10,
+    7,
+    7,
+    6,
+    6,
+    5,
+    4,
+    4,
+    2,
+    2,
+    1
+   ],
+   "edges_gates": [
+    [
+     55,
+     27
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 4,
+   "class_counts": [
+    42,
+    14,
+    6,
+    2
+   ],
+   "edges_gates": [
+    [
+     31,
+     15
+    ]
+   ]
+  },
+  "outputs": 64
+ },
+ "mux8_128bit": {
+  "cone": {
+   "distinct_shapes": 12,
+   "class_counts": [
+    20,
+    20,
+    15,
+    15,
+    12,
+    12,
+    9,
+    8,
+    8,
+    4,
+    4,
+    1
+   ],
+   "edges_gates": [
+    [
+     55,
+     27
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 4,
+   "class_counts": [
+    84,
+    28,
+    12,
+    4
+   ],
+   "edges_gates": [
+    [
+     31,
+     15
+    ]
+   ]
+  },
+  "outputs": 128
+ },
+ "barrel16": {
+  "cone": {
+   "distinct_shapes": 16,
+   "class_counts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     172,
+     86
+    ],
+    [
+     174,
+     87
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 15,
+   "class_counts": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     57,
+     28
+    ],
+    [
+     59,
+     29
+    ],
+    [
+     61,
+     30
+    ],
+    [
+     65,
+     32
+    ],
+    [
+     67,
+     33
+    ],
+    [
+     69,
+     34
+    ]
+   ]
+  },
+  "outputs": 16
+ },
+ "barrel32": {
+  "cone": {
+   "distinct_shapes": 32,
+   "class_counts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     350,
+     175
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 31,
+   "class_counts": [
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     117,
+     58
+    ],
+    [
+     119,
+     59
+    ],
+    [
+     121,
+     60
+    ],
+    [
+     123,
+     61
+    ],
+    [
+     125,
+     62
+    ],
+    [
+     127,
+     63
+    ],
+    [
+     129,
+     64
+    ],
+    [
+     131,
+     65
+    ],
+    [
+     133,
+     66
+    ]
+   ]
+  },
+  "outputs": 32
+ },
+ "barrel64": {
+  "cone": {
+   "distinct_shapes": 64,
+   "class_counts": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     722,
+     361
+    ]
+   ]
+  },
+  "exclusive": {
+   "distinct_shapes": 57,
+   "class_counts": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "edges_gates": [
+    [
+     239,
+     119
+    ],
+    [
+     245,
+     122
+    ],
+    [
+     247,
+     123
+    ],
+    [
+     249,
+     124
+    ],
+    [
+     251,
+     125
+    ],
+    [
+     253,
+     126
+    ],
+    [
+     255,
+     127
+    ],
+    [
+     257,
+     128
+    ],
+    [
+     259,
+     129
+    ],
+    [
+     261,
+     130
+    ]
+   ]
+  },
+  "outputs": 64
+ }
+}

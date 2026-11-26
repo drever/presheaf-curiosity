@@ -1,0 +1,171 @@
+{
+ "name": "ladder_mux4_16bit",
+ "plain": {
+  "circuit": {
+   "log10_group_size": 0.3,
+   "generators": 1,
+   "cells": 198,
+   "cell_orbits": 197,
+   "cells_in_nontrivial_orbits": 2,
+   "orbit_sizes": {
+    "1": 196,
+    "2": 1
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 0.3,
+   "generators": 1,
+   "cells": 198,
+   "cell_orbits": 197,
+   "cells_in_nontrivial_orbits": 2,
+   "orbit_sizes": {
+    "1": 196,
+    "2": 1
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 396
+ },
+ "pins": {
+  "circuit": {
+   "log10_group_size": 0.0,
+   "generators": 0,
+   "cells": 198,
+   "cell_orbits": 198,
+   "cells_in_nontrivial_orbits": 0,
+   "orbit_sizes": {
+    "1": 198
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 0.0,
+   "generators": 0,
+   "cells": 198,
+   "cell_orbits": 198,
+   "cells_in_nontrivial_orbits": 0,
+   "orbit_sizes": {
+    "1": 198
+   },
+   "output_register_orbits": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 396
+ },
+ "cut": {
+  "circuit": {
+   "log10_group_size": 9.46,
+   "generators": 13,
+   "cells": 198,
+   "cell_orbits": 42,
+   "cells_in_nontrivial_orbits": 180,
+   "orbit_sizes": {
+    "1": 18,
+    "3": 12,
+    "12": 12
+   },
+   "output_register_orbits": [
+    12,
+    3,
+    1
+   ]
+  },
+  "control": {
+   "log10_group_size": 3.19,
+   "generators": 10,
+   "cells": 198,
+   "cell_orbits": 165,
+   "cells_in_nontrivial_orbits": 59,
+   "orbit_sizes": {
+    "1": 139,
+    "2": 19,
+    "3": 7
+   },
+   "output_register_orbits": [
+    3,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "edges": 336
+ }
+}
