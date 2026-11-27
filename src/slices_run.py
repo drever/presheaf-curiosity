@@ -2,8 +2,10 @@
 Three graphs, one cut: the cut is computed once on the intact circuit (exclusive part of each output slice, as in
 slice_shapes.py) and the same node sets are used on all three graphs.
   intact   : the synthesised netlist (pins labelled)
-  shuffled : edges from shared gates into the exclusive slice interiors get their sources permuted among edges with the
-             same label (driver type, sink type, pin); slice interiors and fan-outs of shared gates stay fixed (Kardashev)
+  shuffled : within each piece, its distinct outside shared-gate nodes are permuted among those with the same type and the
+             same pattern of pin roles and counts in that piece (Kardashev's second variant; amendment 1)
+  global_shuffle : edges from shared gates into the interiors get their sources permuted among all edges with the same
+             label (Kardashev's first suggestion); descriptive only, because it changes the pieces' classes
   rewired  : label- and degree-preserving rewiring of the whole graph (rewire.py, 20 swaps per edge)
 For each graph: plain file (no class factored) and decomposition file (MDL choice of classes), both decoded and verified.
 Writes ../results/slices_NAME_SEED.json"""
@@ -40,6 +42,25 @@ def shuffle(E, pieces, shared, rng):
         for i, a in zip(ix, src): moved += a != E[i][0]; E2[i] = (a, E[i][1], E[i][2])
     return E2, {'attachment_edges': sum(len(v) for v in groups.values()), 'groups': len(groups), 'sources_changed': moved}
 
+def permute_within(E, typ, pieces, shared, rng):
+    """Kardashev's second variant: within each piece, permute its distinct outside shared-gate nodes among those with the
+    same type and the same multiset of (sink type, pin) for their edges into that piece. Keeps every piece's boundary
+    shape (hence its class) and every node's label-degrees; scrambles which decoder line meets which data input."""
+    owner = {v: k for k, P in enumerate(pieces) for v in P}; sig = collections.defaultdict(collections.Counter)
+    for a, b, l in E:
+        if a in shared and b in owner: sig[(owner[b], a)][(typ[b], l[2])] += 1
+    groups = collections.defaultdict(list)
+    for (k, a), c in sig.items(): groups[(k, typ[a], tuple(sorted(c.items())))].append(a)
+    perm = {}
+    for key, nodes in sorted(groups.items(), key=lambda x: repr(x[0])):
+        nodes = sorted(nodes); tgt = nodes[:]; rng.shuffle(tgt)
+        for a, t in zip(nodes, tgt): perm[(key[0], a)] = t
+    E2 = []; moved = 0
+    for a, b, l in E:
+        if a in shared and b in owner: t = perm[(owner[b], a)]; moved += t != a; E2.append((t, b, l))
+        else: E2.append((a, b, l))
+    return E2, {'groups': len(groups), 'nodes_in_groups_of_2_or_more': sum(len(v) for v in groups.values() if len(v) > 1), 'edges_changed': moved}
+
 def run(E, typ, pieces):
     t0 = time.time(); info, classes = SC.analyse(E, typ, pieces); out = {}
     for mode in ('plain', 'decomposed'):
@@ -59,9 +80,10 @@ if __name__ == '__main__':
     pieces, shared = cut(E, typ, outc)
     res = {'name': name, 'seed': seed, 'edges': len(E), 'nodes': len(typ), 'pieces': len(pieces),
            'piece_edges': sum(1 for a, b, _ in E if a in set().union(*pieces) or b in set().union(*pieces))}
-    Es, res['shuffle'] = shuffle(E, pieces, shared, random.Random(7700 + seed))
+    Es, res['shuffle'] = permute_within(E, typ, pieces, shared, random.Random(7700 + seed))      # amendment 1
+    Eg, res['global_shuffle'] = shuffle(E, pieces, shared, random.Random(7700 + seed))            # descriptive only
     Er = rewire(E, random.Random(8900 + seed))[0]
-    for tag, G in (('intact', E), ('shuffled', Es), ('rewired', Er)):
+    for tag, G in (('intact', E), ('shuffled', Es), ('rewired', Er), ('global_shuffle', Eg)):
         res[tag] = run(G, typ, pieces); r = res[tag]
         print(f"{name:20s} s{seed} {tag:8s} plain {r['plain']['bits']:9.0f} decomposed {r['decomposed']['bits']:9.0f} saving {r['saving_share']*100:5.1f}% "
               f"classes factored {r['decomposed']['factored_classes']} copies {r['decomposed']['copies']} largest classes {r['classes'][:4]} "

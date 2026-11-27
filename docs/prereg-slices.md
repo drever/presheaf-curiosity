@@ -16,7 +16,7 @@ Attachment model: per copy, slot by slot in the representative's canonical order
 
 * The cut is computed once on the intact circuit: pieces are the exclusive parts of the output slices (gates no other output uses), as in `slice_shapes.py`; outputs driven by a register start at its data input, outputs driven by a gate start at that gate. The same node sets are the pieces in all three graphs.
 * **intact**: the synthesised netlist with pins.
-* **shuffled** (Kardashev): every edge from a shared gate (in more than one output cone) into a piece interior gets its source permuted among the edges with the same label (driver type, sink type, pin). Interiors and the fan-outs of the shared gates stay fixed. `Random(7700 + seed)`.
+* **shuffled** (Kardashev): see amendment 1 (the original global shuffle is now descriptive only). `Random(7700 + seed)`.
 * **rewired**: label- and degree-preserving rewiring of the whole graph, 20 swaps per edge, `Random(8900 + seed)`.
 * Measure: saving = (plain bits - decomposed bits) / plain bits, for each graph.
 * Circuits: ladder mux4, mux8, mux16, mux32, mux64 (16 bit), Quip mux8_64bit, mux8_128bit, barrel16, barrel32, barrel64. Seeds 0 and 1 (they only change the shuffled and rewired graphs).
@@ -33,4 +33,4 @@ Descriptive, no threshold: the same three savings for the Quip circuits; the siz
 
 ## Amendments
 
-(none)
+**1 (27 November 2026, before any run of `slices_run.py` on the listed circuits).** Kardashev pointed out that the global shuffle can turn two attachments of a slice to distinct decoder nodes a, b into (a, a), so the slice has fewer outside nodes and may change its isomorphism class: the control would then change which slices can share a representative. A structural check (`src/slices_classcheck.py`, output `results/slices_classcheck.txt`; class sizes only, no file lengths) confirms this strongly: under the global shuffle every one of the 16 mux16 slices changes class and the single class of 16 falls apart into 16 singletons; in mux8_64bit 62 of 64 pieces change class. S1 would have failed for a reason that has nothing to do with attachments. Change, following Kardashev's second variant: the **shuffled** graph now permutes, within each piece, its distinct outside shared-gate nodes among those with the same type and the same pattern of (sink type, pin) counts in that piece. This keeps every piece's boundary shape, hence its class (0 pieces change class in all ten circuits and both seeds), and every node's label-degrees, and it scrambles which decoder line meets which data input (mux16: 240 / 241 of 256 attachment edges change source in seeds 0 / 1). The global shuffle is still run and reported, as **global_shuffle**, descriptively only. S1 and S2 refer to the new shuffled graph; thresholds unchanged.
