@@ -1,0 +1,242 @@
+{
+ "name": "ladder_mux32_16bit",
+ "seed": 1,
+ "edges": 3190,
+ "nodes": 1633,
+ "pieces": 16,
+ "piece_edges": 2032,
+ "shuffle": {
+  "groups": 32,
+  "nodes_in_groups_of_2_or_more": 512,
+  "edges_changed": 484
+ },
+ "global_shuffle": {
+  "plain": {
+   "bits": 40331.85595104133,
+   "bytes": 5042,
+   "parts": {
+    "header": 280.0,
+    "numbering": 80.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 39970.85595104133
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 40331.85595104133,
+   "bytes": 5042,
+   "parts": {
+    "header": 280.0,
+    "numbering": 80.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 39970.85595104133
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "factored_keys": 0,
+  "classes": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 0.0,
+  "saving_share": 0.0,
+  "seconds": 0
+ },
+ "intact": {
+  "plain": {
+   "bits": 40331.85595104133,
+   "bytes": 5042,
+   "parts": {
+    "header": 280.0,
+    "numbering": 80.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 39970.85595104133
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 39787.36326872805,
+   "bytes": 4974,
+   "parts": {
+    "header": 280.0,
+    "numbering": 76.0,
+    "classes": 3248.7504001846337,
+    "copies": 2141.7979278871853,
+    "edges": 34040.81494065623
+   },
+   "factored_classes": 2,
+   "copies": 4,
+   "verified": true
+  },
+  "factored_keys": 2,
+  "classes": [
+   2,
+   2,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 544.4926823132846,
+  "saving_share": 0.013500313076944487,
+  "seconds": 0
+ },
+ "shuffled": {
+  "plain": {
+   "bits": 40331.85595104133,
+   "bytes": 5042,
+   "parts": {
+    "header": 280.0,
+    "numbering": 80.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 39970.85595104133
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 39787.36326872805,
+   "bytes": 4974,
+   "parts": {
+    "header": 280.0,
+    "numbering": 76.0,
+    "classes": 3248.7504001846337,
+    "copies": 2141.7979278871853,
+    "edges": 34040.81494065623
+   },
+   "factored_classes": 2,
+   "copies": 4,
+   "verified": true
+  },
+  "factored_keys": 2,
+  "classes": [
+   2,
+   2,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 544.4926823132846,
+  "saving_share": 0.013500313076944487,
+  "seconds": 0
+ },
+ "rewired": {
+  "plain": {
+   "bits": 40331.85595104133,
+   "bytes": 5042,
+   "parts": {
+    "header": 280.0,
+    "numbering": 80.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 39970.85595104133
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 40331.85595104133,
+   "bytes": 5042,
+   "parts": {
+    "header": 280.0,
+    "numbering": 80.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 39970.85595104133
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "factored_keys": 0,
+  "classes": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 0.0,
+  "saving_share": 0.0,
+  "seconds": 0
+ },
+ "forced": {
+  "shuffled_with_intact_choice": {
+   "bits": 39787.36326872805,
+   "parts": {
+    "header": 280.0,
+    "numbering": 76.0,
+    "classes": 3248.7504001846337,
+    "copies": 2141.7979278871853,
+    "edges": 34040.81494065623
+   },
+   "verified": true
+  },
+  "intact_with_shuffled_choice": {
+   "bits": 39787.36326872805,
+   "parts": {
+    "header": 280.0,
+    "numbering": 76.0,
+    "classes": 3248.7504001846337,
+    "copies": 2141.7979278871853,
+    "edges": 34040.81494065623
+   },
+   "verified": true
+  }
+ },
+ "same_choice_intact_shuffled": true
+}

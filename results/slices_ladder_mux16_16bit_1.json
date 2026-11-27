@@ -1,0 +1,216 @@
+{
+ "name": "ladder_mux16_16bit",
+ "seed": 1,
+ "edges": 1592,
+ "nodes": 817,
+ "pieces": 16,
+ "piece_edges": 1008,
+ "shuffle": {
+  "groups": 16,
+  "nodes_in_groups_of_2_or_more": 256,
+  "edges_changed": 241
+ },
+ "global_shuffle": {
+  "plain": {
+   "bits": 18717.314090887663,
+   "bytes": 2340,
+   "parts": {
+    "header": 280.0,
+    "numbering": 66.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18370.314090887663
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 18717.314090887663,
+   "bytes": 2340,
+   "parts": {
+    "header": 280.0,
+    "numbering": 66.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18370.314090887663
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "factored_keys": 0,
+  "classes": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 0.0,
+  "saving_share": 0.0,
+  "seconds": 0
+ },
+ "intact": {
+  "plain": {
+   "bits": 18717.314090887663,
+   "bytes": 2340,
+   "parts": {
+    "header": 280.0,
+    "numbering": 66.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18370.314090887663
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 12998.089674557179,
+   "bytes": 1625,
+   "parts": {
+    "header": 280.0,
+    "numbering": 44.0,
+    "classes": 761.4376000461534,
+    "copies": 4301.923789914189,
+    "edges": 7610.728284596837
+   },
+   "factored_classes": 1,
+   "copies": 16,
+   "verified": true
+  },
+  "factored_keys": 1,
+  "classes": [
+   16
+  ],
+  "saving_bits": 5719.224416330484,
+  "saving_share": 0.3055579656653211,
+  "seconds": 0
+ },
+ "shuffled": {
+  "plain": {
+   "bits": 18717.314090887663,
+   "bytes": 2340,
+   "parts": {
+    "header": 280.0,
+    "numbering": 66.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18370.314090887663
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 12998.089674557179,
+   "bytes": 1625,
+   "parts": {
+    "header": 280.0,
+    "numbering": 44.0,
+    "classes": 761.4376000461534,
+    "copies": 4301.923789914189,
+    "edges": 7610.728284596837
+   },
+   "factored_classes": 1,
+   "copies": 16,
+   "verified": true
+  },
+  "factored_keys": 1,
+  "classes": [
+   16
+  ],
+  "saving_bits": 5719.224416330484,
+  "saving_share": 0.3055579656653211,
+  "seconds": 0
+ },
+ "rewired": {
+  "plain": {
+   "bits": 18717.314090887663,
+   "bytes": 2340,
+   "parts": {
+    "header": 280.0,
+    "numbering": 66.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18370.314090887663
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 18717.314090887663,
+   "bytes": 2340,
+   "parts": {
+    "header": 280.0,
+    "numbering": 66.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18370.314090887663
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "factored_keys": 0,
+  "classes": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 0.0,
+  "saving_share": 0.0,
+  "seconds": 0
+ },
+ "forced": {
+  "shuffled_with_intact_choice": {
+   "bits": 12998.089674557179,
+   "parts": {
+    "header": 280.0,
+    "numbering": 44.0,
+    "classes": 761.4376000461534,
+    "copies": 4301.923789914189,
+    "edges": 7610.728284596837
+   },
+   "verified": true
+  },
+  "intact_with_shuffled_choice": {
+   "bits": 12998.089674557179,
+   "parts": {
+    "header": 280.0,
+    "numbering": 44.0,
+    "classes": 761.4376000461534,
+    "copies": 4301.923789914189,
+    "edges": 7610.728284596837
+   },
+   "verified": true
+  }
+ },
+ "same_choice_intact_shuffled": true
+}
