@@ -68,6 +68,7 @@ def run(E, typ, pieces):
         b, inf = SC.encode(E, typ, info, classes, F)
         out[mode] = {'bits': inf['bits'], 'bytes': len(b), 'parts': inf['parts'], 'factored_classes': inf['factored_classes'],
                      'copies': inf['copies'], 'verified': SC.verify(b, inf)}
+    out['factored_keys'] = sorted(F); out['_coder'] = (info, classes)
     out['classes'] = sorted((len(v) for v in classes.values()), reverse=True)
     out['saving_bits'] = out['plain']['bits'] - out['decomposed']['bits']
     out['saving_share'] = out['saving_bits'] / out['plain']['bits']; out['seconds'] = round(time.time() - t0)
@@ -88,4 +89,15 @@ if __name__ == '__main__':
         print(f"{name:20s} s{seed} {tag:8s} plain {r['plain']['bits']:9.0f} decomposed {r['decomposed']['bits']:9.0f} saving {r['saving_share']*100:5.1f}% "
               f"classes factored {r['decomposed']['factored_classes']} copies {r['decomposed']['copies']} largest classes {r['classes'][:4]} "
               f"verified {r['plain']['verified'] and r['decomposed']['verified']} {r['seconds']}s", flush=True)
+    # amendment 2 (Kardashev): intact and shuffled encoded with the same classes factored (each run's own MDL choice
+    # forced on the other), so the attachment tables can be compared at a fixed choice
+    res['forced'] = {}
+    for a, b in (('intact', 'shuffled'), ('shuffled', 'intact')):
+        Fa = set(res[a]['factored_keys']); info, classes = res[b]['_coder']; G = E if b == 'intact' else Es
+        if Fa <= set(classes):
+            bb, inf = SC.encode(G, typ, info, classes, Fa)
+            res['forced'][f'{b}_with_{a}_choice'] = {'bits': inf['bits'], 'parts': inf['parts'], 'verified': SC.verify(bb, inf)}
+    res['same_choice_intact_shuffled'] = set(res['intact']['factored_keys']) == set(res['shuffled']['factored_keys'])
+    for tag in ('intact', 'shuffled', 'rewired', 'global_shuffle'):
+        res[tag].pop('_coder'); res[tag]['factored_keys'] = len(res[tag]['factored_keys'])
     json.dump(res, open(f'../results/slices_{name}_{seed}.json', 'w'), indent=1)
