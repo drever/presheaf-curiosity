@@ -10,45 +10,10 @@
   "nodes_in_groups_of_2_or_more": 32,
   "edges_changed": 20
  },
- "global_shuffle": {
-  "plain": {
-   "bits": 4141.074119404143,
-   "bytes": 518,
-   "parts": {
-    "header": 280.0,
-    "numbering": 50.0,
-    "classes": 1.0,
-    "copies": 0.0,
-    "edges": 3810.074119404143
-   },
-   "factored_classes": 0,
-   "copies": 0,
-   "verified": true
-  },
-  "decomposed": {
-   "bits": 3376.797894786556,
-   "bytes": 423,
-   "parts": {
-    "header": 280.0,
-    "numbering": 36.0,
-    "classes": 484.11499290142854,
-    "copies": 719.4918048697049,
-    "edges": 1857.1910970154224
-   },
-   "factored_classes": 3,
-   "copies": 15,
-   "verified": true
-  },
-  "factored_keys": 3,
-  "classes": [
-   7,
-   5,
-   3,
-   1
-  ],
-  "saving_bits": 764.2762246175871,
-  "saving_share": 0.18455989981834917,
-  "seconds": 0
+ "global_shuffle_stats": {
+  "attachment_edges": 64,
+  "groups": 3,
+  "sources_changed": 12
  },
  "intact": {
   "plain": {
@@ -171,6 +136,46 @@
   ],
   "saving_bits": 0.0,
   "saving_share": 0.0,
+  "seconds": 0
+ },
+ "global_shuffle": {
+  "plain": {
+   "bits": 4141.074119404143,
+   "bytes": 518,
+   "parts": {
+    "header": 280.0,
+    "numbering": 50.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 3810.074119404143
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 3376.797894786556,
+   "bytes": 423,
+   "parts": {
+    "header": 280.0,
+    "numbering": 36.0,
+    "classes": 484.11499290142854,
+    "copies": 719.4918048697049,
+    "edges": 1857.1910970154224
+   },
+   "factored_classes": 3,
+   "copies": 15,
+   "verified": true
+  },
+  "factored_keys": 3,
+  "classes": [
+   7,
+   5,
+   3,
+   1
+  ],
+  "saving_bits": 764.2762246175871,
+  "saving_share": 0.18455989981834917,
   "seconds": 0
  },
  "forced": {

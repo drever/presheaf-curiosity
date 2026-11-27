@@ -82,7 +82,7 @@ if __name__ == '__main__':
     res = {'name': name, 'seed': seed, 'edges': len(E), 'nodes': len(typ), 'pieces': len(pieces),
            'piece_edges': sum(1 for a, b, _ in E if a in set().union(*pieces) or b in set().union(*pieces))}
     Es, res['shuffle'] = permute_within(E, typ, pieces, shared, random.Random(7700 + seed))      # amendment 1
-    Eg, res['global_shuffle'] = shuffle(E, pieces, shared, random.Random(7700 + seed))            # descriptive only
+    Eg, res['global_shuffle_stats'] = shuffle(E, pieces, shared, random.Random(7700 + seed))            # descriptive only
     Er = rewire(E, random.Random(8900 + seed))[0]
     for tag, G in (('intact', E), ('shuffled', Es), ('rewired', Er), ('global_shuffle', Eg)):
         res[tag] = run(G, typ, pieces); r = res[tag]

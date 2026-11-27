@@ -1,0 +1,122 @@
+{
+ "ladder_mux4_16bit 0": {
+  "intact": 0.2330521468540826,
+  "shuffled": 0.2330521468540826,
+  "rewired": 0.0,
+  "global_shuffle": 0.18455989981834917
+ },
+ "ladder_mux4_16bit 1": {
+  "intact": 0.2330521468540826,
+  "shuffled": 0.2330521468540826,
+  "rewired": 0.0,
+  "global_shuffle": 0.18263831105020004
+ },
+ "ladder_mux8_16bit 0": {
+  "intact": 0.24218478435256094,
+  "shuffled": 0.24218478435256094,
+  "rewired": 0.0,
+  "global_shuffle": 0.008175625071152125
+ },
+ "ladder_mux8_16bit 1": {
+  "intact": 0.24218478435256094,
+  "shuffled": 0.24218478435256094,
+  "rewired": 0.0,
+  "global_shuffle": 0.023813729865703872
+ },
+ "ladder_mux16_16bit 0": {
+  "intact": 0.3055579656653211,
+  "shuffled": 0.3055579656653211,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "ladder_mux16_16bit 1": {
+  "intact": 0.3055579656653211,
+  "shuffled": 0.3055579656653211,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "ladder_mux32_16bit 0": {
+  "intact": 0.013500313076944487,
+  "shuffled": 0.013500313076944487,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "ladder_mux32_16bit 1": {
+  "intact": 0.013500313076944487,
+  "shuffled": 0.013500313076944487,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "ladder_mux64_16bit 0": {
+  "intact": 0.1896669963047992,
+  "shuffled": 0.1896669963047992,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "ladder_mux64_16bit 1": {
+  "intact": 0.1896669963047992,
+  "shuffled": 0.1896669963047992,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "mux8_64bit 0": {
+  "intact": 0.31709042122007874,
+  "shuffled": 0.31709042122007874,
+  "rewired": 0.0,
+  "global_shuffle": 0.0639786955878873
+ },
+ "mux8_64bit 1": {
+  "intact": 0.31709042122007874,
+  "shuffled": 0.31709042122007874,
+  "rewired": 0.0,
+  "global_shuffle": 0.07110585161439105
+ },
+ "mux8_128bit 0": {
+  "intact": 0.3323109308818281,
+  "shuffled": 0.3323109308818281,
+  "rewired": 0.0020429180544222587,
+  "global_shuffle": 0.11663383981387997
+ },
+ "mux8_128bit 1": {
+  "intact": 0.3323109308818281,
+  "shuffled": 0.3323109308818281,
+  "rewired": 0.0058219967601493726,
+  "global_shuffle": 0.09612611383246975
+ },
+ "barrel16 0": {
+  "intact": 0.0018775678125368238,
+  "shuffled": 0.0018949145686572003,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "barrel16 1": {
+  "intact": 0.0018775678125368238,
+  "shuffled": 0.0018743943881687295,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "barrel32 0": {
+  "intact": 0.0004811229331627986,
+  "shuffled": 0.00047675555710362927,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "barrel32 1": {
+  "intact": 0.0004811229331627986,
+  "shuffled": 0.00045221479175955195,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "barrel64 0": {
+  "intact": 0.0017124616031541711,
+  "shuffled": 0.0017188136432764905,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ },
+ "barrel64 1": {
+  "intact": 0.0017124616031541711,
+  "shuffled": 0.0017174954412078607,
+  "rewired": 0.0,
+  "global_shuffle": 0.0
+ }
+}

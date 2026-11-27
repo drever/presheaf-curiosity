@@ -877,3 +877,33 @@ Descriptive, no compression, no pre-registration (nothing is tested against a th
 3. The slice structure does not line up with the gluing results. N = 16 has 16 identical exclusive slices but the smallest lead over the rewiring (sections 19, 7.4 points). The barrel shifters have 15-57 different slice shapes and solid leads (section 17, 11-15 points). Whatever the gluing dictionary exploits, it is not repeated whole slices.
 
 **Consequence for chapter two.** The plan "read the product from Aut(G)" fails at step 0: there is no global automorphism to read. A top-down route has to work with a decomposition instead: cut the circuit at its outputs (or registers), sort the pieces into isomorphism classes, code one representative per class plus how each copy attaches. The ladder gives a sharp test case: in N = 16 such a decomposition finds 16 copies of one 63-edge slice, while the gluing dictionary gains only 7 points over the rewiring there.
+
+## 21. Step 1: top-down slice decomposition, with Kardashev's attachment control (27 November 2026)
+
+Pre-registration `docs/prereg-slices.md`, two amendments, both prompted by Kardashev and dated before the runs: (1) the global shuffle of decoder attachments changes the pieces' isomorphism classes (mux16: all 16 copies become singletons; `results/slices_classcheck.txt`), so the primary control permutes decoder nodes within each piece among nodes with the same pin-role pattern, which keeps every class (0 changes in all ten circuits) and still moves 240 of 256 decoder attachments in mux16; (2) intact and shuffled are also encoded with each other's choice of factored classes. `src/slicecoder.py`, `src/slices_run.py`, `src/slices_agg.py`; results `results/slices_*_{0,1}.json`, `results/slices_agg.json`. Whole netlists (not held-out windows), real files, all 200 decoded and checked. A bug in the first run overwrote the global-shuffle statistics in the result files; after the fix all twenty runs were repeated and gave identical numbers apart from the restored key.
+
+**Saving of the decomposition file against the plain file of the same coder (share of the plain file; the intact numbers do not depend on the seed).**
+
+| circuit | plain bits | classes x copies factored | intact | shuffled (seed 0 / 1) | rewired | global shuffle (descr.) |
+|---|---|---|---|---|---|---|
+| ladder mux4 | 4,141 | 2 classes, 16 copies | 23.3% | 23.3 / 23.3% | 0.0% | 18.5 / 18.3% |
+| ladder mux8 | 8,783 | 2 classes, 15 copies | 24.2% | 24.2 / 24.2% | 0.0% | 0.8 / 2.4% |
+| ladder mux16 | 18,717 | 1 x 16 | 30.6% | 30.6 / 30.6% | 0.0% | 0.0 / 0.0% |
+| ladder mux32 | 40,332 | 2 classes, 4 copies | 1.4% | 1.4 / 1.4% | 0.0% | 0.0 / 0.0% |
+| ladder mux64 | 86,395 | 1 x 11 | 19.0% | 19.0 / 19.0% | 0.0% | 0.0 / 0.0% |
+| Quip mux8_64bit | 39,099 | 4 classes, 64 copies | 31.7% | 31.7 / 31.7% | 0.0% | 6.4 / 7.1% |
+| Quip mux8_128bit | 83,556 | 4 classes, 128 copies | 33.2% | 33.2 / 33.2% | 0.2 / 0.6% | 11.7 / 9.6% |
+| Quip barrel16 / 32 / 64 | 18,558 / 83,197 / 376,701 | 1 x 2 / 1 x 2 / 7 classes, 14 copies | 0.2 / 0.0 / 0.2% | same | 0.0% | 0.0% |
+
+mux16 file parts (intact, decomposed against plain): one representative 761 bits, attachment tables 4,302 bits, remaining edges 7,611 against 18,370 bits.
+
+**Verdicts.**
+* **S1 holds.** mux16 saves 30.6% on the intact and on the shuffled graph in both seeds, and 0.0% on the rewired graph.
+* **S2 fails, as expected in advance, and exactly.** Intact and shuffled files have the same length (difference 0.0 points; the attachment tables cost 4,302 bits in both). Both runs factor the same classes in every circuit, so the forced comparison of amendment 2 gives the same numbers (barrel16/32/64 differ by 1-2 bits). The attachment model is by construction almost blind to this permutation: within a copy it codes which of the reused decoder lines are attached, not which slot each one fills, and in mux16 all lines are reused equally often. The pairing of decoder line and data register is paid in full in both files; whether it carries extra structure is not tested by this coder.
+* **S3 holds.** The intact saving follows the classes, not N: 23.3, 24.2, 30.6, then 1.4% for mux32 (14 shapes among 16 slices), 19.0% for mux64 (one class of 11).
+
+**Reading.**
+1. The top-down decomposition turns repeated whole slices into shorter files where the bottom-up gluing dictionary did not: mux16, the case with the weakest gluing lead over the rewiring (section 19), gives the clearest decomposition saving. The settings differ (whole graph, in sample, against a plain edge-list coder, versus held-out windows), so this is not a claim that one beats the other on the same footing.
+2. The two approaches see different things. Barrel shifters, where gluing beat its rewiring by 11-15 points (section 17), give the decomposition almost nothing (0.0-0.2%): their slices are almost all different (at most pairs share a shape). Wide multiplexers give gluing little and the decomposition up to a third of the file, wherever synthesis left the slices identical.
+3. The rewired control removes the saving completely (0.0-0.6%), and the global shuffle removes it wherever it breaks the classes, as the class check predicted.
+4. In the presheaf view the decomposition is the product read directly: one representative slice times the set of output bits, glued along attachment tables. The saving is real and controlled, but so far it is only the repeated interior. Whether the attachments themselves (the select-line structure) hold more needs an attachment model that can see the pairing.

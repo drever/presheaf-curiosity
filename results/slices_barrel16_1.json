@@ -1,0 +1,249 @@
+{
+ "name": "barrel16",
+ "seed": 1,
+ "edges": 1613,
+ "nodes": 829,
+ "pieces": 16,
+ "piece_edges": 1014,
+ "shuffle": {
+  "groups": 64,
+  "nodes_in_groups_of_2_or_more": 432,
+  "edges_changed": 388
+ },
+ "global_shuffle_stats": {
+  "attachment_edges": 452,
+  "groups": 6,
+  "sources_changed": 413
+ },
+ "intact": {
+  "plain": {
+   "bits": 18558.40323418253,
+   "bytes": 2320,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18167.40323418253
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 18523.55857361795,
+   "bytes": 2316,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 708.7098803137455,
+    "copies": 519.4823975181907,
+    "edges": 16905.366295786014
+   },
+   "factored_classes": 1,
+   "copies": 2,
+   "verified": true
+  },
+  "factored_keys": 1,
+  "classes": [
+   2,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 34.84466056458041,
+  "saving_share": 0.0018775678125368238,
+  "seconds": 0
+ },
+ "shuffled": {
+  "plain": {
+   "bits": 18558.40323418253,
+   "bytes": 2320,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18167.40323418253
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 18523.617467307005,
+   "bytes": 2316,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 708.7098803137455,
+    "copies": 519.5412912072445,
+    "edges": 16905.366295786014
+   },
+   "factored_classes": 1,
+   "copies": 2,
+   "verified": true
+  },
+  "factored_keys": 1,
+  "classes": [
+   2,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 34.78576687552413,
+  "saving_share": 0.0018743943881687295,
+  "seconds": 0
+ },
+ "rewired": {
+  "plain": {
+   "bits": 18558.40323418253,
+   "bytes": 2320,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18167.40323418253
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 18558.40323418253,
+   "bytes": 2320,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18167.40323418253
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "factored_keys": 0,
+  "classes": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 0.0,
+  "saving_share": 0.0,
+  "seconds": 0
+ },
+ "global_shuffle": {
+  "plain": {
+   "bits": 18558.40323418253,
+   "bytes": 2320,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18167.40323418253
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 18558.40323418253,
+   "bytes": 2320,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 18167.40323418253
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "factored_keys": 0,
+  "classes": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 0.0,
+  "saving_share": 0.0,
+  "seconds": 0
+ },
+ "forced": {
+  "shuffled_with_intact_choice": {
+   "bits": 18523.617467307005,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 708.7098803137455,
+    "copies": 519.5412912072445,
+    "edges": 16905.366295786014
+   },
+   "verified": true
+  },
+  "intact_with_shuffled_choice": {
+   "bits": 18523.55857361795,
+   "parts": {
+    "header": 325.0,
+    "numbering": 65.0,
+    "classes": 708.7098803137455,
+    "copies": 519.4823975181907,
+    "edges": 16905.366295786014
+   },
+   "verified": true
+  }
+ },
+ "same_choice_intact_shuffled": true
+}

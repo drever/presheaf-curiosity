@@ -10,57 +10,10 @@
   "nodes_in_groups_of_2_or_more": 512,
   "edges_changed": 484
  },
- "global_shuffle": {
-  "plain": {
-   "bits": 40331.85595104133,
-   "bytes": 5042,
-   "parts": {
-    "header": 280.0,
-    "numbering": 80.0,
-    "classes": 1.0,
-    "copies": 0.0,
-    "edges": 39970.85595104133
-   },
-   "factored_classes": 0,
-   "copies": 0,
-   "verified": true
-  },
-  "decomposed": {
-   "bits": 40331.85595104133,
-   "bytes": 5042,
-   "parts": {
-    "header": 280.0,
-    "numbering": 80.0,
-    "classes": 1.0,
-    "copies": 0.0,
-    "edges": 39970.85595104133
-   },
-   "factored_classes": 0,
-   "copies": 0,
-   "verified": true
-  },
-  "factored_keys": 0,
-  "classes": [
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1,
-   1
-  ],
-  "saving_bits": 0.0,
-  "saving_share": 0.0,
-  "seconds": 0
+ "global_shuffle_stats": {
+  "attachment_edges": 512,
+  "groups": 2,
+  "sources_changed": 481
  },
  "intact": {
   "plain": {
@@ -163,6 +116,58 @@
   "seconds": 0
  },
  "rewired": {
+  "plain": {
+   "bits": 40331.85595104133,
+   "bytes": 5042,
+   "parts": {
+    "header": 280.0,
+    "numbering": 80.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 39970.85595104133
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "decomposed": {
+   "bits": 40331.85595104133,
+   "bytes": 5042,
+   "parts": {
+    "header": 280.0,
+    "numbering": 80.0,
+    "classes": 1.0,
+    "copies": 0.0,
+    "edges": 39970.85595104133
+   },
+   "factored_classes": 0,
+   "copies": 0,
+   "verified": true
+  },
+  "factored_keys": 0,
+  "classes": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "saving_bits": 0.0,
+  "saving_share": 0.0,
+  "seconds": 0
+ },
+ "global_shuffle": {
   "plain": {
    "bits": 40331.85595104133,
    "bytes": 5042,
